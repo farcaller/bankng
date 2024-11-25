@@ -3,7 +3,9 @@
             [net.dracones.bankng.frontend.routes :as routes]
             [re-frame.core :as rf]
             [reagent.dom.client :as rdomc]
-            #_[frontend.events :as ev]))
+            [net.dracones.bankng.frontend.events :as ev]
+            [net.dracones.bankng.frontend.login.events]
+            [net.dracones.bankng.frontend.login.subs]))
 
 (defn dev-setup []
   (when goog.DEBUG
@@ -19,7 +21,7 @@
 
 (defn init
   []
-  ; #_(rf/dispatch-sync [::ev/initialize-db])
+  (rf/dispatch-sync [::ev/initialize-db])
   (routes/start-router!)
   (dev-setup)
   (mount-root))

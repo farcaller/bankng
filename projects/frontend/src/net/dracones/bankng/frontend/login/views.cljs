@@ -1,18 +1,8 @@
 (ns net.dracones.bankng.frontend.login.views
-  (:require [reagent.core :as r]
-            [re-frame.core :as rf]))
-
-(defn header
-  []
-  [:header {:class "text-center py-4"}
-   [:h1 {:class "text-3xl font-bold font-fancy text-active"}
-    "Dracones Financial Services"]
-   [:hr {:class "w-[90%] mx-auto border-active border-t-2"}]])
-
-(defn footer
-  []
-  [:footer {:class "mt-auto text-center py-4 w-full"}
-   [:p "© 2024 Dracones Financial Services"]])
+  (:require
+   [net.dracones.bankng.frontend.common.views :refer [chrome]]
+   [re-frame.core :as rf]
+   [reagent.core :as r]))
 
 (defn profile-picture
   ([pic-url]
@@ -31,7 +21,9 @@
 
 (defn login-name
   []
-  (let [input-name (r/atom "")]
+  (let [!input-name (atom nil)
+        loading? (rf/subscribe [:login/loading?])
+        send-code #(rf/dispatch [:login/send-otp-code (-> @!input-name .-value)])]
     (fn []
       [:div {:class "text-center mt-4"}
        [profile-picture]
@@ -50,15 +42,19 @@
          [:input {:type "text"
                   :placeholder "Jane Doe"
                   :class "input"
-                  :value @input-name
+                  :ref #(reset! !input-name %)
                   :id :username
-                  :on-change #(reset! input-name (-> % .-target .-value))}]
+                  :disabled @loading?
+                  :on-key-press #(when (= "Enter" (.-key %)) (send-code))}]
          [:div
           {:class "label"}
           [:span {:class "label-text-alt"} "Please type in your full name."]]]
 
         [:button {:class "btn btn-primary mt-2 btn-block text-dark-1"
-                  :on-click #(rf/dispatch [:login/send-otp-code @input-name])} "Send Verification Code"]]])))
+                  :on-click send-code
+                  :disabled @loading?}
+         (when @loading? [:span.loading.loading-spinner.loading-sm])
+         "Send Verification Code"]]])))
 
 (defn login-otp
   []
@@ -143,16 +139,8 @@
 
 (defn login-page
   []
-  [:div {:class "flex justify-center items-center min-h-screen bg-dark-1"}
-   [:div {:class "flex flex-col w-full max-w-xs mx-auto p-4 shadow-lg min-h-[90vh] h-auto bg-dark-2"}
-    [header]
-    [login-name]
-    [footer]]])
+  [chrome login-name])
 
 (defn login-otp-page
   []
-  [:div {:class "flex justify-center items-center min-h-screen bg-dark-1"}
-   [:div {:class "flex flex-col w-full max-w-xs mx-auto p-4 shadow-lg min-h-[90vh] h-auto bg-dark-2"}
-    [header]
-    [login-otp]
-    [footer]]])
+  [chrome login-otp])

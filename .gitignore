@@ -36,7 +36,7 @@ projects/**/pom.xml
 .clj-kondo/.cache
 
 # Calva VS Code Extension
-.calva/output-window/output.calva-repl
+**/.calva/output-window/output.calva-repl
 
 # portal
 .portal/vs-code.edn
@@ -58,3 +58,4 @@ public/css
 *.jar
 *.log
 .shadow-cljs
+.clj-kondo/imports

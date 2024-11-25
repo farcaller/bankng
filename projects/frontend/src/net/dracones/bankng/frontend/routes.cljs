@@ -7,12 +7,10 @@
 (def routes
   [["/"
     {:name :home
-     :view (fn [] [:div "Redirecting..."])
-     }]
+     :view (fn [] [:div "Redirecting..."])}]
    ["/login"
     {:name :login
-     :view login/login-page}]
-   ])
+     :view login/login-page}]])
 
 (rf/reg-event-db
  ::set-active-route
@@ -36,3 +34,7 @@
 (defn router-component []
   (let [current-route @(rf/subscribe [::current-route])]
     [(-> current-route :data :view)]))
+
+(comment
+  (reitit/match-by-name! (reitit/router routes) :home)
+  :rcf)
