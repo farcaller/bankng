@@ -22,39 +22,45 @@
 (defn login-name
   []
   (let [!input-name (atom nil)
-        loading? (rf/subscribe [:login/loading?])
         send-code #(rf/dispatch [:login/send-otp-code (-> @!input-name .-value)])]
     (fn []
-      [:div {:class "text-center mt-4"}
-       [profile-picture]
-       [:h1
-        {:class "text-2xl font-bold"}
-        "Welcome!"]
+      (let [loading? @(rf/subscribe [:login/loading?])
+            error @(rf/subscribe [:login/error])]
+        [:div {:class "text-center mt-4"}
+         [profile-picture]
+         [:h1
+          {:class "text-2xl font-bold"}
+          "Welcome!"]
 
-       [:div
-        {:class
-         "mx-auto text-center py-10 w-[16.25rem]"}
-        [:header
-         [:h1 {:class "text-xl font-bold mb-1"} "Sign In"]]
-        [:label
-         {:class "form-control mb-2 mt-2"}
-         [:div {:class "label"} [:span {:class "label-text"} "Full Name"]]
-         [:input {:type "text"
-                  :placeholder "Jane Doe"
-                  :class "input"
-                  :ref #(reset! !input-name %)
-                  :id :username
-                  :disabled @loading?
-                  :on-key-press #(when (= "Enter" (.-key %)) (send-code))}]
          [:div
-          {:class "label"}
-          [:span {:class "label-text-alt"} "Please type in your full name."]]]
+          {:class
+           "mx-auto text-center py-10 w-[16.25rem]"}
+          [:header
+           [:h1 {:class "text-xl font-bold mb-1"} "Sign In"]]
+          [:label
+           {:class "form-control mb-2 mt-2"}
+           [:div {:class "label"} [:span {:class "label-text"} "Full Name"]]
+           [:input {:auto-focus true
+                    :type "text"
+                    :placeholder "Jane Doe"
+                    :class ["input" (when error "is-invalid")]
+                    :ref #(reset! !input-name %)
+                    :id :username
+                    :disabled loading?
+                    :on-key-press #(when (= "Enter" (.-key %)) (send-code))}]
+           [:div
+            {:class "label"}
+            (if-not error
+              [:span {:class "label-text-alt"} "Please type in your full name."]
+              [:<>
+               [:span {:class "label-text-alt"} ""]
+               [:span {:class "label-text-alt"} (.-message error)]])]]
 
-        [:button {:class "btn btn-primary mt-2 btn-block text-dark-1"
-                  :on-click send-code
-                  :disabled @loading?}
-         (when @loading? [:span.loading.loading-spinner.loading-sm])
-         "Send Verification Code"]]])))
+          [:button {:class "btn btn-primary mt-2 btn-block text-dark-1"
+                    :on-click send-code
+                    :disabled loading?}
+           (when loading? [:span.loading.loading-spinner.loading-sm])
+           "Send Verification Code"]]]))))
 
 (defn login-otp
   []

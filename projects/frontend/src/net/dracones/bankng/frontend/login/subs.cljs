@@ -5,3 +5,8 @@
  :login/loading?
  (fn [db _]
    (-> db :login :loading?)))
+
+(rf/reg-sub
+ :login/error
+ (fn [db _]
+   (-> db :login :error)))

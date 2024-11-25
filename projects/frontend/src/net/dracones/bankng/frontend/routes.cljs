@@ -35,6 +35,8 @@
   (let [current-route @(rf/subscribe [::current-route])]
     [(-> current-route :data :view)]))
 
+(rf/reg-fx ::push-route rfe/push-state)
+
 (comment
   (reitit/match-by-name! (reitit/router routes) :home)
   :rcf)

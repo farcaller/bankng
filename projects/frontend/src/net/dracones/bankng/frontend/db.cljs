@@ -3,6 +3,7 @@
 (def login-db
   {; true when loading the 2fa
    :loading? false
+   :error nil
    
    ; full name as entered on the login page
    :full-name nil
