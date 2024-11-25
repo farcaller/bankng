@@ -1,7 +1,9 @@
 {:aliases
- {:dev {:extra-paths ["development/src"]
+ {:cljs {:extra-deps {net.dracones.bankng/p-frontend {:local/root "projects/frontend"}}}
 
-        :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
+  :dev {:extra-paths ["development/src"]
+
+        :extra-deps {org.clojure/clojure {:mvn/version "1.12.0"}}}
 
   :test {:extra-paths []}
 

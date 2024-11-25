@@ -53,6 +53,7 @@ devenv.local.nix
 # cljs
 node_modules/
 public/js
+public/css
 
 *.jar
 *.log

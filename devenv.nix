@@ -16,6 +16,6 @@
 
   services.redis.enable = true;
   processes = {
-    
+    postcss-watch.exec = "postcss ./projects/frontend/resources/css/tailwind.css -o ./public/css/main.css --verbose -w";
   };
 }
