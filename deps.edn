@@ -16,11 +16,14 @@
 
   :dev
   {:extra-paths ["development/src"]
-   :extra-deps {poly/pb-frontend {:local/root "components/pb-frontend"}
-                poly/pb-mucklet {:local/root "components/pb-mucklet"}
+   :extra-deps {poly/grpc-server {:local/root "bases/grpc-server"}
+                
+                poly/codesender {:local/root "components/codesender"}
                 poly/frontend-service {:local/root "components/frontend-service"}
+                poly/pb-frontend {:local/root "components/pb-frontend"}
+                poly/pb-mucklet {:local/root "components/pb-mucklet"}
                 poly/proto-tools {:local/root "components/proto-tools"}
-                poly/grpc-server {:local/root "bases/grpc-server"}
+                
                 org.clojure/clojure {:mvn/version "1.12.0"}}}
 
   :test
