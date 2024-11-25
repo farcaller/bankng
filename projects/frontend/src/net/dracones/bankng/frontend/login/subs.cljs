@@ -10,3 +10,13 @@
  :login/error
  (fn [db _]
    (-> db :login :error)))
+
+(rf/reg-sub
+ :login/first-name
+ (fn [db _]
+   (-> db :login :first-name)))
+
+(rf/reg-sub
+ :login/pfp-url
+ (fn [db _]
+   (-> db :login :pfp-url)))

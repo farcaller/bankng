@@ -16,6 +16,7 @@
 
   services.redis.enable = true;
   processes = {
+    envoy.exec = "envoy -c envoy.yaml";
     postcss-watch.exec = "postcss ./projects/frontend/resources/css/tailwind.css -o ./public/css/main.css --verbose -w";
   };
 }

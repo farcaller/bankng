@@ -73,8 +73,8 @@
 
     (println "Downloaded and verified protoc-gen-grpc-java")))
 
-(def basis (delay (b/create-basis {:project "deps.edn" :aliases [:server]})))
-(def protoc-target-directory-java "src/generated/java")
+(def proto-compiler-basis (delay (b/create-basis {:project "deps.edn" :aliases [:build]})))
+(def protoc-target-directory-java "./components/pb-frontend/src/gen/")
 (def protoc-target-directory-js "./components/pb-frontend/src/gen/js")
 
 (defn compile-proto-files
@@ -96,12 +96,13 @@
 (defn compile-proto [_]
   (compile-proto-files "./components/pb-frontend/resources/" ["auth.proto"]
                        :js-out protoc-target-directory-js
-                       :grpc-web-out protoc-target-directory-js))
+                       :grpc-web-out protoc-target-directory-js
+                       :java-out protoc-target-directory-java))
 
 (defn compile-java [_]
   (b/javac {:src-dirs [protoc-target-directory-java]
             :class-dir "target/classes"
-            :basis @basis}))
+            :basis @proto-compiler-basis}))
 
 (defn run [_]
   (compile-java nil))

@@ -26,10 +26,20 @@
        (assoc-in [:login :error] error)
        (assoc-in [:login :loading?] false))))
 
+(rf/reg-event-fx
+ :login/otp-finalise-success
+ (fn [{db :db} [_ first-name pfp-url]]
+   {:db (-> db
+            (assoc-in [:login :error] nil)
+            (assoc-in [:login :loading?] false)
+            (assoc-in [:login :first-name] first-name)
+            (assoc-in [:login :pfp-url] pfp-url))
+    :push-route :login-2fa}))
+
 (defn grpc-effect
   [request]
   (-> (fpb/first-factor (:full-name request))
-      (p/then #(rf/dispatch [:login/perform-otp (:firstName %) (:pfpUrl %)]))
+      (p/then #(rf/dispatch [:login/otp-finalise-success (:firstName %) (:pfpUrl %)]))
       (p/catch* #(rf/dispatch [:login/otp-finalise-error %]))))
 
 (rf/reg-fx :grpc grpc-effect)

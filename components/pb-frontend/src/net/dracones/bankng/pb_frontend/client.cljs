@@ -1,4 +1,4 @@
-(ns net.dracones.bankng.pb-frontend.core
+(ns net.dracones.bankng.pb-frontend.client
   (:require ["../../../../gen/js/auth_pb.js" :as Pb]
             ["../../../../gen/js/auth_grpc_web_pb.js" :as GrpcPb]
             [kitchen-async.promise :as p]))
@@ -18,3 +18,4 @@
           rep (.firstFactor client req)
           rep (js->clj (.toObject rep js/Object) :keywordize-keys true)]
     rep))
+
