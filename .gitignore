@@ -49,3 +49,11 @@ devenv.local.nix
 
 # pre-commit
 .pre-commit-config.yaml
+
+# cljs
+node_modules/
+public/js
+
+*.jar
+*.log
+.shadow-cljs
