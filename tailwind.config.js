@@ -9,8 +9,8 @@ if (process.env.NODE_ENV == 'production') {
 } else {
   content.push(
     "./public/index.html",
-    "./projects/frontend/src/**/*.cljs",
-    "./public/js/cljs-runtime/*.js",
+    "./projects/frontend/src/**/.cljs",
+    "./public/js/cljs-runtime/net.dracones.bankng.*.js",
   );
 }
 
