@@ -12,4 +12,4 @@
 
 (defn on-second-factor [request responseObserver])
 
-(defn create-service [] (fpb/auth-impl on-first-factor on-second-factor))
+(defn create-service [] (fpb/auth-impl #'on-first-factor #'on-second-factor))
