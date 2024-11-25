@@ -2,7 +2,8 @@
   (:require [re-frame.core :as rf]
             [kitchen-async.promise :as p]
             [net.dracones.bankng.pb-frontend.interface :as fpb]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            ["grpc-web" :refer [StatusCode]]))
 
 (rf/reg-event-fx
  :login/send-otp-code
@@ -22,9 +23,12 @@
 (rf/reg-event-db
  :login/otp-finalise-error
  (fn [db [_ error]]
-   (-> db
-       (assoc-in [:login :error] error)
-       (assoc-in [:login :loading?] false))))
+   (let [error (condp = (.-code error)
+                 StatusCode.NOT_FOUND (js/Error. "account not found.")
+                 error)]
+     (-> db
+         (assoc-in [:login :error] error)
+         (assoc-in [:login :loading?] false)))))
 
 (rf/reg-event-fx
  :login/otp-finalise-success

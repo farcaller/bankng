@@ -19,6 +19,20 @@
        [:span {:class "icon-[tabler--user] size-10"}]]]))
   ([] (profile-picture nil)))
 
+(defn welcome-pfp
+  []
+  (let [first-name @(rf/subscribe [:login/first-name])
+        pfp-url @(rf/subscribe [:login/pfp-url])]
+    (if (and first-name pfp-url)
+      [:<> [profile-picture pfp-url]
+           [:h1
+            {:class "text-2xl font-bold"}
+            (str "Welcome, " first-name "!")]]
+      [:<> [profile-picture]
+           [:h1
+            {:class "text-2xl font-bold"}
+            "Welcome!"]])))
+
 (defn login-name
   []
   (let [!input-name (atom nil)
@@ -27,10 +41,7 @@
       (let [loading? @(rf/subscribe [:login/loading?])
             error @(rf/subscribe [:login/error])]
         [:div {:class "text-center mt-4"}
-         [profile-picture]
-         [:h1
-          {:class "text-2xl font-bold"}
-          "Welcome!"]
+         [welcome-pfp]
 
          [:div
           {:class
@@ -67,81 +78,76 @@
   (let [input-values (r/atom (vec (repeat 4 "")))
         input-refs (r/atom (vec (repeat 4 nil)))]
     (fn []
-      (let [first-name @(rf/subscribe [:login/first-name])
-            pfp-url @(rf/subscribe [:login/pfp-url])]
-        [:div
-         {:class "text-center mt-4"}
-         [profile-picture pfp-url]
-         [:h1
-          {:class "text-2xl font-bold"}
-          (str "Welcome, " first-name "!")]
+      [:div
+       {:class "text-center mt-4"}
+       [welcome-pfp]
 
        ; https://cruip.com/otp-form-example-made-with-tailwind-css-and-javascript/
+       [:div
+        {:class
+         "max-w-md mx-auto text-center px-4 sm:px-8 py-10"}
+        [:header
+         {:class "mb-8"}
+         [:h1 {:class "text-xl font-bold mb-1"} "Account Verification"]
+         [:p
+          {:class "text-[15px]"}
+          "Enter the 4-digit verification code that was sent to you."]]
+        [:form
+         {:id "otp-form"}
          [:div
-          {:class
-           "max-w-md mx-auto text-center px-4 sm:px-8 py-10"}
-          [:header
-           {:class "mb-8"}
-           [:h1 {:class "text-xl font-bold mb-1"} "Account Verification"]
-           [:p
-            {:class "text-[15px]"}
-            "Enter the 4-digit verification code that was sent to you."]]
-          [:form
-           {:id "otp-form"}
-           [:div
-            {:class "flex items-center justify-center gap-3"}
+          {:class "flex items-center justify-center gap-3"}
 
-            (doall
-             (for [i (range 4)]
-               (letfn [(on-key-down
-                         [ev]
-                         (let [key (.-key ev)]
-                           (when (and (not (re-matches #"^\d$" key))
-                                      (not= key "Backspace")
-                                      (not= key "Delete")
-                                      (not= key "Tab")
-                                      (not (.-ctrlKey ev))
-                                      (not (.-metaKey ev)))
-                             (.preventDefault ev))
-                           (when (or (= key "Delete") (= key "Backspace"))
-                             (swap! input-values assoc i "")
-                             (when (> i 0) (.focus (get @input-refs (dec i)))))))
-                       (on-input
-                         [ev]
-                         (let [value (-> ev .-target .-value)]
-                           (when-not (empty? value)
-                             (swap! input-values assoc i value)
-                             (when (< i 3)
-                               (.focus (get @input-refs (inc i)))))))
-                       (on-paste
-                         [ev]
-                         (.preventDefault ev)
-                         (let [text (-> ev .-clipboardData (.getData "text"))]
-                           (when (re-matches #"^[0-9]{4}$" text)
-                             (doall
-                              (for [i (range 4)]
-                                (swap! input-values assoc i (get text i)))))))]
-                 ^{:key i}
-                 [:input
-                  {:type "text",
-                   :class ["w-14" "h-14" "text-center" "text-2xl" "font-extrabold"
-                           "text-active" "bg-dark-3" "border" "border-transparent"
-                           "hover:border-active" "appearance-none" "rounded" "p-4"
-                           "outline-none" "focus:bg-dark-4" "focus:ring-2"
-                           "focus:ring-dark-4"]
-                   :pattern "\\d*"
-                   :max-length "1"
-                   :value (get @input-values i)
-                   :ref #(swap! input-refs assoc i %)
-                   :on-key-down on-key-down
-                   :on-input on-input
-                   :on-paste on-paste
-                   :on-focus (fn [ev] (-> ev .-target .select))}])))]
-           [:div
-            {:class "mx-auto mt-4 w-[16.25rem]"}
-            [:button.text-dark-1.btn.btn-primary.mt-2.btn-block
-             {:type "submit"}
-             "Verify Account"]]]]]))))
+          (doall
+           (for [i (range 4)]
+             (letfn [(on-key-down
+                       [ev]
+                       (let [key (.-key ev)]
+                         (when (and (not (re-matches #"^\d$" key))
+                                    (not= key "Backspace")
+                                    (not= key "Delete")
+                                    (not= key "Tab")
+                                    (not (.-ctrlKey ev))
+                                    (not (.-metaKey ev)))
+                           (.preventDefault ev))
+                         (when (or (= key "Delete") (= key "Backspace"))
+                           (swap! input-values assoc i "")
+                           (when (> i 0) (.focus (get @input-refs (dec i)))))))
+                     (on-input
+                       [ev]
+                       (let [value (-> ev .-target .-value)]
+                         (when-not (empty? value)
+                           (swap! input-values assoc i value)
+                           (when (< i 3)
+                             (.focus (get @input-refs (inc i)))))))
+                     (on-paste
+                       [ev]
+                       (.preventDefault ev)
+                       (let [text (-> ev .-clipboardData (.getData "text"))]
+                         (when (re-matches #"^[0-9]{4}$" text)
+                           (doall
+                            (for [i (range 4)]
+                              (swap! input-values assoc i (get text i)))))))]
+               ^{:key i}
+               [:input
+                {:type "text",
+                 :class ["w-14" "h-14" "text-center" "text-2xl" "font-extrabold"
+                         "text-active" "bg-dark-3" "border" "border-transparent"
+                         "hover:border-active" "appearance-none" "rounded" "p-4"
+                         "outline-none" "focus:bg-dark-4" "focus:ring-2"
+                         "focus:ring-dark-4"]
+                 :pattern "\\d*"
+                 :max-length "1"
+                 :value (get @input-values i)
+                 :ref #(swap! input-refs assoc i %)
+                 :on-key-down on-key-down
+                 :on-input on-input
+                 :on-paste on-paste
+                 :on-focus (fn [ev] (-> ev .-target .select))}])))]
+         [:div
+          {:class "mx-auto mt-4 w-[16.25rem]"}
+          [:button.text-dark-1.btn.btn-primary.mt-2.btn-block
+           {:type "submit"}
+           "Verify Account"]]]]])))
 
 (defn login-page
   []

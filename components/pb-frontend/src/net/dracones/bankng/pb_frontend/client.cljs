@@ -14,7 +14,7 @@
 (defn first-factor
   [full-name]
   (p/let [req (-> (Pb/FirstFactorRequest.)
-                  (.setFullName (:full-name full-name)))
+                  (.setFullName full-name))
           rep (.firstFactor client req)
           rep (js->clj (.toObject rep js/Object) :keywordize-keys true)]
     rep))

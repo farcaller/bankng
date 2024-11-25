@@ -20,3 +20,8 @@
  :login/pfp-url
  (fn [db _]
    (-> db :login :pfp-url)))
+
+(rf/reg-sub
+ :login/full-name
+ (fn [db _]
+   (-> db :login :full-name)))
