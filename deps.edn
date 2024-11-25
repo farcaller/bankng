@@ -11,11 +11,13 @@
                 org.clojure/clojurescript {:mvn/version "1.11.132"}
                 thheller/shadow-cljs {:mvn/version "2.28.20"}
                 poly/p-frontend {:local/root "projects/frontend"}
+                poly/p-mucklet-proxy {:local/root "projects/mucklet-proxy"}
                 poly/pb-frontend {:local/root "components/pb-frontend"}}}
 
   :dev
   {:extra-paths ["development/src"]
    :extra-deps {poly/pb-frontend {:local/root "components/pb-frontend"}
+                poly/pb-mucklet {:local/root "components/pb-mucklet"}
                 poly/frontend-service {:local/root "components/frontend-service"}
                 poly/proto-tools {:local/root "components/proto-tools"}
                 poly/grpc-server {:local/root "bases/grpc-server"}

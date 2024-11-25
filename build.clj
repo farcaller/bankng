@@ -74,7 +74,6 @@
     (println "Downloaded and verified protoc-gen-grpc-java")))
 
 (def proto-compiler-basis (delay (b/create-basis {:project "deps.edn" :aliases [:build]})))
-(def protoc-target-directory-java "./components/pb-frontend/src/gen/")
 (def protoc-target-directory-js "./components/pb-frontend/src/gen/js")
 
 (defn compile-proto-files
@@ -82,25 +81,29 @@
   (when-not (.exists (io/file grpc-plugin-file-path))
     (download-plugin nil))
 
-  (doseq [dir [protoc-target-directory-java protoc-target-directory-js]]
+  (doseq [dir ["./components/pb-frontend/src/gen/"
+               "./components/pb-mucklet/src/gen/"
+               protoc-target-directory-js]]
     (.mkdirs (io/file dir)))
 
-  (b/process {:command-args (concat ["protoc"
-                                     "--plugin=protoc-gen-grpc-java=target/plugins/protoc-gen-grpc-java"
-                                     (when java-out (str "--java_out=" java-out))
-                                     (when java-out (str "--grpc-java_out=" java-out))
-                                     (when js-out (str "--js_out=import_style=commonjs,binary:" js-out))
-                                     (when grpc-web-out (str "--grpc-web_out=import_style=commonjs,mode=grpcwebtext:" grpc-web-out))
-                                     (str "-I" search-path)] files)}))
+  (b/process {:command-args (filter some? (concat ["protoc"
+                                                   "--plugin=protoc-gen-grpc-java=target/plugins/protoc-gen-grpc-java"
+                                                   (when java-out (str "--java_out=" java-out))
+                                                   (when java-out (str "--grpc-java_out=" java-out))
+                                                   (when js-out (str "--js_out=import_style=commonjs,binary:" js-out))
+                                                   (when grpc-web-out (str "--grpc-web_out=import_style=commonjs,mode=grpcwebtext:" grpc-web-out))
+                                                   (str "-I" search-path)] files))}))
 
 (defn compile-proto [_]
   (compile-proto-files "./components/pb-frontend/resources/" ["auth.proto"]
                        :js-out protoc-target-directory-js
                        :grpc-web-out protoc-target-directory-js
-                       :java-out protoc-target-directory-java))
+                       :java-out "./components/pb-frontend/src/gen/")
+  (compile-proto-files "./components/pb-mucklet/resources/" ["mucklet.proto"]
+                       :java-out "./components/pb-mucklet/src/gen/"))
 
 (defn compile-java [_]
-  (b/javac {:src-dirs [protoc-target-directory-java]
+  (b/javac {:src-dirs ["./components/pb-frontend/src/gen/" "./components/pb-mucklet/src/gen/"]
             :class-dir "target/classes"
             :basis @proto-compiler-basis}))
 

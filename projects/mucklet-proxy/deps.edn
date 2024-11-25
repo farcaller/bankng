@@ -1,0 +1,6 @@
+{:paths ["src"]
+ :deps {net.farcaller/botmaster {:local/root "../../../botmaster"}
+        binaryage/oops {:mvn/version "0.7.2"}}
+
+ :aliases {:test {:extra-paths []
+                  :extra-deps  {}}}}

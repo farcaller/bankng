@@ -16,6 +16,11 @@
 
   services.redis.enable = true;
   processes = {
+    mucklet-proxy.exec = "node target/mucklet-proxy-main.js";
+    mucklet-proxy.process-compose.environment = [
+      "SERVER_LISTEN_ADDRESS=127.0.0.1:8081"
+      "PROTO_PATH=./components/pb-mucklet/resources/mucklet.proto"
+    ];
     envoy.exec = "envoy -c envoy.yaml";
     postcss-watch.exec = "postcss ./projects/frontend/resources/css/tailwind.css -o ./public/css/main.css --verbose -w";
   };

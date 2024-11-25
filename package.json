@@ -10,10 +10,16 @@
     "tailwindcss": "^3.4.15"
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.12.2",
+    "@grpc/proto-loader": "^0.7.13",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/semantic-conventions": "^1.28.0",
     "flyonui": "^1.1.0",
     "google-protobuf": "^3.21.4",
     "grpc-web": "^1.5.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "resclient": "^2.5.0",
+    "ws": "^8.18.0"
   }
 }

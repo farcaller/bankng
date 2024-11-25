@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package net.dracones.bankng.mucklet;
+
+option java_multiple_files = true;
+
+message SendMessageRequest {
+  string char_id = 1;
+  string message = 2;
+}
+
+message LookupCharacterRequest {
+  string full_name = 1;
+}
+
+message LookupCharacterReply {
+  string first_name = 1;
+  string last_name = 2;
+  string pfp_url = 3;
+  string char_id = 4;
+}
+
+service Mucklet {
+  rpc LookupCharacter (LookupCharacterRequest) returns (LookupCharacterReply) {}
+  rpc SendMessage (SendMessageRequest) returns (google.protobuf.Empty) {}
+}

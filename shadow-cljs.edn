@@ -17,4 +17,17 @@
           :closure-defines
           {net.dracones.bankng.pb-frontend.client.GRPC_API_FRONTEND "http://localhost:50052"
            re-frame.trace.trace-enabled? true
-           day8.re-frame.tracing.trace-enabled? true}}}}}}
+           day8.re-frame.tracing.trace-enabled? true}}}}
+
+  :mucklet-proxy
+  {:target :node-script
+   :output-to "target/mucklet-proxy-main.js"
+   :main net.dracones.bankng.mucklet-proxy.core/main!
+   :compiler-options {:target :nodejs
+                      :output-feature-set :es-next}
+   :dev {:compiler-options
+         {:pretty-print true
+          :external-config {:guardrails {}}}}
+   :release {:compiler-options
+             {:optimizations :advanced
+              :pretty-print false}}}}}
