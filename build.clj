@@ -95,7 +95,7 @@
                                                    (str "-I" search-path)] files))}))
 
 (defn compile-proto [_]
-  (compile-proto-files "./components/pb-frontend/resources/" ["auth.proto"]
+  (compile-proto-files "./components/pb-frontend/resources/" ["auth.proto" "accounts.proto"]
                        :js-out protoc-target-directory-js
                        :grpc-web-out protoc-target-directory-js
                        :java-out "./components/pb-frontend/src/gen/")
@@ -103,6 +103,7 @@
                        :java-out "./components/pb-mucklet/src/gen/"))
 
 (defn compile-java [_]
+  (compile-proto nil)
   (b/javac {:src-dirs ["./components/pb-frontend/src/gen/" "./components/pb-mucklet/src/gen/"]
             :class-dir "target/classes"
             :basis @proto-compiler-basis}))
