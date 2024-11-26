@@ -2,7 +2,6 @@
   (:require [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]
             [reitit.frontend :as reitit]
-            [reitit.frontend.controllers :as rfc]
             [net.dracones.bankng.frontend.login.views :as login]))
 
 (def routes
@@ -14,23 +13,24 @@
      :view login/login-page}]
    ["/login-2fa"
     {:name :login-2fa
-     :view login/login-otp-page
-     :controllers [{:start (fn [& params]
-                             (when-not @(rf/subscribe [:login/full-name])
-                               (rf/dispatch [::push-route :login])))}]}]])
+     :view login/login-otp-page}]])
 
-(rf/reg-event-db
+(rf/reg-event-fx
  ::set-active-route
- (fn [db [_ match]]
-   (assoc db :current-route match)))
+ (fn [{db :db} [_ match]]
+   (let [db-fx {:db (assoc db :current-route match)}
+         route-fx (condp = (-> match :data :name)
+                    :login-2fa (when (nil? (-> db :login :full-name))
+                                 {:push-route :login})
+                    nil)]
+     (merge db-fx route-fx))))
 
-(defn navigate! [new-match _]
-  (let [old-match (rf/subscribe [::current-route])]
-    (println "navigate" old-match " -- " new-match)
-    (when new-match
-      (let [cs (rfc/apply-controllers (:controllers @old-match) new-match)
-            m  (assoc new-match :controllers cs)]
-        (rf/dispatch [::set-active-route m])))))
+(rf/reg-event-fx
+ ::push-route
+ (fn [_ [_ name]]
+   {:push-route name}))
+
+(rf/reg-fx :push-route rfe/push-state)
 
 (rf/reg-sub
  ::current-route
@@ -40,19 +40,12 @@
 (defn start-router! []
   (rfe/start!
    (reitit/router routes)
-   navigate!
+   #(rf/dispatch [::set-active-route %])
    {:use-fragment false}))
 
 (defn router-component []
   (let [current-route @(rf/subscribe [::current-route])]
     [(-> current-route :data :view)]))
-
-(rf/reg-fx :push-route rfe/push-state)
-
-(rf/reg-event-fx
- ::push-route
- (fn [_ [_ name]]
-   {:push-route name}))
 
 (comment
   (reitit/match-by-name! (reitit/router routes) :home)
