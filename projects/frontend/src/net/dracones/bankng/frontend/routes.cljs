@@ -2,12 +2,13 @@
   (:require [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]
             [reitit.frontend :as reitit]
-            [net.dracones.bankng.frontend.login.views :as login]))
+            [net.dracones.bankng.frontend.login.views :as login]
+            [net.dracones.bankng.frontend.accounts.views :as accounts]))
 
 (def routes
   [["/"
     {:name :home
-     :view (fn [] [:div "Redirecting..."])}]
+     :view accounts/account-page}]
    ["/login"
     {:name :login
      :view login/login-page}]
