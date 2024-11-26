@@ -22,6 +22,6 @@
       "PROTO_PATH=./components/pb-mucklet/resources/mucklet.proto"
     ];
     envoy.exec = "envoy -c envoy.yaml";
-    postcss-watch.exec = "postcss ./projects/frontend/resources/css/tailwind.css -o ./public/css/main.css --verbose -w";
+    postcss-watch.exec = "postcss ./projects/frontend/resources/css/tailwind.css -o ./public/css/main.css --verbose -w --poll 500";
   };
 }
