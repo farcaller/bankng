@@ -11,7 +11,7 @@
     [:div {:class "px-4 flex flex-col justify-between h-full w-full truncate"}
      (if name
        [:span {:class "font-bold w-full truncate"} name]
-       [:div.skeleton {:class "h-5 w-full animate-pulse"}])
+       [:div.skeleton {:class "h-5 max-w-44 animate-pulse"}])
      (if date
        [:span {:class "text-sm truncate"} date]
        [:div.skeleton {:class "h-5 max-w-44 animate-pulse"}])]
@@ -19,29 +19,35 @@
       [:div.grow.text-right {:class "pr-1"} amount]
       [:div.grow.skeleton {:class "h-8 w-28 animate-pulse"}])]])
 
+(defn pagination [count selected-idx]
+  [:div {:class "flex justify-center space-x-2 mt-8"}
+   (for [i (range count)]
+     ^{:key i} [:span.h-2.w-2.rounded-full
+      {:class (if (= i selected-idx) "bg-active" "bg-gray-400")}])])
+
+(defn account-info [name currency currency-token balance]
+  [:div {:class "text-center pt-20 pb-20"}
+   [:div {:class "flex items-center justify-center space-x-2"}
+    [:span {:class "text-gray-300 font-medium"} (str name " · " currency)]]
+   [:div {:class "mt-2 text-4xl font-bold text-active"} (str currency-token " " balance)]
+   [:button {:class "btn mt-6 btn-lg btn-primary btn-soft rounded-full"} "Accounts"]])
+
+(defn toolbar []
+  [:div {:class "flex flex-row justify-center gap-4 pt-10 w-full"}
+   [:button {:class "btn btn-lg btn-soft btn-primary"}
+    [:span {:class ["icon-[tabler--credit-card-pay] size-6"]}] "Send"]
+   [:button {:class "btn btn-lg btn-soft btn-primary"}
+    [:span {:class ["icon-[tabler--building-bank] size-6"]}] "Info"]
+   [:button {:class "btn btn-lg btn-soft btn-primary"}
+    [:span {:class ["icon-[tabler--dots] size-6"]}] "More"]])
+
 (defn account-card []
   [:div {:class "flex flex-col"}
-   [:div {:class "text-center pt-20 pb-20"}
-    [:div {:class "flex items-center justify-center space-x-2"}
-     [:span {:class "text-gray-300 font-medium"} "Personal · SCAM"]]
-    [:div {:class "mt-2 text-4xl font-bold text-active"} "₷ 1234.56"]
-    [:button {:class "btn mt-6 btn-lg btn-primary btn-soft rounded-full"} "Accounts"]]
+   [account-info "Personal" "SCAM" "₷" "1234.56"]
+   [pagination 4 1]
+   [toolbar]
 
-   [:div {:class "flex justify-center space-x-2 mt-8"}
-    [:span {:class "h-2 w-2 bg-gray-400 rounded-full"}]
-    [:span {:class "h-2 w-2 bg-active rounded-full"}]
-    [:span {:class "h-2 w-2 bg-gray-400 rounded-full"}]
-    [:span {:class "h-2 w-2 bg-gray-400 rounded-full"}]]
-
-   [:div {:class "flex flex-row justify-center gap-4 pt-10 pb-10 w-full"}
-    [:button {:class "btn btn-lg btn-soft btn-primary"}
-     [:span {:class ["icon-[tabler--credit-card-pay] size-6"]}] "Send"]
-    [:button {:class "btn btn-lg btn-soft btn-primary"}
-     [:span {:class ["icon-[tabler--building-bank] size-6"]}] "Info"]
-    [:button {:class "btn btn-lg btn-soft btn-primary"}
-     [:span {:class ["icon-[tabler--dots] size-6"]}] "More"]]
-
-   [:div#transactions {:class "flex flex-col gap-2 cursor-default"}
+   [:div#transactions {:class "flex flex-col gap-2 cursor-default pt-10"}
     [transaction
      "https://api.dicebear.com/7.x/pixel-art/png?seed=wolf"
      "Anonymous Wolf"
