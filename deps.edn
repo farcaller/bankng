@@ -14,16 +14,28 @@
                 poly/p-mucklet-proxy {:local/root "projects/mucklet-proxy"}
                 poly/pb-frontend {:local/root "components/pb-frontend"}}}
 
+  :xtdb
+  {:jvm-opts ["--add-opens=java.base/java.nio=ALL-UNNAMED"
+              "-Dio.netty.tryReflectionSetAccessible=true"]}
+  
   :dev
   {:extra-paths ["development/src"]
    :extra-deps {poly/grpc-server {:local/root "bases/grpc-server"}
-                
+
                 poly/codesender {:local/root "components/codesender"}
                 poly/frontend-service {:local/root "components/frontend-service"}
                 poly/pb-frontend {:local/root "components/pb-frontend"}
                 poly/pb-mucklet {:local/root "components/pb-mucklet"}
                 poly/proto-tools {:local/root "components/proto-tools"}
+                poly/xtdb-inproc {:local/root "components/xtdb-inproc"}
+                poly/accounts {:local/root "components/accounts"}
+                poly/log {:local/root "components/log"}
                 
+                djblue/portal {:mvn/version "0.58.3"}
+                com.github.gnl/playback {:mvn/version "0.5.4"}
+                tolitius/mount-up {:mvn/version "0.1.3"}
+                org.clojure/tools.namespace {:mvn/version "1.5.0"}
+                org.clojure/core.async {:mvn/version "1.6.681"}
                 org.clojure/clojure {:mvn/version "1.12.0"}}}
 
   :test
