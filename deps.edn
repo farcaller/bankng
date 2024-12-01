@@ -30,6 +30,7 @@
                 poly/xtdb-inproc {:local/root "components/xtdb-inproc"}
                 poly/accounts {:local/root "components/accounts"}
                 poly/log {:local/root "components/log"}
+                poly/redis {:local/root "components/redis"}
                 
                 djblue/portal {:mvn/version "0.58.3"}
                 com.github.gnl/playback {:mvn/version "0.5.4"}
