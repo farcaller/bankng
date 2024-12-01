@@ -1,6 +1,6 @@
 {:deps
  {; build plugin resolution
-  io.grpc/grpc-protobuf {:mvn/version "1.68.1"}}
+  io.grpc/grpc-protobuf {:mvn/version "1.68.2"}}
 
  :aliases
  {:cljs
