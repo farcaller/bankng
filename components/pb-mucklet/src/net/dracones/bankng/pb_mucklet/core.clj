@@ -1,6 +1,7 @@
 (ns net.dracones.bankng.pb-mucklet.core
   (:require [net.dracones.bankng.proto-tools.interface :refer [map->proto proto->map]]
-            [manifold.deferred :as d])
+            [manifold.deferred :as d]
+            [mount.core :refer [defstate]])
   (:import [io.grpc Grpc InsecureChannelCredentials]
            [net.dracones.bankng.mucklet LookupCharacterRequest MuckletGrpc SendMessageRequest]))
 
@@ -11,13 +12,16 @@
   (-> (Grpc/newChannelBuilder mucklet-server-endpoint (InsecureChannelCredentials/create))
       (.build)))
 
-(defonce channel (build-channel))
+(defstate channel
+  :start (build-channel)
+  :stop (.shutdown channel))
 
 (defn build-stub
   [channel]
   (MuckletGrpc/newFutureStub channel))
 
-(defonce stub (build-stub channel))
+(defstate stub
+  :start (build-stub channel))
 
 (defn lookup-character
   [full-name]
