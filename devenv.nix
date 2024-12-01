@@ -12,6 +12,7 @@
     protoc-gen-grpc-web
     envoy
     polylith
+    unzip
   ];
 
   services.redis.enable = true;
