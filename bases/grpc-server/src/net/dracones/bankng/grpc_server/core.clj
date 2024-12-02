@@ -1,6 +1,7 @@
 (ns net.dracones.bankng.grpc-server.core
   (:require [net.dracones.bankng.frontend-service.interface :as fe]
-            [mount.core :refer [defstate]])
+            [mount.core :refer [defstate]]
+            [net.dracones.bankng.config.interface :refer [config]])
   (:import [io.grpc Grpc InsecureServerCredentials]))
 
 (defn create-server [port]
@@ -10,7 +11,7 @@
 
 (defstate server
   :start (doto
-           (create-server 50051)
+           (create-server (-> config :grpc :port))
            (.start))
   :stop (.shutdown server))
 

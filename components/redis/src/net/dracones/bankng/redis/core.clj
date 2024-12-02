@@ -1,12 +1,13 @@
 (ns net.dracones.bankng.redis.core
   (:require [mount.core :refer [defstate]]
+            [net.dracones.bankng.config.interface :refer [config]]
             [taoensso.carmine :as car :refer [wcar]]))
 
 (defstate connection-pool
   :start (car/connection-pool {})
   :stop (.close connection-pool))
 
-(def connection-spec {:uri "redis://localhost:6379/"})
+(defstate connection-spec :start {:uri (-> config :redis :uri)})
 
 (defstate wcar-opts
   :start {:pool connection-pool :spec connection-spec})

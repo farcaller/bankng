@@ -1,0 +1,7 @@
+{:jwt {:private-key "./development/resources/jwtkey.pem"
+       :issuer "https://auth.dracones.net"
+       :audience "https://bank.dracones.net"
+       :ttl 2}
+ :mucklet-server {:url "localhost:8081"}
+ :redis {:uri "redis://localhost:6379/"}
+ :grpc {:port 50051}}

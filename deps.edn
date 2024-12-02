@@ -19,7 +19,7 @@
               "-Dio.netty.tryReflectionSetAccessible=true"]}
   
   :dev
-  {:extra-paths ["development/src"]
+  {:extra-paths ["development/src" "development/resources"]
    :extra-deps {poly/grpc-server {:local/root "bases/grpc-server"}
 
                 poly/codesender {:local/root "components/codesender"}
@@ -31,6 +31,7 @@
                 poly/accounts {:local/root "components/accounts"}
                 poly/log {:local/root "components/log"}
                 poly/redis {:local/root "components/redis"}
+                poly/config {:local/root "components/config"}
                 
                 djblue/portal {:mvn/version "0.58.3"}
                 com.github.gnl/playback {:mvn/version "0.5.4"}

@@ -1,11 +1,12 @@
 (ns net.dracones.bankng.pb-mucklet.core
   (:require [net.dracones.bankng.proto-tools.interface :refer [map->proto proto->map]]
             [manifold.deferred :as d]
-            [mount.core :refer [defstate]])
+            [mount.core :refer [defstate]]
+            [net.dracones.bankng.config.interface :refer [config]])
   (:import [io.grpc Grpc InsecureChannelCredentials]
            [net.dracones.bankng.mucklet LookupCharacterRequest MuckletGrpc SendMessageRequest]))
 
-(def mucklet-server-endpoint "localhost:8081")
+(defstate mucklet-server-endpoint :start (-> config :mucklet-server :url))
 
 (defn build-channel
   []
