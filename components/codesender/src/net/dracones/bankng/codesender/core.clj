@@ -11,9 +11,10 @@
 (def code-ttl (* 60 5))
 
 (defn send-code [char-id]
-  (let [code (generate-code)]
-    (kvstore/store (code-key char-id) code code-ttl)
+  (let [code (generate-code)
+        code-str (format "%04d" code)]
+    (kvstore/store (code-key char-id) code-str code-ttl)
     (mu/send-message char-id
-                     (str "Your one time login code is `" code "`. "
+                     (str "Your one time login code is `" code-str "`. "
                           "Only use it to log in to Dracones Financial Services. "
                           "**Do not** share this code with anyone."))))
