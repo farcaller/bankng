@@ -50,10 +50,3 @@
 (def UNAVAILABLE (Status/UNAVAILABLE))
 (def UNIMPLEMENTED (Status/UNIMPLEMENTED))
 (def UNKNOWN (Status/UNKNOWN))
-
-(comment
-  (-> (->status #>< _)
-      code?
-      .name
-      keyword)
-  :rcf)
