@@ -1,5 +1,6 @@
 (ns dev.repl
-  (:require [playback.preload]
+  (:require [net.dracones.bankng.grpc-server.core]
+            [playback.preload]
             [mount.core :as mount]
             [mount-up.core :as mu]
             [taoensso.telemere :as log]
@@ -9,7 +10,7 @@
   (mount/stop))
 
 (defn start []
-  (mount/start))
+  (tap> {:mount (mount/start)}))
 
 (defn refresh []
   (stop)
