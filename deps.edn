@@ -31,6 +31,7 @@
                 poly/accounts {:local/root "components/accounts"}
                 poly/log {:local/root "components/log"}
                 poly/redis {:local/root "components/redis"}
+                poly/jwt {:local/root "components/jwt"}
                 poly/config {:local/root "components/config"}
                 poly/datomic-inproc {:local/root "components/datomic-inproc"}
                 

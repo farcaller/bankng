@@ -61,3 +61,4 @@ public/css
 .clj-kondo/imports
 
 /.env
+/development/resources/jwtkey.*
