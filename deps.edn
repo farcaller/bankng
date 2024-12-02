@@ -32,6 +32,7 @@
                 poly/log {:local/root "components/log"}
                 poly/redis {:local/root "components/redis"}
                 poly/config {:local/root "components/config"}
+                poly/datomic-inproc {:local/root "components/datomic-inproc"}
                 
                 djblue/portal {:mvn/version "0.58.3"}
                 com.github.gnl/playback {:mvn/version "0.5.4"}
