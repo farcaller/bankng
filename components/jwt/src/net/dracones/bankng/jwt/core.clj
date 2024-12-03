@@ -12,18 +12,23 @@
 (defstate private-key :start (-> config :jwt :private-key keys/private-key))
 (defstate public-key :start (-> config :jwt :public-key keys/public-key))
 
-(defn create-jwt [char-id]
+(defn create-jwt
+  [char-id {:keys [exp]}]
   (let [now (ZonedDateTime/now (ZoneId/systemDefault))
         claim {:iss iss
                :sub char-id
                :aud aud
                :iat (.toEpochSecond now)
-               :exp (.toEpochSecond (.plus now ttl ChronoUnit/HOURS))}]
+               :exp (or exp (.toEpochSecond (.plus now ttl ChronoUnit/HOURS)))}]
     (jwt/sign claim private-key {:alg :es256 :header {:typ "JWT"}})))
 
 (defn validate-jwt [jwt-str]
-  (jwt/unsign jwt-str public-key {:alg :es256}))
+  (let [claims (jwt/unsign jwt-str public-key {:alg :es256})]
+    (when (or (not= aud (:aud claims))
+              (not= iss (:iss claims)))
+      (throw (ex-info "claim incorrect" {})))
+    claims))
 
 (comment
-  (validate-jwt (create-jwt "123"))
+  (validate-jwt (create-jwt "123" nil))
   :rcf)

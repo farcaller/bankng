@@ -1,7 +1,9 @@
 (ns net.dracones.bankng.grpc-auth.core
   (:require [clojure.string :as str]
-            [net.dracones.bankng.proto-tools.interface :as p])
-  (:import [io.grpc ServerInterceptor ServerCall ServerCallHandler Metadata Metadata$Key Context Contexts ServerCall$Listener]
+            [net.dracones.bankng.proto-tools.interface :as p :refer [throw-status!]]
+            [net.dracones.bankng.jwt.interface :as jwt])
+  (:import [io.grpc ServerInterceptor ServerCall ServerCallHandler Metadata Metadata$Key
+            Context Contexts ServerCall$Listener Status]
            [com.google.protobuf Descriptors$MethodDescriptor]
            [net.dracones.bankng FirstFactorReply SecondFactorReply AccountsOuterClass]))
 
@@ -9,54 +11,52 @@
 
 (defonce authorization-key (Metadata$Key/of "authorization" Metadata/ASCII_STRING_MARSHALLER))
 
+(defonce jwt-sub-claim-key (Context/key "jwt-sub-claim"))
+
 (defn fail-with [call status msg]
   (.close call (.withDescription status msg) (Metadata.))
-  (ServerCall$Listener.))
+  (proxy [ServerCall$Listener] []))
 
 (defn auth-interceptor
   "Returns a gRPC interceptor that verifies the JWT and extracts the client id."
   []
   (reify ServerInterceptor
     (^ServerCall$Listener
-     interceptCall
-     [_this ^ServerCall call ^Metadata metadata ^ServerCallHandler next]
-      (tap> {:call call :headers metadata :next next})
-     (let [requires-auth? (-> call
-                              .getMethodDescriptor
-                              .getSchemaDescriptor
-                              .getMethodDescriptor
-                              .getOptions
-                              (.getExtension AccountsOuterClass/requiresAuth))
-           ctx (-> (Context/current) (.withValue jwt-sub ""))]
-       (if requires-auth?
-         (let [authorization (.get metadata authorization-key)
-               [kind token] (str/split authorization #" ")]
-           (if (not= kind "Bearer")
-             (fail-with call p/UNAUTHENTICATED "incorrect token type")
-             
-             (.startCall next call metadata)))
-         (.startCall next call metadata))))))
-
-
-;; (let [method-descriptor (-> call .getMethodDescriptor .getSchemaDescriptor)
-      ;;       requires-auth (some-> method-descriptor
-      ;;                             (.getOptions)
-      ;;                             (.getExtension MyProto/RequiresAuth))]
-      ;;   (when requires-auth
-      ;;     (let [client-ip (.get headers (Metadata/Key/of "x-forwarded-for" Metadata/ASCII_STRING_MARSHALLER))]
-      ;;       (println "Authenticated request from IP:" client-ip)))
-      ;;   (.startCall next call headers))
+      interceptCall
+      [_this ^ServerCall call ^Metadata metadata ^ServerCallHandler next]
+      (try
+        (let [requires-auth? (-> call
+                                 .getMethodDescriptor
+                                 .getSchemaDescriptor
+                                 .getMethodDescriptor
+                                 .getOptions
+                                 (.getExtension AccountsOuterClass/requiresAuth))]
+          (if requires-auth?
+            (let [authorization (.get metadata authorization-key)
+                  _ (when-not authorization (throw-status! p/UNAUTHENTICATED "missing authorization header"))
+                  [kind token] (when authorization (str/split authorization #" "))
+                  _ (when-not (= kind "Bearer") (throw-status! p/UNAUTHENTICATED "unsupported authorization type"))
+                  claims (try (jwt/validate-jwt token)
+                              (catch Exception e
+                                (throw-status! p/UNAUTHENTICATED "invalid token")))
+                  sub (:sub claims)
+                  _ (when-not sub (throw-status! p/UNAUTHENTICATED "invalid token"))
+                  ctx (-> (Context/current) (.withValue jwt-sub-claim-key sub))]
+              (Contexts/interceptCall ctx call metadata next))
+            (.startCall next call metadata)))
+        (catch Exception e
+          (.close call (Status/fromThrowable e) (Metadata.))
+          (proxy [ServerCall$Listener] []))))))
 
 (comment
   (let [[kind token] (str/split "Bearer safsagf asgg sasg" #" ")]
     {:k kind :t token})
-  (-> 
-      (.get (Metadata$Key/of "authorization" Metadata/ASCII_STRING_MARSHALLER)))
-  (->  
-      .getMethodDescriptor
-      .getSchemaDescriptor
-      .getMethodDescriptor
-      .getOptions
-      (.getExtension AccountsOuterClass/requiresAuth)
-      )
+  (->
+   (.get (Metadata$Key/of "authorization" Metadata/ASCII_STRING_MARSHALLER)))
+  (->
+   .getMethodDescriptor
+   .getSchemaDescriptor
+   .getMethodDescriptor
+   .getOptions
+   (.getExtension AccountsOuterClass/requiresAuth))
   :rcf)
