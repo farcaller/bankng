@@ -11,6 +11,9 @@
    ; user details as resolved through the api
    :first-name nil
    :pfp-url nil
+   :session-id nil
+
+   :jwt nil
    })
 
 (def default-db
