@@ -36,6 +36,7 @@
                 poly/datomic-inproc {:local/root "components/datomic-inproc"}
                 poly/grpc-auth {:local/root "components/grpc-auth"}
                 poly/accounts-service {:local/root "components/accounts-service"}
+                poly/iban {:local/root "components/iban"}
                 
                 djblue/portal {:mvn/version "0.58.3"}
                 com.github.gnl/playback {:mvn/version "0.5.4"}

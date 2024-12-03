@@ -1,7 +1,6 @@
-(ns net.dracones.bankng.accounts.iban
+(ns net.dracones.bankng.iban.core
   (:require [mount.core :refer [defstate]]
-            [net.dracones.bankng.config.interface :refer [config]]
-            [clojure.string :as str]))
+            [net.dracones.bankng.config.interface :refer [config]]))
 
 (defstate country-code :start (-> config :accounts :country-code))
 (defstate sort-code :start (-> config :accounts :sort-code))

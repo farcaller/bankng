@@ -1,7 +1,7 @@
 (ns net.dracones.bankng.xtdb-inproc.mocks
   (:require [net.dracones.bankng.xtdb.interface :as db]
             [xtdb.api :as xt]
-            [net.dracones.bankng.accounts.interface :refer [calculate-iban]]))
+            [net.dracones.bankng.iban.interface :refer [calculate-iban]]))
 
 (defn account-id [iban]
   (keyword "account" (calculate-iban iban)))
