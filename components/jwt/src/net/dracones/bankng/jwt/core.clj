@@ -18,7 +18,7 @@
                :aud aud
                :iat (.toEpochSecond now)
                :exp (.toEpochSecond (.plus now ttl ChronoUnit/HOURS))}]
-    (jwt/sign claim private-key {:alg :es256})))
+    (jwt/sign claim private-key {:alg :es256 :header {:typ "JWT"}})))
 
 (comment
   (create-jwt "123")
