@@ -8,4 +8,5 @@
                 :release "v[0-9]*"}
  :projects {"development" {:alias "dev"}
             "frontend" {:alias "fe"}
-            "mucklet-proxy" {:alias "mu-p"}}}
+            "mucklet-proxy" {:alias "mu-p"}
+            "bankserver" {:alias "s"}}}

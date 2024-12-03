@@ -2,4 +2,4 @@
   (:require [cprop.core :refer [load-config]]))
 
 (defn load []
-  (load-config :resource "config.edn"))
+  (load-config))

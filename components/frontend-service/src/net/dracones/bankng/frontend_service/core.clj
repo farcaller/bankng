@@ -4,12 +4,12 @@
             [net.dracones.bankng.pb-mucklet.interface :as mu]
             [net.dracones.bankng.codesender.interface :as co]
             [net.dracones.bankng.jwt.interface :as jwt]
-            [taoensso.telemere :as log]
+            [net.dracones.bankng.log.interface :as log]
             [manifold.deferred :as d])
   (:import [net.dracones.bankng FirstFactorReply SecondFactorReply]))
 
 (defn return-error [err]
-  (log/error! err)
+  (log/error! :frontend-service/rpc-error err)
   (let [st (->status err)
         code (code? st)]
     (if (= :UNKNOWN code)

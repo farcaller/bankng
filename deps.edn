@@ -21,6 +21,7 @@
   :dev
   {:extra-paths ["development/src" "development/resources"]
    :extra-deps {poly/grpc-server {:local/root "bases/grpc-server"}
+                poly/mount {:local/root "bases/mount"}
 
                 poly/codesender {:local/root "components/codesender"}
                 poly/frontend-service {:local/root "components/frontend-service"}
@@ -51,8 +52,12 @@
   :poly
   {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
    :extra-deps {polylith/clj-poly {:mvn/version "0.2.21"}}}
+  
+  :+default
+  {}
 
   :build
   {:deps {poly/pb-frontend {:local/root "components/pb-frontend"}
-          io.github.clojure/tools.build {:mvn/version "0.10.5"}},
+          io.github.clojure/tools.build {:mvn/version "0.10.5"}
+          org.clojure/tools.deps {:mvn/version "0.18.1349"}},
    :ns-default build}}}

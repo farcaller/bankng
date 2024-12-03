@@ -1,0 +1,5 @@
+{:paths ["src" "resources"]
+ :deps {mount/mount {:mvn/version "0.1.9"}
+        shutdown/shutdown {:mvn/version "0.1.0-SNAPSHOT"}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}
