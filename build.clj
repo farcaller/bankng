@@ -115,18 +115,18 @@
                        ["auth.proto" "accounts.proto"]
                        :js-out "./components/pb-frontend/src/net/dracones/bankng/pb_frontend/gen/"
                        :grpc-web-out "./components/pb-frontend/src/net/dracones/bankng/pb_frontend/gen/"
-                       :java-out "./components/pb-frontend/src")
+                       :java-out "./components/pb-frontend/java-src")
   (compile-proto-files "./components/pb-mucklet/resources/"
                        ["mucklet.proto"]
-                       :java-out "./components/pb-mucklet/src"))
+                       :java-out "./components/pb-mucklet/java-src"))
 
 (defn compile-java [_]
   (compile-proto nil)
-  (b/javac {:src-dirs ["./components/pb-frontend/src"]
+  (b/javac {:src-dirs ["./components/pb-frontend/java-src"]
             :class-dir "./components/pb-frontend/target/classes"
             :basis @proto-compiler-basis
             :javac-opts ["-Xlint:-options"]})
-  (b/javac {:src-dirs ["./components/pb-mucklet/src"]
+  (b/javac {:src-dirs ["./components/pb-mucklet/java-src"]
             :class-dir "./components/pb-mucklet/target/classes"
             :basis @proto-compiler-basis
             :javac-opts ["-Xlint:-options"]}))
