@@ -4,4 +4,6 @@
        :ttl 2}
  :mucklet-server {:url "localhost:8081"}
  :redis {:uri "redis://localhost:6379/"}
- :grpc {:port 50051}}
+ :grpc {:port 50051}
+ :accounts {:country-code "WY"
+            :sort-code "RASD"}}

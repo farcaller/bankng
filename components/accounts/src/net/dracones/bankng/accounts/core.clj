@@ -2,7 +2,13 @@
   (:require [xtdb.api :as xt]
             [xtdb.db :as xt.db]
             [xtdb.codec :refer [crux->xt]]
-            [net.dracones.bankng.xtdb.interface :as db]))
+            [mount.core :refer [defstate]]
+            [net.dracones.bankng.config.interface :refer [config]]
+            [net.dracones.bankng.xtdb.interface :as db]
+            [net.dracones.bankng.accounts.iban :as iban]))
+
+(defn account-id [account-number]
+  (keyword "account" (iban/calculate-local-iban account-number)))
 
 (comment
   (require '[mount.core :as mount])
