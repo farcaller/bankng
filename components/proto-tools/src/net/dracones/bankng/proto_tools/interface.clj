@@ -33,6 +33,18 @@
       .name
       keyword))
 
+(defn ->err
+  "Creates a Throwable from a status with an optional cause."
+  ([status msg]
+   (-> status
+       (.withDescription msg)
+       (.asRuntimeException)))
+  ([status cause msg]
+   (-> status
+       (.withDescription msg)
+       (.withCause cause)
+       (.asRuntimeException))))
+
 (def ABORTED (Status/ABORTED))
 (def ALREADY_EXISTS (Status/ALREADY_EXISTS))
 (def CANCELLED (Status/CANCELLED))
