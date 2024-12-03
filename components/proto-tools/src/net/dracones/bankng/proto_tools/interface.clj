@@ -45,6 +45,11 @@
        (.withCause cause)
        (.asRuntimeException))))
 
+(defn throw-status! [status msg]
+  (throw (-> status
+             (.withDescription msg)
+             (.asRuntimeException))))
+
 (def ABORTED (Status/ABORTED))
 (def ALREADY_EXISTS (Status/ALREADY_EXISTS))
 (def CANCELLED (Status/CANCELLED))
