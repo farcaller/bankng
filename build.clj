@@ -95,11 +95,10 @@
   [search-path files & {:keys [js-out grpc-web-out java-out]}]
   (when-not (.exists (io/file grpc-plugin-file-path))
     (download-plugin nil))
-
-  (doseq [dir ["./components/pb-frontend/src/gen/"
-               "./components/pb-mucklet/src/gen/"
-               protoc-target-directory-js]]
-    (.mkdirs (io/file dir)))
+  
+  (when js-out (.mkdirs (io/file js-out)))
+  (when grpc-web-out (.mkdirs (io/file grpc-web-out)))
+  (when java-out (.mkdirs (io/file java-out)))
 
   (b/process {:command-args (filter some? (concat ["protoc"
                                                    "--plugin=protoc-gen-grpc-java=target/plugins/protoc-gen-grpc-java"
@@ -110,18 +109,25 @@
                                                    (str "-I" search-path)] files))}))
 
 (defn compile-proto [_]
-  (compile-proto-files "./components/pb-frontend/resources/" ["auth.proto" "accounts.proto"]
-                       :js-out protoc-target-directory-js
-                       :grpc-web-out protoc-target-directory-js
-                       :java-out "./components/pb-frontend/src/gen/")
-  (compile-proto-files "./components/pb-mucklet/resources/" ["mucklet.proto"]
-                       :java-out "./components/pb-mucklet/src/gen/"))
+  (compile-proto-files "./components/pb-frontend/resources/"
+                       ["auth.proto" "accounts.proto"]
+                       :js-out "./components/pb-frontend/src/net/dracones/bankng/pb_frontend/gen/"
+                       :grpc-web-out "./components/pb-frontend/src/net/dracones/bankng/pb_frontend/gen/"
+                       :java-out "./components/pb-frontend/src")
+  (compile-proto-files "./components/pb-mucklet/resources/"
+                       ["mucklet.proto"]
+                       :java-out "./components/pb-mucklet/src"))
 
 (defn compile-java [_]
   (compile-proto nil)
-  (b/javac {:src-dirs ["./components/pb-frontend/src/gen/" "./components/pb-mucklet/src/gen/"]
-            :class-dir "target/classes"
-            :basis @proto-compiler-basis}))
+  (b/javac {:src-dirs ["./components/pb-frontend/src"]
+            :class-dir "./components/pb-frontend/target/classes"
+            :basis @proto-compiler-basis
+            :javac-opts ["-Xlint:-options"]})
+  (b/javac {:src-dirs ["./components/pb-mucklet/src"]
+            :class-dir "./components/pb-mucklet/target/classes"
+            :basis @proto-compiler-basis
+            :javac-opts ["-Xlint:-options"]}))
 
 (defn run [_]
   (compile-java nil))

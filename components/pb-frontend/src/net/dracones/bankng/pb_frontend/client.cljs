@@ -1,8 +1,8 @@
 (ns net.dracones.bankng.pb-frontend.client
-  (:require ["../../../../gen/js/auth_pb.js" :as aupb]
-            ["../../../../gen/js/auth_grpc_web_pb.js" :as grpcAupb]
-            ["../../../../gen/js/accounts_pb.js" :as acpb]
-            ["../../../../gen/js/accounts_grpc_web_pb.js" :as grpcAcpb]
+  (:require ["./gen/auth_pb.js" :as aupb]
+            ["./gen/auth_grpc_web_pb.js" :as grpcAupb]
+            ["./gen/accounts_pb.js" :as acpb]
+            ["./gen/accounts_grpc_web_pb.js" :as grpcAcpb]
             [kitchen-async.promise :as p]))
 
 (goog-define GRPC_API_FRONTEND "")
