@@ -21,6 +21,8 @@ grpc.web = require('grpc-web');
 
 
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js')
+
+var google_protobuf_descriptor_pb = require('google-protobuf/google/protobuf/descriptor_pb.js')
 const proto = {};
 proto.net = {};
 proto.net.dracones = {};
@@ -82,13 +84,13 @@ proto.net.dracones.bankng.AccountsPromiseClient =
  * @const
  * @type {!grpc.web.MethodDescriptor<
  *   !proto.net.dracones.bankng.ListAccountsRequest,
- *   !proto.net.dracones.bankng.ListAccountsResponse>}
+ *   !proto.net.dracones.bankng.ListAccountsReply>}
  */
 const methodDescriptor_Accounts_ListAccounts = new grpc.web.MethodDescriptor(
   '/net.dracones.bankng.Accounts/ListAccounts',
   grpc.web.MethodType.UNARY,
   proto.net.dracones.bankng.ListAccountsRequest,
-  proto.net.dracones.bankng.ListAccountsResponse,
+  proto.net.dracones.bankng.ListAccountsReply,
   /**
    * @param {!proto.net.dracones.bankng.ListAccountsRequest} request
    * @return {!Uint8Array}
@@ -96,7 +98,7 @@ const methodDescriptor_Accounts_ListAccounts = new grpc.web.MethodDescriptor(
   function(request) {
     return request.serializeBinary();
   },
-  proto.net.dracones.bankng.ListAccountsResponse.deserializeBinary
+  proto.net.dracones.bankng.ListAccountsReply.deserializeBinary
 );
 
 
@@ -105,9 +107,9 @@ const methodDescriptor_Accounts_ListAccounts = new grpc.web.MethodDescriptor(
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.net.dracones.bankng.ListAccountsResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.net.dracones.bankng.ListAccountsReply)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.net.dracones.bankng.ListAccountsResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.net.dracones.bankng.ListAccountsReply>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.net.dracones.bankng.AccountsClient.prototype.listAccounts =
@@ -126,7 +128,7 @@ proto.net.dracones.bankng.AccountsClient.prototype.listAccounts =
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.net.dracones.bankng.ListAccountsResponse>}
+ * @return {!Promise<!proto.net.dracones.bankng.ListAccountsReply>}
  *     Promise that resolves to the response
  */
 proto.net.dracones.bankng.AccountsPromiseClient.prototype.listAccounts =
@@ -143,13 +145,13 @@ proto.net.dracones.bankng.AccountsPromiseClient.prototype.listAccounts =
  * @const
  * @type {!grpc.web.MethodDescriptor<
  *   !proto.net.dracones.bankng.ListTransactionsRequest,
- *   !proto.net.dracones.bankng.ListTransactionsResponse>}
+ *   !proto.net.dracones.bankng.ListTransactionsReply>}
  */
 const methodDescriptor_Accounts_ListTransactions = new grpc.web.MethodDescriptor(
   '/net.dracones.bankng.Accounts/ListTransactions',
   grpc.web.MethodType.UNARY,
   proto.net.dracones.bankng.ListTransactionsRequest,
-  proto.net.dracones.bankng.ListTransactionsResponse,
+  proto.net.dracones.bankng.ListTransactionsReply,
   /**
    * @param {!proto.net.dracones.bankng.ListTransactionsRequest} request
    * @return {!Uint8Array}
@@ -157,7 +159,7 @@ const methodDescriptor_Accounts_ListTransactions = new grpc.web.MethodDescriptor
   function(request) {
     return request.serializeBinary();
   },
-  proto.net.dracones.bankng.ListTransactionsResponse.deserializeBinary
+  proto.net.dracones.bankng.ListTransactionsReply.deserializeBinary
 );
 
 
@@ -166,9 +168,9 @@ const methodDescriptor_Accounts_ListTransactions = new grpc.web.MethodDescriptor
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.net.dracones.bankng.ListTransactionsResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.net.dracones.bankng.ListTransactionsReply)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.net.dracones.bankng.ListTransactionsResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.net.dracones.bankng.ListTransactionsReply>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.net.dracones.bankng.AccountsClient.prototype.listTransactions =
@@ -187,7 +189,7 @@ proto.net.dracones.bankng.AccountsClient.prototype.listTransactions =
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.net.dracones.bankng.ListTransactionsResponse>}
+ * @return {!Promise<!proto.net.dracones.bankng.ListTransactionsReply>}
  *     Promise that resolves to the response
  */
 proto.net.dracones.bankng.AccountsPromiseClient.prototype.listTransactions =

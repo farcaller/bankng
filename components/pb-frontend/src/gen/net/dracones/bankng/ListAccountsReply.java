@@ -4,18 +4,18 @@
 package net.dracones.bankng;
 
 /**
- * Protobuf type {@code net.dracones.bankng.ListAccountsResponse}
+ * Protobuf type {@code net.dracones.bankng.ListAccountsReply}
  */
-public final class ListAccountsResponse extends
+public final class ListAccountsReply extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:net.dracones.bankng.ListAccountsResponse)
-    ListAccountsResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:net.dracones.bankng.ListAccountsReply)
+    ListAccountsReplyOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use ListAccountsResponse.newBuilder() to construct.
-  private ListAccountsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use ListAccountsReply.newBuilder() to construct.
+  private ListAccountsReply(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private ListAccountsResponse() {
+  private ListAccountsReply() {
     accounts_ = java.util.Collections.emptyList();
   }
 
@@ -23,20 +23,20 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new ListAccountsResponse();
+    return new ListAccountsReply();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsResponse_descriptor;
+    return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsReply_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsResponse_fieldAccessorTable
+    return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsReply_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            net.dracones.bankng.ListAccountsResponse.class, net.dracones.bankng.ListAccountsResponse.Builder.class);
+            net.dracones.bankng.ListAccountsReply.class, net.dracones.bankng.ListAccountsReply.Builder.class);
   }
 
   public static final int ACCOUNTS_FIELD_NUMBER = 1;
@@ -120,10 +120,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof net.dracones.bankng.ListAccountsResponse)) {
+    if (!(obj instanceof net.dracones.bankng.ListAccountsReply)) {
       return super.equals(obj);
     }
-    net.dracones.bankng.ListAccountsResponse other = (net.dracones.bankng.ListAccountsResponse) obj;
+    net.dracones.bankng.ListAccountsReply other = (net.dracones.bankng.ListAccountsReply) obj;
 
     if (!getAccountsList()
         .equals(other.getAccountsList())) return false;
@@ -147,44 +147,44 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(
+  public static net.dracones.bankng.ListAccountsReply parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(
+  public static net.dracones.bankng.ListAccountsReply parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(
+  public static net.dracones.bankng.ListAccountsReply parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(
+  public static net.dracones.bankng.ListAccountsReply parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(byte[] data)
+  public static net.dracones.bankng.ListAccountsReply parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(
+  public static net.dracones.bankng.ListAccountsReply parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(java.io.InputStream input)
+  public static net.dracones.bankng.ListAccountsReply parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(
+  public static net.dracones.bankng.ListAccountsReply parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -192,26 +192,26 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
-  public static net.dracones.bankng.ListAccountsResponse parseDelimitedFrom(java.io.InputStream input)
+  public static net.dracones.bankng.ListAccountsReply parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
 
-  public static net.dracones.bankng.ListAccountsResponse parseDelimitedFrom(
+  public static net.dracones.bankng.ListAccountsReply parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(
+  public static net.dracones.bankng.ListAccountsReply parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static net.dracones.bankng.ListAccountsResponse parseFrom(
+  public static net.dracones.bankng.ListAccountsReply parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -224,7 +224,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(net.dracones.bankng.ListAccountsResponse prototype) {
+  public static Builder newBuilder(net.dracones.bankng.ListAccountsReply prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -240,26 +240,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code net.dracones.bankng.ListAccountsResponse}
+   * Protobuf type {@code net.dracones.bankng.ListAccountsReply}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:net.dracones.bankng.ListAccountsResponse)
-      net.dracones.bankng.ListAccountsResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:net.dracones.bankng.ListAccountsReply)
+      net.dracones.bankng.ListAccountsReplyOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsResponse_descriptor;
+      return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsReply_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsResponse_fieldAccessorTable
+      return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsReply_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              net.dracones.bankng.ListAccountsResponse.class, net.dracones.bankng.ListAccountsResponse.Builder.class);
+              net.dracones.bankng.ListAccountsReply.class, net.dracones.bankng.ListAccountsReply.Builder.class);
     }
 
-    // Construct using net.dracones.bankng.ListAccountsResponse.newBuilder()
+    // Construct using net.dracones.bankng.ListAccountsReply.newBuilder()
     private Builder() {
 
     }
@@ -286,17 +286,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsResponse_descriptor;
+      return net.dracones.bankng.AccountsOuterClass.internal_static_net_dracones_bankng_ListAccountsReply_descriptor;
     }
 
     @java.lang.Override
-    public net.dracones.bankng.ListAccountsResponse getDefaultInstanceForType() {
-      return net.dracones.bankng.ListAccountsResponse.getDefaultInstance();
+    public net.dracones.bankng.ListAccountsReply getDefaultInstanceForType() {
+      return net.dracones.bankng.ListAccountsReply.getDefaultInstance();
     }
 
     @java.lang.Override
-    public net.dracones.bankng.ListAccountsResponse build() {
-      net.dracones.bankng.ListAccountsResponse result = buildPartial();
+    public net.dracones.bankng.ListAccountsReply build() {
+      net.dracones.bankng.ListAccountsReply result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -304,15 +304,15 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public net.dracones.bankng.ListAccountsResponse buildPartial() {
-      net.dracones.bankng.ListAccountsResponse result = new net.dracones.bankng.ListAccountsResponse(this);
+    public net.dracones.bankng.ListAccountsReply buildPartial() {
+      net.dracones.bankng.ListAccountsReply result = new net.dracones.bankng.ListAccountsReply(this);
       buildPartialRepeatedFields(result);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    private void buildPartialRepeatedFields(net.dracones.bankng.ListAccountsResponse result) {
+    private void buildPartialRepeatedFields(net.dracones.bankng.ListAccountsReply result) {
       if (accountsBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
           accounts_ = java.util.Collections.unmodifiableList(accounts_);
@@ -324,7 +324,7 @@ private static final long serialVersionUID = 0L;
       }
     }
 
-    private void buildPartial0(net.dracones.bankng.ListAccountsResponse result) {
+    private void buildPartial0(net.dracones.bankng.ListAccountsReply result) {
       int from_bitField0_ = bitField0_;
     }
 
@@ -362,16 +362,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof net.dracones.bankng.ListAccountsResponse) {
-        return mergeFrom((net.dracones.bankng.ListAccountsResponse)other);
+      if (other instanceof net.dracones.bankng.ListAccountsReply) {
+        return mergeFrom((net.dracones.bankng.ListAccountsReply)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(net.dracones.bankng.ListAccountsResponse other) {
-      if (other == net.dracones.bankng.ListAccountsResponse.getDefaultInstance()) return this;
+    public Builder mergeFrom(net.dracones.bankng.ListAccountsReply other) {
+      if (other == net.dracones.bankng.ListAccountsReply.getDefaultInstance()) return this;
       if (accountsBuilder_ == null) {
         if (!other.accounts_.isEmpty()) {
           if (accounts_.isEmpty()) {
@@ -706,23 +706,23 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:net.dracones.bankng.ListAccountsResponse)
+    // @@protoc_insertion_point(builder_scope:net.dracones.bankng.ListAccountsReply)
   }
 
-  // @@protoc_insertion_point(class_scope:net.dracones.bankng.ListAccountsResponse)
-  private static final net.dracones.bankng.ListAccountsResponse DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:net.dracones.bankng.ListAccountsReply)
+  private static final net.dracones.bankng.ListAccountsReply DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new net.dracones.bankng.ListAccountsResponse();
+    DEFAULT_INSTANCE = new net.dracones.bankng.ListAccountsReply();
   }
 
-  public static net.dracones.bankng.ListAccountsResponse getDefaultInstance() {
+  public static net.dracones.bankng.ListAccountsReply getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<ListAccountsResponse>
-      PARSER = new com.google.protobuf.AbstractParser<ListAccountsResponse>() {
+  private static final com.google.protobuf.Parser<ListAccountsReply>
+      PARSER = new com.google.protobuf.AbstractParser<ListAccountsReply>() {
     @java.lang.Override
-    public ListAccountsResponse parsePartialFrom(
+    public ListAccountsReply parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -741,17 +741,17 @@ private static final long serialVersionUID = 0L;
     }
   };
 
-  public static com.google.protobuf.Parser<ListAccountsResponse> parser() {
+  public static com.google.protobuf.Parser<ListAccountsReply> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<ListAccountsResponse> getParserForType() {
+  public com.google.protobuf.Parser<ListAccountsReply> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public net.dracones.bankng.ListAccountsResponse getDefaultInstanceForType() {
+  public net.dracones.bankng.ListAccountsReply getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

@@ -3,8 +3,8 @@
 
 package net.dracones.bankng;
 
-public interface ListAccountsResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:net.dracones.bankng.ListAccountsResponse)
+public interface ListAccountsReplyOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:net.dracones.bankng.ListAccountsReply)
     com.google.protobuf.MessageOrBuilder {
 
   /**

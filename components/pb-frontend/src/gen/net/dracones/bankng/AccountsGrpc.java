@@ -16,28 +16,28 @@ public final class AccountsGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<net.dracones.bankng.ListAccountsRequest,
-      net.dracones.bankng.ListAccountsResponse> getListAccountsMethod;
+      net.dracones.bankng.ListAccountsReply> getListAccountsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "ListAccounts",
       requestType = net.dracones.bankng.ListAccountsRequest.class,
-      responseType = net.dracones.bankng.ListAccountsResponse.class,
+      responseType = net.dracones.bankng.ListAccountsReply.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<net.dracones.bankng.ListAccountsRequest,
-      net.dracones.bankng.ListAccountsResponse> getListAccountsMethod() {
-    io.grpc.MethodDescriptor<net.dracones.bankng.ListAccountsRequest, net.dracones.bankng.ListAccountsResponse> getListAccountsMethod;
+      net.dracones.bankng.ListAccountsReply> getListAccountsMethod() {
+    io.grpc.MethodDescriptor<net.dracones.bankng.ListAccountsRequest, net.dracones.bankng.ListAccountsReply> getListAccountsMethod;
     if ((getListAccountsMethod = AccountsGrpc.getListAccountsMethod) == null) {
       synchronized (AccountsGrpc.class) {
         if ((getListAccountsMethod = AccountsGrpc.getListAccountsMethod) == null) {
           AccountsGrpc.getListAccountsMethod = getListAccountsMethod =
-              io.grpc.MethodDescriptor.<net.dracones.bankng.ListAccountsRequest, net.dracones.bankng.ListAccountsResponse>newBuilder()
+              io.grpc.MethodDescriptor.<net.dracones.bankng.ListAccountsRequest, net.dracones.bankng.ListAccountsReply>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListAccounts"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   net.dracones.bankng.ListAccountsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  net.dracones.bankng.ListAccountsResponse.getDefaultInstance()))
+                  net.dracones.bankng.ListAccountsReply.getDefaultInstance()))
               .setSchemaDescriptor(new AccountsMethodDescriptorSupplier("ListAccounts"))
               .build();
         }
@@ -47,28 +47,28 @@ public final class AccountsGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<net.dracones.bankng.ListTransactionsRequest,
-      net.dracones.bankng.ListTransactionsResponse> getListTransactionsMethod;
+      net.dracones.bankng.ListTransactionsReply> getListTransactionsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "ListTransactions",
       requestType = net.dracones.bankng.ListTransactionsRequest.class,
-      responseType = net.dracones.bankng.ListTransactionsResponse.class,
+      responseType = net.dracones.bankng.ListTransactionsReply.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<net.dracones.bankng.ListTransactionsRequest,
-      net.dracones.bankng.ListTransactionsResponse> getListTransactionsMethod() {
-    io.grpc.MethodDescriptor<net.dracones.bankng.ListTransactionsRequest, net.dracones.bankng.ListTransactionsResponse> getListTransactionsMethod;
+      net.dracones.bankng.ListTransactionsReply> getListTransactionsMethod() {
+    io.grpc.MethodDescriptor<net.dracones.bankng.ListTransactionsRequest, net.dracones.bankng.ListTransactionsReply> getListTransactionsMethod;
     if ((getListTransactionsMethod = AccountsGrpc.getListTransactionsMethod) == null) {
       synchronized (AccountsGrpc.class) {
         if ((getListTransactionsMethod = AccountsGrpc.getListTransactionsMethod) == null) {
           AccountsGrpc.getListTransactionsMethod = getListTransactionsMethod =
-              io.grpc.MethodDescriptor.<net.dracones.bankng.ListTransactionsRequest, net.dracones.bankng.ListTransactionsResponse>newBuilder()
+              io.grpc.MethodDescriptor.<net.dracones.bankng.ListTransactionsRequest, net.dracones.bankng.ListTransactionsReply>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListTransactions"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   net.dracones.bankng.ListTransactionsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  net.dracones.bankng.ListTransactionsResponse.getDefaultInstance()))
+                  net.dracones.bankng.ListTransactionsReply.getDefaultInstance()))
               .setSchemaDescriptor(new AccountsMethodDescriptorSupplier("ListTransactions"))
               .build();
         }
@@ -128,14 +128,14 @@ public final class AccountsGrpc {
     /**
      */
     default void listAccounts(net.dracones.bankng.ListAccountsRequest request,
-        io.grpc.stub.StreamObserver<net.dracones.bankng.ListAccountsResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<net.dracones.bankng.ListAccountsReply> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListAccountsMethod(), responseObserver);
     }
 
     /**
      */
     default void listTransactions(net.dracones.bankng.ListTransactionsRequest request,
-        io.grpc.stub.StreamObserver<net.dracones.bankng.ListTransactionsResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<net.dracones.bankng.ListTransactionsReply> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListTransactionsMethod(), responseObserver);
     }
   }
@@ -170,7 +170,7 @@ public final class AccountsGrpc {
     /**
      */
     public void listAccounts(net.dracones.bankng.ListAccountsRequest request,
-        io.grpc.stub.StreamObserver<net.dracones.bankng.ListAccountsResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<net.dracones.bankng.ListAccountsReply> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getListAccountsMethod(), getCallOptions()), request, responseObserver);
     }
@@ -178,7 +178,7 @@ public final class AccountsGrpc {
     /**
      */
     public void listTransactions(net.dracones.bankng.ListTransactionsRequest request,
-        io.grpc.stub.StreamObserver<net.dracones.bankng.ListTransactionsResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<net.dracones.bankng.ListTransactionsReply> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getListTransactionsMethod(), getCallOptions()), request, responseObserver);
     }
@@ -202,14 +202,14 @@ public final class AccountsGrpc {
 
     /**
      */
-    public net.dracones.bankng.ListAccountsResponse listAccounts(net.dracones.bankng.ListAccountsRequest request) {
+    public net.dracones.bankng.ListAccountsReply listAccounts(net.dracones.bankng.ListAccountsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListAccountsMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public net.dracones.bankng.ListTransactionsResponse listTransactions(net.dracones.bankng.ListTransactionsRequest request) {
+    public net.dracones.bankng.ListTransactionsReply listTransactions(net.dracones.bankng.ListTransactionsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListTransactionsMethod(), getCallOptions(), request);
     }
@@ -233,7 +233,7 @@ public final class AccountsGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<net.dracones.bankng.ListAccountsResponse> listAccounts(
+    public com.google.common.util.concurrent.ListenableFuture<net.dracones.bankng.ListAccountsReply> listAccounts(
         net.dracones.bankng.ListAccountsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getListAccountsMethod(), getCallOptions()), request);
@@ -241,7 +241,7 @@ public final class AccountsGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<net.dracones.bankng.ListTransactionsResponse> listTransactions(
+    public com.google.common.util.concurrent.ListenableFuture<net.dracones.bankng.ListTransactionsReply> listTransactions(
         net.dracones.bankng.ListTransactionsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getListTransactionsMethod(), getCallOptions()), request);
@@ -270,11 +270,11 @@ public final class AccountsGrpc {
       switch (methodId) {
         case METHODID_LIST_ACCOUNTS:
           serviceImpl.listAccounts((net.dracones.bankng.ListAccountsRequest) request,
-              (io.grpc.stub.StreamObserver<net.dracones.bankng.ListAccountsResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<net.dracones.bankng.ListAccountsReply>) responseObserver);
           break;
         case METHODID_LIST_TRANSACTIONS:
           serviceImpl.listTransactions((net.dracones.bankng.ListTransactionsRequest) request,
-              (io.grpc.stub.StreamObserver<net.dracones.bankng.ListTransactionsResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<net.dracones.bankng.ListTransactionsReply>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -299,14 +299,14 @@ public final class AccountsGrpc {
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               net.dracones.bankng.ListAccountsRequest,
-              net.dracones.bankng.ListAccountsResponse>(
+              net.dracones.bankng.ListAccountsReply>(
                 service, METHODID_LIST_ACCOUNTS)))
         .addMethod(
           getListTransactionsMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               net.dracones.bankng.ListTransactionsRequest,
-              net.dracones.bankng.ListTransactionsResponse>(
+              net.dracones.bankng.ListTransactionsReply>(
                 service, METHODID_LIST_TRANSACTIONS)))
         .build();
   }

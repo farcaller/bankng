@@ -7,6 +7,7 @@ public final class AccountsOuterClass {
   private AccountsOuterClass() {}
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
+    registry.add(net.dracones.bankng.AccountsOuterClass.requiresAuth);
   }
 
   public static void registerAllExtensions(
@@ -14,16 +15,27 @@ public final class AccountsOuterClass {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  public static final int REQUIRES_AUTH_FIELD_NUMBER = 50001;
+  /**
+   * <code>extend .google.protobuf.MethodOptions { ... }</code>
+   */
+  public static final
+    com.google.protobuf.GeneratedMessage.GeneratedExtension<
+      com.google.protobuf.DescriptorProtos.MethodOptions,
+      java.lang.Boolean> requiresAuth = com.google.protobuf.GeneratedMessage
+          .newFileScopedGeneratedExtension(
+        java.lang.Boolean.class,
+        null);
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_net_dracones_bankng_ListAccountsRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_net_dracones_bankng_ListAccountsRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_net_dracones_bankng_ListAccountsResponse_descriptor;
+    internal_static_net_dracones_bankng_ListAccountsReply_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_net_dracones_bankng_ListAccountsResponse_fieldAccessorTable;
+      internal_static_net_dracones_bankng_ListAccountsReply_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_net_dracones_bankng_Account_descriptor;
   static final 
@@ -35,10 +47,10 @@ public final class AccountsOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_net_dracones_bankng_ListTransactionsRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_net_dracones_bankng_ListTransactionsResponse_descriptor;
+    internal_static_net_dracones_bankng_ListTransactionsReply_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_net_dracones_bankng_ListTransactionsResponse_fieldAccessorTable;
+      internal_static_net_dracones_bankng_ListTransactionsReply_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_net_dracones_bankng_Transaction_descriptor;
   static final 
@@ -59,30 +71,34 @@ public final class AccountsOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\016accounts.proto\022\023net.dracones.bankng\032\037g" +
-      "oogle/protobuf/timestamp.proto\"\025\n\023ListAc" +
-      "countsRequest\"F\n\024ListAccountsResponse\022.\n" +
-      "\010accounts\030\001 \003(\0132\034.net.dracones.bankng.Ac" +
-      "count\"H\n\007Account\022\014\n\004iban\030\001 \001(\t\022\014\n\004name\030\002" +
-      " \001(\t\022\020\n\010currency\030\003 \001(\t\022\017\n\007balance\030\004 \001(\t\"" +
-      "\'\n\027ListTransactionsRequest\022\014\n\004iban\030\001 \001(\t" +
-      "\"R\n\030ListTransactionsResponse\0226\n\014transact" +
-      "ions\030\001 \003(\0132 .net.dracones.bankng.Transac" +
-      "tion\"\207\001\n\013Transaction\0229\n\rcorrespondent\030\001 " +
-      "\001(\0132\".net.dracones.bankng.Correspondent\022" +
-      "\016\n\006amount\030\002 \001(\t\022-\n\ttimestamp\030\005 \001(\0132\032.goo" +
-      "gle.protobuf.Timestamp\".\n\rCorrespondent\022" +
-      "\014\n\004name\030\001 \001(\t\022\017\n\007pfp_url\030\002 \001(\t2\340\001\n\010Accou" +
-      "nts\022c\n\014ListAccounts\022(.net.dracones.bankn" +
-      "g.ListAccountsRequest\032).net.dracones.ban" +
-      "kng.ListAccountsResponse\022o\n\020ListTransact" +
-      "ions\022,.net.dracones.bankng.ListTransacti" +
-      "onsRequest\032-.net.dracones.bankng.ListTra" +
-      "nsactionsResponseB\002P\001b\006proto3"
+      "oogle/protobuf/timestamp.proto\032 google/p" +
+      "rotobuf/descriptor.proto\"\025\n\023ListAccounts" +
+      "Request\"C\n\021ListAccountsReply\022.\n\010accounts" +
+      "\030\001 \003(\0132\034.net.dracones.bankng.Account\"_\n\007" +
+      "Account\022\014\n\004iban\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\020\n\010c" +
+      "urrency\030\003 \001(\t\022\025\n\rcurrency_code\030\004 \001(\t\022\017\n\007" +
+      "balance\030\005 \001(\t\"\'\n\027ListTransactionsRequest" +
+      "\022\014\n\004iban\030\001 \001(\t\"O\n\025ListTransactionsReply\022" +
+      "6\n\014transactions\030\001 \003(\0132 .net.dracones.ban" +
+      "kng.Transaction\"\207\001\n\013Transaction\0229\n\rcorre" +
+      "spondent\030\001 \001(\0132\".net.dracones.bankng.Cor" +
+      "respondent\022\016\n\006amount\030\002 \001(\t\022-\n\ttimestamp\030" +
+      "\005 \001(\0132\032.google.protobuf.Timestamp\".\n\rCor" +
+      "respondent\022\014\n\004name\030\001 \001(\t\022\017\n\007pfp_url\030\002 \001(" +
+      "\t2\346\001\n\010Accounts\022f\n\014ListAccounts\022(.net.dra" +
+      "cones.bankng.ListAccountsRequest\032&.net.d" +
+      "racones.bankng.ListAccountsReply\"\004\210\265\030\001\022r" +
+      "\n\020ListTransactions\022,.net.dracones.bankng" +
+      ".ListTransactionsRequest\032*.net.dracones." +
+      "bankng.ListTransactionsReply\"\004\210\265\030\001:7\n\rre" +
+      "quires_auth\022\036.google.protobuf.MethodOpti" +
+      "ons\030\321\206\003 \001(\010B\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.TimestampProto.getDescriptor(),
+          com.google.protobuf.DescriptorProtos.getDescriptor(),
         });
     internal_static_net_dracones_bankng_ListAccountsRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -90,29 +106,29 @@ public final class AccountsOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_net_dracones_bankng_ListAccountsRequest_descriptor,
         new java.lang.String[] { });
-    internal_static_net_dracones_bankng_ListAccountsResponse_descriptor =
+    internal_static_net_dracones_bankng_ListAccountsReply_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_net_dracones_bankng_ListAccountsResponse_fieldAccessorTable = new
+    internal_static_net_dracones_bankng_ListAccountsReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_net_dracones_bankng_ListAccountsResponse_descriptor,
+        internal_static_net_dracones_bankng_ListAccountsReply_descriptor,
         new java.lang.String[] { "Accounts", });
     internal_static_net_dracones_bankng_Account_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_net_dracones_bankng_Account_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_net_dracones_bankng_Account_descriptor,
-        new java.lang.String[] { "Iban", "Name", "Currency", "Balance", });
+        new java.lang.String[] { "Iban", "Name", "Currency", "CurrencyCode", "Balance", });
     internal_static_net_dracones_bankng_ListTransactionsRequest_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_net_dracones_bankng_ListTransactionsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_net_dracones_bankng_ListTransactionsRequest_descriptor,
         new java.lang.String[] { "Iban", });
-    internal_static_net_dracones_bankng_ListTransactionsResponse_descriptor =
+    internal_static_net_dracones_bankng_ListTransactionsReply_descriptor =
       getDescriptor().getMessageTypes().get(4);
-    internal_static_net_dracones_bankng_ListTransactionsResponse_fieldAccessorTable = new
+    internal_static_net_dracones_bankng_ListTransactionsReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_net_dracones_bankng_ListTransactionsResponse_descriptor,
+        internal_static_net_dracones_bankng_ListTransactionsReply_descriptor,
         new java.lang.String[] { "Transactions", });
     internal_static_net_dracones_bankng_Transaction_descriptor =
       getDescriptor().getMessageTypes().get(5);
@@ -126,7 +142,14 @@ public final class AccountsOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_net_dracones_bankng_Correspondent_descriptor,
         new java.lang.String[] { "Name", "PfpUrl", });
+    requiresAuth.internalInit(descriptor.getExtensions().get(0));
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(net.dracones.bankng.AccountsOuterClass.requiresAuth);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.TimestampProto.getDescriptor();
+    com.google.protobuf.DescriptorProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

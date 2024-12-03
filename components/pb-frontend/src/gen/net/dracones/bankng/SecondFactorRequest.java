@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private SecondFactorRequest() {
+    sessionId_ = "";
     code_ = "";
   }
 
@@ -39,11 +40,50 @@ private static final long serialVersionUID = 0L;
             net.dracones.bankng.SecondFactorRequest.class, net.dracones.bankng.SecondFactorRequest.Builder.class);
   }
 
-  public static final int CODE_FIELD_NUMBER = 1;
+  public static final int SESSION_ID_FIELD_NUMBER = 1;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object sessionId_ = "";
+  /**
+   * <code>string session_id = 1;</code>
+   * @return The sessionId.
+   */
+  @java.lang.Override
+  public java.lang.String getSessionId() {
+    java.lang.Object ref = sessionId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      sessionId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string session_id = 1;</code>
+   * @return The bytes for sessionId.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getSessionIdBytes() {
+    java.lang.Object ref = sessionId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      sessionId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int CODE_FIELD_NUMBER = 2;
   @SuppressWarnings("serial")
   private volatile java.lang.Object code_ = "";
   /**
-   * <code>string code = 1;</code>
+   * <code>string code = 2;</code>
    * @return The code.
    */
   @java.lang.Override
@@ -60,7 +100,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string code = 1;</code>
+   * <code>string code = 2;</code>
    * @return The bytes for code.
    */
   @java.lang.Override
@@ -92,8 +132,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sessionId_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, sessionId_);
+    }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(code_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, code_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, code_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -104,8 +147,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sessionId_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, sessionId_);
+    }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(code_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, code_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, code_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -122,6 +168,8 @@ private static final long serialVersionUID = 0L;
     }
     net.dracones.bankng.SecondFactorRequest other = (net.dracones.bankng.SecondFactorRequest) obj;
 
+    if (!getSessionId()
+        .equals(other.getSessionId())) return false;
     if (!getCode()
         .equals(other.getCode())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -135,6 +183,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + SESSION_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getSessionId().hashCode();
     hash = (37 * hash) + CODE_FIELD_NUMBER;
     hash = (53 * hash) + getCode().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -268,6 +318,7 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
+      sessionId_ = "";
       code_ = "";
       return this;
     }
@@ -303,6 +354,9 @@ private static final long serialVersionUID = 0L;
     private void buildPartial0(net.dracones.bankng.SecondFactorRequest result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.sessionId_ = sessionId_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
         result.code_ = code_;
       }
     }
@@ -351,9 +405,14 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(net.dracones.bankng.SecondFactorRequest other) {
       if (other == net.dracones.bankng.SecondFactorRequest.getDefaultInstance()) return this;
+      if (!other.getSessionId().isEmpty()) {
+        sessionId_ = other.sessionId_;
+        bitField0_ |= 0x00000001;
+        onChanged();
+      }
       if (!other.getCode().isEmpty()) {
         code_ = other.code_;
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
@@ -383,10 +442,15 @@ private static final long serialVersionUID = 0L;
               done = true;
               break;
             case 10: {
-              code_ = input.readStringRequireUtf8();
+              sessionId_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000001;
               break;
             } // case 10
+            case 18: {
+              code_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 18
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -404,9 +468,81 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
+    private java.lang.Object sessionId_ = "";
+    /**
+     * <code>string session_id = 1;</code>
+     * @return The sessionId.
+     */
+    public java.lang.String getSessionId() {
+      java.lang.Object ref = sessionId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sessionId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string session_id = 1;</code>
+     * @return The bytes for sessionId.
+     */
+    public com.google.protobuf.ByteString
+        getSessionIdBytes() {
+      java.lang.Object ref = sessionId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sessionId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string session_id = 1;</code>
+     * @param value The sessionId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSessionId(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      sessionId_ = value;
+      bitField0_ |= 0x00000001;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string session_id = 1;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearSessionId() {
+      sessionId_ = getDefaultInstance().getSessionId();
+      bitField0_ = (bitField0_ & ~0x00000001);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string session_id = 1;</code>
+     * @param value The bytes for sessionId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSessionIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      sessionId_ = value;
+      bitField0_ |= 0x00000001;
+      onChanged();
+      return this;
+    }
+
     private java.lang.Object code_ = "";
     /**
-     * <code>string code = 1;</code>
+     * <code>string code = 2;</code>
      * @return The code.
      */
     public java.lang.String getCode() {
@@ -422,7 +558,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string code = 1;</code>
+     * <code>string code = 2;</code>
      * @return The bytes for code.
      */
     public com.google.protobuf.ByteString
@@ -439,7 +575,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string code = 1;</code>
+     * <code>string code = 2;</code>
      * @param value The code to set.
      * @return This builder for chaining.
      */
@@ -447,22 +583,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       code_ = value;
-      bitField0_ |= 0x00000001;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
     /**
-     * <code>string code = 1;</code>
+     * <code>string code = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearCode() {
       code_ = getDefaultInstance().getCode();
-      bitField0_ = (bitField0_ & ~0x00000001);
+      bitField0_ = (bitField0_ & ~0x00000002);
       onChanged();
       return this;
     }
     /**
-     * <code>string code = 1;</code>
+     * <code>string code = 2;</code>
      * @param value The bytes for code to set.
      * @return This builder for chaining.
      */
@@ -471,7 +607,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       code_ = value;
-      bitField0_ |= 0x00000001;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }

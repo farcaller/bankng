@@ -44,10 +44,11 @@ public final class AuthOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\nauth.proto\022\023net.dracones.bankng\"\'\n\022Fir" +
-      "stFactorRequest\022\021\n\tfull_name\030\001 \001(\t\"7\n\020Fi" +
+      "stFactorRequest\022\021\n\tfull_name\030\001 \001(\t\"K\n\020Fi" +
       "rstFactorReply\022\022\n\nfirst_name\030\001 \001(\t\022\017\n\007pf" +
-      "p_url\030\002 \001(\t\"#\n\023SecondFactorRequest\022\014\n\004co" +
-      "de\030\001 \001(\t\" \n\021SecondFactorReply\022\013\n\003jwt\030\001 \001" +
+      "p_url\030\002 \001(\t\022\022\n\nsession_id\030\003 \001(\t\"7\n\023Secon" +
+      "dFactorRequest\022\022\n\nsession_id\030\001 \001(\t\022\014\n\004co" +
+      "de\030\002 \001(\t\" \n\021SecondFactorReply\022\013\n\003jwt\030\001 \001" +
       "(\t2\313\001\n\004Auth\022_\n\013FirstFactor\022\'.net.dracone" +
       "s.bankng.FirstFactorRequest\032%.net.dracon" +
       "es.bankng.FirstFactorReply\"\000\022b\n\014SecondFa" +
@@ -70,13 +71,13 @@ public final class AuthOuterClass {
     internal_static_net_dracones_bankng_FirstFactorReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_net_dracones_bankng_FirstFactorReply_descriptor,
-        new java.lang.String[] { "FirstName", "PfpUrl", });
+        new java.lang.String[] { "FirstName", "PfpUrl", "SessionId", });
     internal_static_net_dracones_bankng_SecondFactorRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_net_dracones_bankng_SecondFactorRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_net_dracones_bankng_SecondFactorRequest_descriptor,
-        new java.lang.String[] { "Code", });
+        new java.lang.String[] { "SessionId", "Code", });
     internal_static_net_dracones_bankng_SecondFactorReply_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_net_dracones_bankng_SecondFactorReply_fieldAccessorTable = new

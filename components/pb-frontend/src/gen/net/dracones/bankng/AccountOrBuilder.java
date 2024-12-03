@@ -44,12 +44,24 @@ public interface AccountOrBuilder extends
       getCurrencyBytes();
 
   /**
-   * <code>string balance = 4;</code>
+   * <code>string currency_code = 4;</code>
+   * @return The currencyCode.
+   */
+  java.lang.String getCurrencyCode();
+  /**
+   * <code>string currency_code = 4;</code>
+   * @return The bytes for currencyCode.
+   */
+  com.google.protobuf.ByteString
+      getCurrencyCodeBytes();
+
+  /**
+   * <code>string balance = 5;</code>
    * @return The balance.
    */
   java.lang.String getBalance();
   /**
-   * <code>string balance = 4;</code>
+   * <code>string balance = 5;</code>
    * @return The bytes for balance.
    */
   com.google.protobuf.ByteString

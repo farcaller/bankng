@@ -272,7 +272,8 @@ proto.net.dracones.bankng.FirstFactorReply.prototype.toObject = function(opt_inc
 proto.net.dracones.bankng.FirstFactorReply.toObject = function(includeInstance, msg) {
   var f, obj = {
     firstName: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    pfpUrl: jspb.Message.getFieldWithDefault(msg, 2, "")
+    pfpUrl: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    sessionId: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -317,6 +318,10 @@ proto.net.dracones.bankng.FirstFactorReply.deserializeBinaryFromReader = functio
       var value = /** @type {string} */ (reader.readString());
       msg.setPfpUrl(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSessionId(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -360,6 +365,13 @@ proto.net.dracones.bankng.FirstFactorReply.serializeBinaryToWriter = function(me
       f
     );
   }
+  f = message.getSessionId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -399,6 +411,24 @@ proto.net.dracones.bankng.FirstFactorReply.prototype.setPfpUrl = function(value)
 };
 
 
+/**
+ * optional string session_id = 3;
+ * @return {string}
+ */
+proto.net.dracones.bankng.FirstFactorReply.prototype.getSessionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.net.dracones.bankng.FirstFactorReply} returns this
+ */
+proto.net.dracones.bankng.FirstFactorReply.prototype.setSessionId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
 
 
 
@@ -431,7 +461,8 @@ proto.net.dracones.bankng.SecondFactorRequest.prototype.toObject = function(opt_
  */
 proto.net.dracones.bankng.SecondFactorRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    code: jspb.Message.getFieldWithDefault(msg, 1, "")
+    sessionId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    code: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -470,6 +501,10 @@ proto.net.dracones.bankng.SecondFactorRequest.deserializeBinaryFromReader = func
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
+      msg.setSessionId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
       msg.setCode(value);
       break;
     default:
@@ -501,10 +536,17 @@ proto.net.dracones.bankng.SecondFactorRequest.prototype.serializeBinary = functi
  */
 proto.net.dracones.bankng.SecondFactorRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getCode();
+  f = message.getSessionId();
   if (f.length > 0) {
     writer.writeString(
       1,
+      f
+    );
+  }
+  f = message.getCode();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
       f
     );
   }
@@ -512,10 +554,10 @@ proto.net.dracones.bankng.SecondFactorRequest.serializeBinaryToWriter = function
 
 
 /**
- * optional string code = 1;
+ * optional string session_id = 1;
  * @return {string}
  */
-proto.net.dracones.bankng.SecondFactorRequest.prototype.getCode = function() {
+proto.net.dracones.bankng.SecondFactorRequest.prototype.getSessionId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -524,8 +566,26 @@ proto.net.dracones.bankng.SecondFactorRequest.prototype.getCode = function() {
  * @param {string} value
  * @return {!proto.net.dracones.bankng.SecondFactorRequest} returns this
  */
-proto.net.dracones.bankng.SecondFactorRequest.prototype.setCode = function(value) {
+proto.net.dracones.bankng.SecondFactorRequest.prototype.setSessionId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string code = 2;
+ * @return {string}
+ */
+proto.net.dracones.bankng.SecondFactorRequest.prototype.getCode = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.net.dracones.bankng.SecondFactorRequest} returns this
+ */
+proto.net.dracones.bankng.SecondFactorRequest.prototype.setCode = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

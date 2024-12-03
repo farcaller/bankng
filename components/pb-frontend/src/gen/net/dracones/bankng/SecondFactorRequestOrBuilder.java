@@ -8,12 +8,24 @@ public interface SecondFactorRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string code = 1;</code>
+   * <code>string session_id = 1;</code>
+   * @return The sessionId.
+   */
+  java.lang.String getSessionId();
+  /**
+   * <code>string session_id = 1;</code>
+   * @return The bytes for sessionId.
+   */
+  com.google.protobuf.ByteString
+      getSessionIdBytes();
+
+  /**
+   * <code>string code = 2;</code>
    * @return The code.
    */
   java.lang.String getCode();
   /**
-   * <code>string code = 1;</code>
+   * <code>string code = 2;</code>
    * @return The bytes for code.
    */
   com.google.protobuf.ByteString

@@ -3,8 +3,8 @@
 
 package net.dracones.bankng;
 
-public interface ListTransactionsResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:net.dracones.bankng.ListTransactionsResponse)
+public interface ListTransactionsReplyOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:net.dracones.bankng.ListTransactionsReply)
     com.google.protobuf.MessageOrBuilder {
 
   /**

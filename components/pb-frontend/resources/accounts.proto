@@ -5,15 +5,24 @@ package net.dracones.bankng;
 option java_multiple_files = true;
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.MethodOptions {
+  bool requires_auth = 50001;
+}
 
 service Accounts {
-  rpc ListAccounts(ListAccountsRequest) returns (ListAccountsResponse);
-  rpc ListTransactions(ListTransactionsRequest) returns (ListTransactionsResponse);
+  rpc ListAccounts(ListAccountsRequest) returns (ListAccountsReply) {
+    option (requires_auth) = true;
+  };
+  rpc ListTransactions(ListTransactionsRequest) returns (ListTransactionsReply) {
+    option (requires_auth) = true;
+  };
 }
 
 message ListAccountsRequest {}
 
-message ListAccountsResponse {
+message ListAccountsReply {
   repeated Account accounts = 1;
 }
 
@@ -21,14 +30,15 @@ message Account {
   string iban = 1;
   string name = 2;
   string currency = 3;
-  string balance = 4;
+  string currency_code = 4;
+  string balance = 5;
 }
 
 message ListTransactionsRequest {
   string iban = 1;
 }
 
-message ListTransactionsResponse {
+message ListTransactionsReply {
   repeated Transaction transactions = 1;
 }
 

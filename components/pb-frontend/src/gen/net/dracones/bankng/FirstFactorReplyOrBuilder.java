@@ -30,4 +30,16 @@ public interface FirstFactorReplyOrBuilder extends
    */
   com.google.protobuf.ByteString
       getPfpUrlBytes();
+
+  /**
+   * <code>string session_id = 3;</code>
+   * @return The sessionId.
+   */
+  java.lang.String getSessionId();
+  /**
+   * <code>string session_id = 3;</code>
+   * @return The bytes for sessionId.
+   */
+  com.google.protobuf.ByteString
+      getSessionIdBytes();
 }
