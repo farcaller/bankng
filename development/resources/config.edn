@@ -1,4 +1,5 @@
 {:jwt {:private-key "./development/resources/jwtkey.pem"
+       :public-key "./development/resources/jwtkey.pub"
        :issuer "https://auth.dracones.net"
        :audience "https://bank.dracones.net"
        :ttl 2}

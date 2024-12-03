@@ -3,3 +3,6 @@
 
 (defn create-jwt [char-id]
   (core/create-jwt char-id))
+
+(defn validate-jwt [jwt]
+  (core/validate-jwt jwt))
