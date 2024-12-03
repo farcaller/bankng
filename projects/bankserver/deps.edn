@@ -11,7 +11,10 @@
         poly/pb-frontend {:local/root "../../components/pb-frontend"}
         poly/pb-mucklet {:local/root "../../components/pb-mucklet"}
         poly/proto-tools {:local/root "../../components/proto-tools"}
-        poly/codesender {:local/root "../../components/codesender"}}
+        poly/codesender {:local/root "../../components/codesender"}
+        
+        com.taoensso/telemere-slf4j {:mvn/version "1.0.0-RC1"}
+        com.taoensso/telemere {:mvn/version "1.0.0-RC1"}}
 
  :aliases {:test {:extra-paths []
                   :extra-deps  {}}
