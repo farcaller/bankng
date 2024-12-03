@@ -20,10 +20,14 @@
 (defn get [key]
   (wcar* (car/get key)))
 
+(defn del [key]
+  (wcar* (car/del key)))
+
 (defn dump-kvs []
   (let [keys (wcar* (car/keys "*"))
         vals (map #(wcar* (car/get %)) keys)
-        m (zipmap keys vals)]
+        ttls (map #(wcar* (car/ttl %)) keys)
+        m (map #(hash-map :key %1 :val %2 :ttl %3) keys vals ttls)]
     (tap> (with-meta m {:portal.viewer/default :portal.viewer/table}))
     m)
   )

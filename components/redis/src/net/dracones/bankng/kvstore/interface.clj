@@ -6,3 +6,6 @@
 
 (defn get [key]
   (redis/get key))
+
+(defn del [key]
+  (redis/del key))
