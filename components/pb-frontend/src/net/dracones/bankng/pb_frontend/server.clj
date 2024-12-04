@@ -1,5 +1,6 @@
 (ns net.dracones.bankng.pb-frontend.server
-  (:import [net.dracones.bankng AuthGrpc$AuthImplBase AccountsGrpc$AccountsImplBase]))
+  (:import [io.grpc.stub StreamObserver]
+   [net.dracones.bankng ListAccountsRequest ListTransactionsRequest AuthGrpc$AuthImplBase AccountsGrpc$AccountsImplBase]))
 
 (defn resolve-fn [f]
   (if (var? f) @f f))
@@ -16,8 +17,8 @@
 (defn accounts-impl
   [{:keys [list-accounts list-transactions]}]
   (proxy [AccountsGrpc$AccountsImplBase] []
-    (listAccounts [request responseObserver]
+    (listAccounts [^ListAccountsRequest request ^StreamObserver responseObserver]
       ((resolve-fn list-accounts) request responseObserver))
 
-    (listTransactions [request responseObserver]
+    (listTransactions [^ListTransactionsRequest request ^StreamObserver responseObserver]
       ((resolve-fn list-transactions) request responseObserver))))

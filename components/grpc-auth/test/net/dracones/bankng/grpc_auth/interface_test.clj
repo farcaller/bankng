@@ -47,6 +47,7 @@
       (.shutdown server))))
 
 (defn with-mount [f]
+  #_{:clj-kondo/ignore [:unresolved-namespace]}
   (mount/start-with {#'net.dracones.bankng.config.interface/config
                      {:jwt {:private-key "./development/resources/jwtkey.pem"
                             :public-key "./development/resources/jwtkey.pub"

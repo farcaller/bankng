@@ -1,19 +1,20 @@
 (ns net.dracones.bankng.frontend-service.core
   (:require [net.dracones.bankng.pb-frontend.interface :as fpb]
-            [net.dracones.bankng.proto-tools.interface :refer [map->proto proto->map ->status code? ex->status INTERNAL]]
+            [net.dracones.bankng.proto-tools.interface :refer [map->proto proto->map ->status code? ex->status]]
             [net.dracones.bankng.pb-mucklet.interface :as mu]
             [net.dracones.bankng.codesender.interface :as co]
             [net.dracones.bankng.jwt.interface :as jwt]
             [taoensso.telemere :as log]
             [manifold.deferred :as d])
-  (:import [net.dracones.bankng FirstFactorReply SecondFactorReply]))
+  (:import [io.grpc Status]
+           [net.dracones.bankng FirstFactorReply SecondFactorReply]))
 
 (defn return-error [err]
   (log/error! err)
   (let [st (->status err)
         code (code? st)]
     (if (= :UNKNOWN code)
-      (.asRuntimeException (ex->status INTERNAL err "Internal error. Please try again later."))
+      (.asRuntimeException (ex->status Status/INTERNAL err "Internal error. Please try again later."))
       (.asRuntimeException st))))
 
 (defn on-first-factor [request responseObserver]

@@ -35,6 +35,7 @@
 (mount/in-clj-mode)
 
 (defn setup! []
+  (set! *warn-on-reflection* true)
   (log/set-min-level! :info)
   (mu/on-upndown :info mu/log :before)
   (start))

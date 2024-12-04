@@ -4,10 +4,7 @@
             [net.dracones.bankng.jwt.interface :as jwt])
   (:import [io.grpc ServerInterceptor ServerCall ServerCallHandler Metadata Metadata$Key
             Context Contexts ServerCall$Listener Status]
-           [com.google.protobuf Descriptors$MethodDescriptor]
-           [net.dracones.bankng FirstFactorReply SecondFactorReply AccountsOuterClass]))
-
-(defonce jwt-sub (Context/key "jwt-sub"))
+           [net.dracones.bankng AccountsOuterClass]))
 
 (defonce authorization-key (Metadata$Key/of "authorization" Metadata/ASCII_STRING_MARSHALLER))
 
@@ -33,14 +30,14 @@
                                  (.getExtension AccountsOuterClass/requiresAuth))]
           (if requires-auth?
             (let [authorization (.get metadata authorization-key)
-                  _ (when-not authorization (throw-status! p/UNAUTHENTICATED "missing authorization header"))
+                  _ (when-not authorization (throw-status! Status/UNAUTHENTICATED "missing authorization header"))
                   [kind token] (when authorization (str/split authorization #" "))
-                  _ (when-not (= kind "Bearer") (throw-status! p/UNAUTHENTICATED "unsupported authorization type"))
+                  _ (when-not (= kind "Bearer") (throw-status! Status/UNAUTHENTICATED "unsupported authorization type"))
                   claims (try (jwt/validate-jwt token)
                               (catch Exception e
-                                (throw-status! p/UNAUTHENTICATED "invalid token")))
+                                (throw-status! Status/UNAUTHENTICATED "invalid token")))
                   sub (:sub claims)
-                  _ (when-not sub (throw-status! p/UNAUTHENTICATED "invalid token"))
+                  _ (when-not sub (throw-status! Status/UNAUTHENTICATED "invalid token"))
                   ctx (-> (Context/current) (.withValue jwt-sub-claim-key sub))]
               (Contexts/interceptCall ctx call metadata next))
             (.startCall next call metadata)))

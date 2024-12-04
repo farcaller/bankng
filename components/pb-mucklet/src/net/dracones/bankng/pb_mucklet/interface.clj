@@ -1,6 +1,5 @@
 (ns net.dracones.bankng.pb-mucklet.interface
-  (:require [net.dracones.bankng.pb-mucklet.core :as core])
-  (:import [net.dracones.bankng.mucklet MuckletGrpc]))
+  (:require [net.dracones.bankng.pb-mucklet.core :as core]))
 
 (defn lookup-character
   [full-name]

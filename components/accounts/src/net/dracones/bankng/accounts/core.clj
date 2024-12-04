@@ -5,10 +5,10 @@
             [mount.core :refer [defstate]]
             [net.dracones.bankng.config.interface :refer [config]]
             [net.dracones.bankng.xtdb.interface :as db]
-            [net.dracones.bankng.accounts.iban :as iban]))
+            [net.dracones.bankng.iban.interface :as iban]))
 
 (defn account-id [account-number]
-  (keyword "account" (iban/calculate-local-iban account-number)))
+  (keyword "account" (iban/calculate-iban account-number)))
 
 (comment
   (require '[mount.core :as mount])

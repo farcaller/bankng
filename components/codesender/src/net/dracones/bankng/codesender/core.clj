@@ -1,7 +1,8 @@
 (ns net.dracones.bankng.codesender.core
   (:require [net.dracones.bankng.kvstore.interface :as kvstore]
             [net.dracones.bankng.pb-mucklet.interface :as mu]
-            [net.dracones.bankng.proto-tools.interface :as p]))
+            [net.dracones.bankng.proto-tools.interface :as p])
+  (:import [io.grpc Status]))
 
 (defn generate-code []
   (rand-int 10000))
@@ -28,8 +29,8 @@
         char-id (:char-id session-info)
         session-code (:code session-info)]
     (when-not session-info
-      (throw (p/->err p/NOT_FOUND "session not found")))
+      (throw (p/->err Status/NOT_FOUND "session not found")))
     (when-not (= code session-code)
-      (throw (p/->err p/INVALID_ARGUMENT "code incorrect")))
+      (throw (p/->err Status/INVALID_ARGUMENT "code incorrect")))
     (kvstore/del session-key)
     char-id))

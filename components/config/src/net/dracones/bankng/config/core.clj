@@ -1,5 +1,5 @@
 (ns net.dracones.bankng.config.core
-  (:require [cprop.core :refer [load-config]]))
+  (:require [cprop.core :as cprop]))
 
-(defn load []
-  (load-config))
+(defn load-config []
+  (cprop/load-config))

@@ -3,7 +3,7 @@
             [buddy.core.keys :as keys]
             [mount.core :refer [defstate]]
             [net.dracones.bankng.config.interface :refer [config]])
-  (:import [java.time Instant ZoneId ZonedDateTime]
+  (:import [java.time ZoneId ZonedDateTime]
            [java.time.temporal ChronoUnit]))
 
 (defstate iss :start (-> config :jwt :issuer))
