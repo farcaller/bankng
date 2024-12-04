@@ -33,7 +33,6 @@
                 poly/redis {:local/root "components/redis"}
                 poly/jwt {:local/root "components/jwt"}
                 poly/config {:local/root "components/config"}
-                poly/datomic-inproc {:local/root "components/datomic-inproc"}
                 poly/grpc-auth {:local/root "components/grpc-auth"}
                 poly/accounts-service {:local/root "components/accounts-service"}
                 poly/iban {:local/root "components/iban"}

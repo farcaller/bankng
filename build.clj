@@ -3,11 +3,8 @@
             [clojure.tools.build.api :as b]
             [clojure.tools.deps :as t]
             [clojure.tools.deps.util.dir :refer [with-dir]]
-            [clojure.java.io :as io]
-            [clojure.java.shell :refer [sh]])
-  (:import [java.net URL]
-           [java.nio.file Files Paths]
-           [java.security MessageDigest]))
+            [clojure.java.io :as io])
+  (:import [java.net URL]))
 
 (defn get-grpc-version []
   (let [deps (-> "deps.edn" slurp edn/read-string)
@@ -36,8 +33,6 @@
 
 (def grpc-plugins-download-dir "target/plugins")
 (def grpc-plugin-file-path (str grpc-plugins-download-dir "/protoc-gen-grpc-java"))
-
-(def datomic-download-dir "target/datomic")
 
 (defn sha512 [file]
   (let [digest (java.security.MessageDigest/getInstance "SHA-512")]
@@ -77,18 +72,6 @@
     (.setExecutable output-file true)
 
     (println "Downloaded and verified protoc-gen-grpc-java")))
-
-(defn download-datomic [_]
-  (let [url          "https://datomic-pro-downloads.s3.amazonaws.com/1.0.7260/datomic-pro-1.0.7260.zip"
-        output-path  (str datomic-download-dir "/datomic-pro-1.0.7260.zip")
-        output-file  (io/file output-path)]
-    (when-not (.exists output-file)
-      (.mkdirs (.getParentFile output-file))
-
-      (download-file url output-path)
-      (sh "unzip" "-d" datomic-download-dir output-path)
-
-      (println "Downloaded and verified datomic"))))
 
 (def proto-compiler-basis (delay (b/create-basis {:project "deps.edn" :aliases [:build]})))
 (def protoc-target-directory-js "./components/pb-frontend/src/gen/js")
