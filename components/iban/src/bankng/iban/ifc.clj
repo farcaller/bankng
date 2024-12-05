@@ -1,4 +1,4 @@
-(ns bankng.iban.interface
+(ns bankng.iban.ifc
   (:require [bankng.iban.core :as core]))
 
 (defn calculate-iban [account-number]

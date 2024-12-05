@@ -1,6 +1,6 @@
 (ns bankng.redis.core
   (:require [mount.core :refer [defstate]]
-            [bankng.config.interface :refer [config]]
+            [bankng.config.ifc :refer [config]]
             [taoensso.carmine :as car :refer [wcar]]))
 
 (defstate connection-pool

@@ -1,4 +1,4 @@
-(ns bankng.config.interface
+(ns bankng.config.ifc
   (:require [bankng.config.core :as core]
             [mount.core :refer [defstate]]))
 

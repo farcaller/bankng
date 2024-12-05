@@ -1,8 +1,8 @@
 (ns bankng.pb-mucklet.core
-  (:require [bankng.proto-tools.interface :refer [map->proto proto->map]]
+  (:require [bankng.proto-tools.ifc :refer [map->proto proto->map]]
             [manifold.deferred :as d]
             [mount.core :refer [defstate]]
-            [bankng.config.interface :refer [config]])
+            [bankng.config.ifc :refer [config]])
   (:import [io.grpc Grpc InsecureChannelCredentials]
            [bankng.mucklet LookupCharacterRequest MuckletGrpc SendMessageRequest]))
 

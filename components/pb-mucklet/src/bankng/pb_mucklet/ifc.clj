@@ -1,4 +1,4 @@
-(ns bankng.pb-mucklet.interface
+(ns bankng.pb-mucklet.ifc
   (:require [bankng.pb-mucklet.core :as core]))
 
 (defn lookup-character

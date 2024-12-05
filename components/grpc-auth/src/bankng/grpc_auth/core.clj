@@ -1,7 +1,7 @@
 (ns bankng.grpc-auth.core
   (:require [clojure.string :as str]
-            [bankng.proto-tools.interface :as p :refer [throw-status!]]
-            [bankng.jwt.interface :as jwt])
+            [bankng.proto-tools.ifc :as p :refer [throw-status!]]
+            [bankng.jwt.ifc :as jwt])
   (:import [io.grpc ServerInterceptor ServerCall ServerCallHandler Metadata Metadata$Key
             Context Contexts ServerCall$Listener Status]
            [bankng AccountsOuterClass]))

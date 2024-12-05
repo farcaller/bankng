@@ -1,6 +1,6 @@
 (ns bankng.iban.core
   (:require [mount.core :refer [defstate]]
-            [bankng.config.interface :refer [config]]))
+            [bankng.config.ifc :refer [config]]))
 
 (defstate country-code :start (-> config :accounts :country-code))
 (defstate sort-code :start (-> config :accounts :sort-code))

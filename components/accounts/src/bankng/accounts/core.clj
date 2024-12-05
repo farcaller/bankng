@@ -3,9 +3,9 @@
             [xtdb.db :as xt.db]
             [xtdb.codec :refer [crux->xt]]
             [mount.core :refer [defstate]]
-            [bankng.config.interface :refer [config]]
-            [bankng.xtdb.interface :as db]
-            [bankng.iban.interface :as iban]))
+            [bankng.config.ifc :refer [config]]
+            [bankng.xtdb.ifc :as db]
+            [bankng.iban.ifc :as iban]))
 
 (defn account-id [account-number]
   (keyword "account" (iban/calculate-iban account-number)))

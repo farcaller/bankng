@@ -1,7 +1,7 @@
 (ns bankng.frontend.login.events
   (:require [re-frame.core :as rf]
             [kitchen-async.promise :as p]
-            [bankng.pb-frontend.interface :as fpb]
+            [bankng.pb-frontend.ifc :as fpb]
             [clojure.string :as str]
             ["grpc-web" :refer [StatusCode]]))
 

@@ -1,4 +1,4 @@
-(ns bankng.codesender.interface
+(ns bankng.codesender.ifc
   (:require [bankng.codesender.core :as core]))
 
 (defn send-code

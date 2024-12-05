@@ -1,4 +1,4 @@
-(ns bankng.grpc-auth.interface
+(ns bankng.grpc-auth.ifc
   (:require [bankng.grpc-auth.core :as core]))
 
 (defn auth-interceptor []

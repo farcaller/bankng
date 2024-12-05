@@ -1,2 +1,0 @@
-(ns bankng.accounts.interface)
-

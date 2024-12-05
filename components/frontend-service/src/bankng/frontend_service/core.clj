@@ -1,9 +1,9 @@
 (ns bankng.frontend-service.core
-  (:require [bankng.pb-frontend.interface :as fpb]
-            [bankng.proto-tools.interface :refer [map->proto proto->map ->status code? ex->status]]
-            [bankng.pb-mucklet.interface :as mu]
-            [bankng.codesender.interface :as co]
-            [bankng.jwt.interface :as jwt]
+  (:require [bankng.pb-frontend.ifc :as fpb]
+            [bankng.proto-tools.ifc :refer [map->proto proto->map ->status code? ex->status]]
+            [bankng.pb-mucklet.ifc :as mu]
+            [bankng.codesender.ifc :as co]
+            [bankng.jwt.ifc :as jwt]
             [taoensso.telemere :as log]
             [manifold.deferred :as d])
   (:import [io.grpc Status]

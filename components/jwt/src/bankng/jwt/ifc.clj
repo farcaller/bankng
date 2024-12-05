@@ -1,4 +1,4 @@
-(ns bankng.jwt.interface
+(ns bankng.jwt.ifc
   (:require [bankng.jwt.core :as core]))
 
 (defn create-jwt

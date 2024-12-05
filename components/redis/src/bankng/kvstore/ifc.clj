@@ -1,4 +1,4 @@
-(ns bankng.kvstore.interface
+(ns bankng.kvstore.ifc
   (:require [bankng.redis.core :as redis]))
 
 (defn store [key value ttl]

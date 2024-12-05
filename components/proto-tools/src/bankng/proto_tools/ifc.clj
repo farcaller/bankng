@@ -1,4 +1,4 @@
-(ns bankng.proto-tools.interface
+(ns bankng.proto-tools.ifc
   (:require [camel-snake-kebab.core :as csk])
   (:import [io.grpc Status Status$Code]))
 

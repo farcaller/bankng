@@ -1,5 +1,5 @@
 {:top-namespace "bankng"
- :interface-ns "interface"
+ :interface-ns "ifc"
  :default-profile-name "default"
  :compact-views #{}
  :vcs {:name "git"

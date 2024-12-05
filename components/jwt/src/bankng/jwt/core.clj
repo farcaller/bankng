@@ -2,7 +2,7 @@
   (:require [buddy.sign.jwt :as jwt]
             [buddy.core.keys :as keys]
             [mount.core :refer [defstate]]
-            [bankng.config.interface :refer [config]])
+            [bankng.config.ifc :refer [config]])
   (:import [java.time ZoneId ZonedDateTime]
            [java.time.temporal ChronoUnit]))
 

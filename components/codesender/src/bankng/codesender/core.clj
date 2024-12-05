@@ -1,7 +1,7 @@
 (ns bankng.codesender.core
-  (:require [bankng.kvstore.interface :as kvstore]
-            [bankng.pb-mucklet.interface :as mu]
-            [bankng.proto-tools.interface :as p])
+  (:require [bankng.kvstore.ifc :as kvstore]
+            [bankng.pb-mucklet.ifc :as mu]
+            [bankng.proto-tools.ifc :as p])
   (:import [io.grpc Status]))
 
 (defn generate-code []

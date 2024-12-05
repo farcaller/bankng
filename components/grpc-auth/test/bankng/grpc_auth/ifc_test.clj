@@ -1,9 +1,9 @@
-(ns bankng.grpc-auth.interface-test
+(ns bankng.grpc-auth.ifc-test
   (:require [clojure.test :as test :refer :all]
             [mount.core :as mount]
-            [bankng.pb-frontend.interface :as fpb]
-            [bankng.grpc-auth.interface :as grpc-auth]
-            [bankng.jwt.interface :as jwt])
+            [bankng.pb-frontend.ifc :as fpb]
+            [bankng.grpc-auth.ifc :as grpc-auth]
+            [bankng.jwt.ifc :as jwt])
   (:import [io.grpc.inprocess InProcessServerBuilder InProcessChannelBuilder]
            [bankng AccountsGrpc ListAccountsReply Account]
            [io.grpc StatusRuntimeException ClientInterceptor Metadata Metadata$Key
@@ -48,7 +48,7 @@
 
 (defn with-mount [f]
   #_{:clj-kondo/ignore [:unresolved-namespace]}
-  (mount/start-with {#'bankng.config.interface/config
+  (mount/start-with {#'bankng.config.ifc/config
                      {:jwt {:private-key "./development/resources/jwtkey.pem"
                             :public-key "./development/resources/jwtkey.pub"
                             :issuer "https://auth.dracones.net"

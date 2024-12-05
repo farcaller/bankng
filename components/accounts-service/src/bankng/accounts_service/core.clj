@@ -1,6 +1,6 @@
 (ns bankng.accounts-service.core
-  (:require [bankng.pb-frontend.interface :as fpb]
-            [bankng.proto-tools.interface :refer [map->proto proto->map ->status code? ex->status]]
+  (:require [bankng.pb-frontend.ifc :as fpb]
+            [bankng.proto-tools.ifc :refer [map->proto proto->map ->status code? ex->status]]
             [taoensso.telemere :as log]
             [manifold.deferred :as d])
   (:import [io.grpc Status]

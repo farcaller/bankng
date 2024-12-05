@@ -1,4 +1,4 @@
-(ns bankng.pb-frontend.interface
+(ns bankng.pb-frontend.ifc
   #?(:cljs (:require [bankng.pb-frontend.client :as client])
      :clj (:require [bankng.pb-frontend.server :as server])))
 

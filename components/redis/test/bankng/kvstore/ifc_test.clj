@@ -1,6 +1,6 @@
-(ns bankng.config.interface-test
+(ns bankng.kvstore.ifc-test
   (:require [clojure.test :as test :refer :all]
-            [bankng.config.interface :as config]))
+            [bankng.kvstore.ifc :as kvstore]))
 
 (deftest dummy-test
   (is (= 1 1)))
