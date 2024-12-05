@@ -96,8 +96,8 @@
 (defn compile-proto [_]
   (compile-proto-files "./components/pb-frontend/resources/"
                        ["auth.proto" "accounts.proto"]
-                       :js-out "./components/pb-frontend/src/net/dracones/bankng/pb_frontend/gen/"
-                       :grpc-web-out "./components/pb-frontend/src/net/dracones/bankng/pb_frontend/gen/"
+                       :js-out "./components/pb-frontend/src/bankng/pb_frontend/gen/"
+                       :grpc-web-out "./components/pb-frontend/src/bankng/pb_frontend/gen/"
                        :java-out "./components/pb-frontend/java-src")
   (compile-proto-files "./components/pb-mucklet/resources/"
                        ["mucklet.proto"]

@@ -1,5 +1,5 @@
 (ns dev.repl
-  (:require [net.dracones.bankng.grpc-server.core]
+  (:require [bankng.grpc-server.core]
             [playback.preload]
             [mount.core :as mount]
             [mount-up.core :as mu]

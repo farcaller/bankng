@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package net.dracones.bankng;
+package bankng;
 
 option java_multiple_files = true;
 

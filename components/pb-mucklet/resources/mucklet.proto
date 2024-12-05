@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-package net.dracones.bankng.mucklet;
+package bankng.mucklet;
 
 option java_multiple_files = true;
 

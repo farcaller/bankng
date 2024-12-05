@@ -10,7 +10,7 @@ if (process.env.NODE_ENV == 'production') {
   content.push(
     "./public/index.html",
     "./projects/frontend/src/**/.cljs",
-    "./public/js/cljs-runtime/net.dracones.bankng.*.js",
+    "./public/js/cljs-runtime/bankng.*.js",
   );
 }
 

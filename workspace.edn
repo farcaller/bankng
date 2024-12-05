@@ -1,4 +1,4 @@
-{:top-namespace "net.dracones.bankng"
+{:top-namespace "bankng"
  :interface-ns "interface"
  :default-profile-name "default"
  :compact-views #{}
