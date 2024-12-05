@@ -19,7 +19,7 @@
             "autoSelectForJackIn": true,
             "autoSelectForConnect": true,
             "projectRootPath": ["."],
-            "afterCLJReplJackInCode": "(do (require '[dev.repl]) (dev.repl/setup!))",
+            "afterCLJReplJackInCode": "(do (set! *warn-on-reflection* true) (require '[dev.repl]) (dev.repl/setup!))",
         }
     ]
 }
