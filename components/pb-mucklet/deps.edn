@@ -2,6 +2,6 @@
  :deps {io.grpc/grpc-protobuf {:mvn/version "1.68.2"}
         io.grpc/grpc-services {:mvn/version "1.68.2"}
         manifold/manifold {:mvn/version "0.4.3"}
-        mount/mount {:mvn/version "0.1.9"}}
+        mount/mount {:mvn/version "0.1.20"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

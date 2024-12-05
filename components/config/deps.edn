@@ -1,5 +1,5 @@
 {:paths ["src" "resources"]
  :deps {cprop/cprop {:mvn/version "0.1.20"}
-        mount/mount {:mvn/version "0.1.9"}}
+        mount/mount {:mvn/version "0.1.20"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}
