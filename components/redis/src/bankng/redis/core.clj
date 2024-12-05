@@ -5,7 +5,7 @@
 
 (defstate connection-pool
   :start (car/connection-pool {})
-  :stop (.close connection-pool))
+  :stop (.close ^java.io.Closeable connection-pool))
 
 (defstate connection-spec :start {:uri (-> config :redis :uri)})
 

@@ -7,7 +7,8 @@
             [taoensso.telemere :as log]
             [manifold.deferred :as d])
   (:import [io.grpc Status]
-           [bankng FirstFactorReply SecondFactorReply]))
+           [io.grpc.stub StreamObserver]
+           [bankng FirstFactorRequest FirstFactorReply SecondFactorRequest SecondFactorReply]))
 
 (defn return-error [err]
   (log/error! err)
@@ -17,7 +18,7 @@
       (.asRuntimeException (ex->status Status/INTERNAL err "Internal error. Please try again later."))
       (.asRuntimeException st))))
 
-(defn on-first-factor [request responseObserver]
+(defn on-first-factor [^FirstFactorRequest request ^StreamObserver responseObserver]
   (-> (d/let-flow [request (proto->map request)
                    full-name (:full-name request)
                    char (mu/lookup-character full-name)
@@ -31,7 +32,7 @@
                   (.onCompleted responseObserver))
       (d/catch #(.onError responseObserver (return-error %)))))
 
-(defn on-second-factor [request responseObserver]
+(defn on-second-factor [^SecondFactorRequest request ^StreamObserver responseObserver]
   (-> (d/let-flow [request (proto->map request)
                    code (:code request)
                    session-id (:session-id request)

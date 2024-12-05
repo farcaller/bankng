@@ -19,7 +19,7 @@
                :sub char-id
                :aud aud
                :iat (.toEpochSecond now)
-               :exp (or exp (.toEpochSecond (.plus now ttl ChronoUnit/HOURS)))}]
+               :exp (or exp (.toEpochSecond (.plus now ^long ttl ChronoUnit/HOURS)))}]
     (jwt/sign claim private-key {:alg :es256 :header {:typ "JWT"}})))
 
 (defn validate-jwt [jwt-str]

@@ -4,9 +4,9 @@
             [bankng.grpc-auth.ifc :as grpc-auth]
             [mount.core :refer [defstate]]
             [bankng.config.ifc :refer [config]])
-  (:import [io.grpc Grpc InsecureServerCredentials]))
+  (:import [io.grpc Grpc Server InsecureServerCredentials]))
 
-(defn create-server [port]
+(defn create-server ^Server [port]
   (-> (Grpc/newServerBuilderForPort port (InsecureServerCredentials/create))
       (.addService (fs/create-service))
       (.addService (as/create-service))
@@ -17,7 +17,7 @@
   :start (doto
            (create-server (-> config :grpc :port))
            (.start))
-  :stop (.shutdown server))
+  :stop (.shutdown ^Server server))
 
 (comment
   server

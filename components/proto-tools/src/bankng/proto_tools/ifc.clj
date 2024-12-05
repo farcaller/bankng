@@ -1,11 +1,12 @@
 (ns bankng.proto-tools.ifc
   (:require [camel-snake-kebab.core :as csk])
-  (:import [io.grpc Status Status$Code]))
+  (:import [io.grpc Status Status$Code]
+           [com.google.protobuf GeneratedMessageV3 Descriptors$FieldDescriptor]))
 
 (defn proto->map
-  [proto-obj]
+  [^GeneratedMessageV3 proto-obj]
   (let [fields (.getAllFields proto-obj)]
-    (reduce (fn [acc [field-descriptor value]]
+    (reduce (fn [acc [^Descriptors$FieldDescriptor field-descriptor value]]
               (assoc acc (csk/->kebab-case-keyword (.getName field-descriptor)) value))
             {}
             fields)))
@@ -18,34 +19,34 @@
              `(~setter-name ~builder-sym ~field-value)))
        (.build ~builder-sym))))
 
-(defn ->status [th]
+(defn ->status ^Status [th]
   (Status/fromThrowable th))
 
 (defn ->statuserr [th]
   (-> (->status th) (.asRuntimeException)))
 
-(defn ex->status [s th msg]
+(defn ex->status ^Status [^Status s th msg]
   (-> (.withDescription s msg)
       (.withCause th)))
 
-(defn code? [status]
+(defn code? [^Status status]
   (-> (.getCode status)
       .name
       keyword))
 
 (defn ->err
   "Creates a Throwable from a status with an optional cause."
-  ([status msg]
+  ([^Status status msg]
    (-> status
        (.withDescription msg)
        (.asRuntimeException)))
-  ([status cause msg]
+  ([^Status status cause msg]
    (-> status
        (.withDescription msg)
        (.withCause cause)
        (.asRuntimeException))))
 
-(defn throw-status! [status msg]
+(defn throw-status! [^Status status msg]
   (throw (-> status
              (.withDescription msg)
              (.asRuntimeException))))

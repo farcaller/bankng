@@ -4,13 +4,14 @@
             [bankng.jwt.ifc :as jwt])
   (:import [io.grpc ServerInterceptor ServerCall ServerCallHandler Metadata Metadata$Key
             Context Contexts ServerCall$Listener Status]
+           [io.grpc.protobuf ProtoMethodDescriptorSupplier]
            [bankng AccountsOuterClass]))
 
 (defonce authorization-key (Metadata$Key/of "authorization" Metadata/ASCII_STRING_MARSHALLER))
 
 (defonce jwt-sub-claim-key (Context/key "jwt-sub-claim"))
 
-(defn fail-with [call status msg]
+(defn fail-with [^ServerCall call ^Status status msg]
   (.close call (.withDescription status msg) (Metadata.))
   (proxy [ServerCall$Listener] []))
 
@@ -25,6 +26,7 @@
         (let [requires-auth? (-> call
                                  .getMethodDescriptor
                                  .getSchemaDescriptor
+                                 ^ProtoMethodDescriptorSupplier identity
                                  .getMethodDescriptor
                                  .getOptions
                                  (.getExtension AccountsOuterClass/requiresAuth))]

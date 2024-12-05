@@ -3,25 +3,24 @@
             [manifold.deferred :as d]
             [mount.core :refer [defstate]]
             [bankng.config.ifc :refer [config]])
-  (:import [io.grpc Grpc InsecureChannelCredentials]
-           [bankng.mucklet LookupCharacterRequest MuckletGrpc SendMessageRequest]))
+  (:import [io.grpc Grpc InsecureChannelCredentials ManagedChannel]
+           [bankng.mucklet LookupCharacterRequest MuckletGrpc SendMessageRequest MuckletGrpc$MuckletFutureStub]))
 
 (defstate mucklet-server-endpoint :start (-> config :mucklet-server :url))
 
-(defn build-channel
-  []
+(defn build-channel ^ManagedChannel []
   (-> (Grpc/newChannelBuilder mucklet-server-endpoint (InsecureChannelCredentials/create))
       (.build)))
 
 (defstate channel
   :start (build-channel)
-  :stop (.shutdown channel))
+  :stop (.shutdown ^ManagedChannel channel))
 
 (defn build-stub
-  [channel]
+  ^MuckletGrpc$MuckletFutureStub [channel]
   (MuckletGrpc/newFutureStub channel))
 
-(defstate stub
+(defstate ^MuckletGrpc$MuckletFutureStub stub
   :start (build-stub channel))
 
 (defn lookup-character

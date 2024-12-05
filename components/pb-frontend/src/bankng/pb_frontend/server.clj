@@ -6,7 +6,7 @@
   (if (var? f) @f f))
 
 (defn auth-impl
-  [on-first-factor on-second-factor]
+  ^AuthGrpc$AuthImplBase [on-first-factor on-second-factor]
   (proxy [AuthGrpc$AuthImplBase] []
     (firstFactor [request responseObserver]
       ((resolve-fn on-first-factor) request responseObserver))
@@ -15,7 +15,7 @@
       ((resolve-fn on-second-factor) request responseObserver))))
 
 (defn accounts-impl
-  [{:keys [list-accounts list-transactions]}]
+  ^AccountsGrpc$AccountsImplBase [{:keys [list-accounts list-transactions]}]
   (proxy [AccountsGrpc$AccountsImplBase] []
     (listAccounts [^ListAccountsRequest request ^StreamObserver responseObserver]
       ((resolve-fn list-accounts) request responseObserver))
