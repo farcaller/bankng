@@ -1,6 +1,7 @@
 (ns bankng.mucklet-proxy.bot
   (:require [kitchen-async.promise :as p]
             [botmaster.state :as state]
+            [botmaster.trace :refer [res-call res-client-call]]
             [oops.core :refer [oget]]))
 
 (def mucklet-fileserver-host (oget js/process "env.MUCKLET_FILESERVER_HOST"))
@@ -9,8 +10,8 @@
   "Looks up a character by full name. Returns a promise that resolves to a character object."
   [full-name]
   (p/let [client (state/get-client :scambanker)
-          bot (.call client "core" "getBot")
-          char (.call bot "getChar" #js {:charName full-name})
+          bot (res-client-call client "core" "getBot")
+          char (res-call bot "getChar" {:charName full-name})
           char (js->clj (.-props ^js char) :keywordize-keys true)]
     {:first_name (:name char)
      :last_name (:surname char)
@@ -21,7 +22,7 @@
   "Sends a message to a character. Returns a promise that resolves or throws."
   [char-id message]
   (p/let [ctrl (state/get-ctrl :scambanker)]
-    (.call ctrl "message" #js {:charIds #js [char-id] :msg message})))
+    (res-call ctrl "message" {:charIds #js [char-id] :msg message})))
 
 (comment
   (def client (state/get-client :scambanker))

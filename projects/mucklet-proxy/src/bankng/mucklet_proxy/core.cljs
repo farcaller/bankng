@@ -1,5 +1,6 @@
 (ns bankng.mucklet-proxy.core
-  (:require [botmaster.bot :as bot]
+  (:require [bankng.mucklet-proxy.otel]
+            [botmaster.bot :as bot]
             [bankng.mucklet-proxy.grpc :as grpc]
             [oops.core :refer [oget]]))
 
