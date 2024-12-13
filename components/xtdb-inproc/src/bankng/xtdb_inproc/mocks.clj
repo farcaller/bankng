@@ -15,12 +15,16 @@
 
     [::xt/put {:xt/id :customer/cajd55e9gbrqf703lcvg
                :customer/full-name "Shinyuu Wolfy"
-               :customer/accounts [(account-id 123)]}]
+               :customer/accounts [(account-id 123) (account-id 456)]}]
 
     [::xt/put {:xt/id (account-id 123)
                :account/name "Personal"
                :account/currency :currency/SCAM
                :account/balance 101}]
+    [::xt/put {:xt/id (account-id 456)
+               :account/name "Savings"
+               :account/currency :currency/SCAM
+               :account/balance 99}]
     [::xt/put {:xt/id (account-id 789)
                :acc/name "Business"
                :acc/currency :currency/SCAM
