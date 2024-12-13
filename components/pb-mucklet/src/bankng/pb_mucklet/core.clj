@@ -4,7 +4,7 @@
             [mount.core :refer [defstate]]
             [bankng.config.ifc :refer [config]])
   (:import [io.grpc Grpc InsecureChannelCredentials ManagedChannel]
-           [bankng.mucklet LookupCharacterRequest MuckletGrpc SendMessageRequest MuckletGrpc$MuckletFutureStub]))
+           [bankng.mucklet LookupCharacterRequest MuckletGrpc SendMessageRequest MuckletGrpc$MuckletBlockingStub]))
 
 (defstate mucklet-server-endpoint :start (-> config :mucklet-server :url))
 
@@ -17,22 +17,22 @@
   :stop (.shutdown ^ManagedChannel channel))
 
 (defn build-stub
-  ^MuckletGrpc$MuckletFutureStub [channel]
-  (MuckletGrpc/newFutureStub channel))
+  ^MuckletGrpc$MuckletBlockingStub [channel]
+  (MuckletGrpc/newBlockingStub channel))
 
-(defstate ^MuckletGrpc$MuckletFutureStub stub
+(defstate ^MuckletGrpc$MuckletBlockingStub stub
   :start (build-stub channel))
 
 (defn lookup-character
   [full-name]
-  (d/chain
-   (d/->deferred (.lookupCharacter stub (map->proto LookupCharacterRequest {:full-name full-name})))
+  (->
+   (.lookupCharacter stub (map->proto LookupCharacterRequest {:full-name full-name}))
    proto->map))
 
 (defn send-message
   [char-id msg]
-  (d/chain
-   (d/->deferred (.sendMessage stub (map->proto SendMessageRequest {:char-id char-id :message msg})))
+  (->
+   (.sendMessage stub (map->proto SendMessageRequest {:char-id char-id :message msg}))
    proto->map))
 
 (comment
@@ -41,8 +41,8 @@
       (.setFullName "test")
       (.build))
 
-  @(lookup-character "birb crowley")
-  @(send-message "cajd55e9gbrqf703lcvg" "mlem")
+  (lookup-character "birb crowley")
+  (send-message "cajd55e9gbrqf703lcvg" "mlem")
 
   *1
 

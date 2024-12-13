@@ -19,21 +19,21 @@
       (.asRuntimeException st))))
 
 (defn on-first-factor [^FirstFactorRequest request ^StreamObserver responseObserver]
-  (-> (d/let-flow [request (proto->map request)
-                   full-name (:full-name request)
-                   char (mu/lookup-character full-name)
-                   session-id (str (random-uuid))
-                   reply-pb (map->proto FirstFactorReply
-                                        {:first-name (:first-name char)
-                                         :pfp-url (:pfp-url char)
-                                         :session-id session-id})
-                   _ (co/send-code session-id (:char-id char))]
-                  (.onNext responseObserver reply-pb)
-                  (.onCompleted responseObserver))
-      (d/catch #(.onError responseObserver (return-error %)))))
+  (try (let [request (proto->map request)
+             full-name (:full-name request)
+             char (mu/lookup-character full-name)
+             session-id (str (random-uuid))
+             reply-pb (map->proto FirstFactorReply
+                                  {:first-name (:first-name char)
+                                   :pfp-url (:pfp-url char)
+                                   :session-id session-id})]
+         (co/send-code session-id (:char-id char))
+         (.onNext responseObserver reply-pb)
+         (.onCompleted responseObserver))
+      (catch Exception e (.onError responseObserver (return-error e)))))
 
 (defn on-second-factor [^SecondFactorRequest request ^StreamObserver responseObserver]
-  (-> (d/let-flow [request (proto->map request)
+  (try (let [request (proto->map request)
                    code (:code request)
                    session-id (:session-id request)
                    char-id (co/verify-code session-id code)
@@ -42,6 +42,6 @@
                                         {:jwt jwt-str})]
                   (.onNext responseObserver reply-pb)
                   (.onCompleted responseObserver))
-      (d/catch #(.onError responseObserver (return-error %)))))
+      (catch Exception e (.onError responseObserver (return-error e)))))
 
 (defn create-service [] (fpb/auth-impl #'on-first-factor #'on-second-factor))
