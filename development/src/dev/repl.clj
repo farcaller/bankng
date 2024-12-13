@@ -5,7 +5,8 @@
             [mount.core :as mount]
             [mount-up.core :as mu]
             [taoensso.telemere :as log]
-            [clojure.tools.namespace.repl :as tn]))
+            [clojure.tools.namespace.repl :as tn]
+            [bankng.xtdb-inproc.mocks :as mocks]))
 
 (defn stop []
   (mount/stop))
@@ -39,4 +40,5 @@
   (set! *warn-on-reflection* true)
   (log/set-min-level! :info)
   (mu/on-upndown :info mu/log :before)
-  (start))
+  (start)
+  (mocks/seed))
