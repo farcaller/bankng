@@ -3,13 +3,13 @@
             [bankng.proto-tools.ifc :as p :refer [throw-status!]]
             [bankng.jwt.ifc :as jwt])
   (:import [io.grpc ServerInterceptor ServerCall ServerCallHandler Metadata Metadata$Key
-            Context Contexts ServerCall$Listener Status]
+            Context Contexts ServerCall$Listener Status Context$Key]
            [io.grpc.protobuf ProtoMethodDescriptorSupplier]
            [bankng AccountsOuterClass]))
 
 (defonce authorization-key (Metadata$Key/of "authorization" Metadata/ASCII_STRING_MARSHALLER))
 
-(defonce jwt-sub-claim-key (Context/key "jwt-sub-claim"))
+(defonce ^Context$Key jwt-sub-claim-key (Context/key "jwt-sub-claim"))
 
 (defn fail-with [^ServerCall call ^Status status msg]
   (.close call (.withDescription status msg) (Metadata.))

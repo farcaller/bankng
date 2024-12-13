@@ -10,12 +10,17 @@
 (defn account-id [account-number]
   (keyword "account" (iban/calculate-iban account-number)))
 
+(defn list-accounts [char-id]
+  (:customer/accounts (db/pull [{:customer/accounts [* {:account/currency [*]}]}] (keyword "customer" char-id))))
+
 (comment
+  (list-accounts "cajd55e9gbrqf703lcvg")
+
   (require '[mount.core :as mount])
   (mount/stop)
   (mount/start)
-  #> db/conn
-  #> (xt/status db/conn)
+  db/conn
+  (xt/status db/conn)
 
   #_(xt/submit-tx db/conn
                   [[:put-docs :accounts {:xt/id "WY00123" :name "account 123" :balance 100}]
@@ -29,14 +34,14 @@
   (xt/q (xt/db db/conn) '{:find [(pull ?e [*])]
                           :where [[?e :acc/name "account 123"]]})
   
-  #> (xt/q (xt/db db/conn) '{:find [(pull ?e [* {:from [*]} {:to [*]}])]
+  (xt/q (xt/db db/conn) '{:find [(pull ?e [* {:from [*]} {:to [*]}])]
                           :where [[?e :from _]]})
 
   ; v1: get account document
   (xt/entity (xt/db db/conn) {:account "WY00123"})
 
   ; v1: get history of changes
-  #> (xt/entity-history (xt/db db/conn) {:account "WY00123"} :asc {:with-docs? true})
+  (xt/entity-history (xt/db db/conn) {:account "WY00123"} :asc {:with-docs? true})
 
   ; v1: get all transactions
   (with-open [tx-log (xt/open-tx-log db/conn -1 true)]
@@ -82,7 +87,7 @@
   ; v1: why failed?
   (require '[clojure.set :as set])
   (let [tx-id (:xtdb.api/tx-id txid)
-        document-store #> (:document-store db/conn)
+        document-store (:document-store db/conn)
         strict-fetch-docs (fn [document-store doc-hashes]
                             (let [doc-hashes (set doc-hashes)
                                   docs nil #_(xt/fetch-docs document-store doc-hashes)
@@ -93,12 +98,12 @@
     (with-open [tx-log (xt/open-tx-log db/conn (dec tx-id) {})]
       (let [doc-hashes (map #(get % 2)
                             (filter #(= (first %) :crux.tx/fn)
-                                    #> (:txdb.tx.event/tx-events #> (first (iterator-seq tx-log)))))]
-        #> doc-hashes
+                                    (:txdb.tx.event/tx-events (first (iterator-seq tx-log)))))]
+        doc-hashes
         #_(filter :crux.db.failed?
                   (vals (strict-fetch-docs document-store doc-hashes))))))
 
-  #> (with-open [tx-log (xt.db/open-tx-log (:tx-log db/conn) -1 {})]
+  (with-open [tx-log (xt.db/open-tx-log (:tx-log db/conn) -1 {})]
        (->> tx-log
             iterator-seq
             (map (fn [e]
