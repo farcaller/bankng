@@ -20,6 +20,7 @@
     "@opentelemetry/sdk-trace-base": "^1.29.0",
     "@opentelemetry/sdk-trace-node": "^1.29.0",
     "@opentelemetry/semantic-conventions": "^1.28.0",
+    "diagnostics_channel": "^1.1.0",
     "flyonui": "^1.1.0",
     "google-protobuf": "^3.21.4",
     "grpc-web": "^1.5.0",
