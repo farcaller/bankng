@@ -12,6 +12,7 @@
                 "cljAliases": [
                     "dev",
                     "test",
+                    "otel",
                     "xtdb",
                     "+default",
                 ],

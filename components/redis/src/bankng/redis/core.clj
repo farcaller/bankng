@@ -1,7 +1,8 @@
 (ns bankng.redis.core
   (:require [mount.core :refer [defstate]]
             [bankng.config.ifc :refer [config]]
-            [taoensso.carmine :as car :refer [wcar]]))
+            [taoensso.carmine :as car :refer [wcar]]
+            [taoensso.telemere :refer [trace!]]))
 
 (defstate connection-pool
   :start (car/connection-pool {})
@@ -15,13 +16,22 @@
 (defmacro wcar* [& body] `(car/wcar wcar-opts ~@body))
 
 (defn store [key value ttl]
-  (wcar* (car/setex key ttl value)))
+  (trace!
+   {:id :redis/setex
+    :otel/trace-attrs {:key key :ttl ttl}}
+   (wcar* (car/setex key ttl value))))
 
 (defn get [key]
-  (wcar* (car/get key)))
+  (trace!
+   {:id :redis/get
+    :otel/trace-attrs {:key key}}
+   (wcar* (car/get key))))
 
 (defn del [key]
-  (wcar* (car/del key)))
+  (trace!
+   {:id :redis/del
+    :otel/trace-attrs {:key key}}
+   (wcar* (car/del key))))
 
 (defn dump-kvs []
   (let [keys (wcar* (car/keys "*"))
@@ -29,8 +39,7 @@
         ttls (map #(wcar* (car/ttl %)) keys)
         m (map #(hash-map :key %1 :val %2 :ttl %3) keys vals ttls)]
     (tap> (with-meta m {:portal.viewer/default :portal.viewer/table}))
-    m)
-  )
+    m))
 
 (comment
   (dump-kvs)

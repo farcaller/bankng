@@ -1,5 +1,6 @@
 (ns dev.repl
   (:require [bankng.grpc-server.core]
+            [bankng.log.core]
             [playback.preload]
             [mount.core :as mount]
             [mount-up.core :as mu]

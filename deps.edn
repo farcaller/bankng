@@ -18,10 +18,20 @@
   {:jvm-opts ["--add-opens=java.base/java.nio=ALL-UNNAMED"
               "-Dio.netty.tryReflectionSetAccessible=true"]}
   
+  :otel
+  {:jvm-opts ["-javaagent:target/opentelemetry-javaagent.jar"
+              "-Dotel.exporter.otlp.protocol=grpc"
+              "-Dotel.service.name=bankserver"
+              "-Dotel.exporter.otlp.endpoint=http://localhost:4317"
+              "-Dotel.logs.exporter=none"
+              "-Dotel.metrics.exporter=none"
+              "-Dtaoensso.telemere.otel-tracing=true"]}
+  
   :dev
   {:extra-paths ["development/src" "development/resources"]
    :extra-deps {poly/grpc-server {:local/root "bases/grpc-server"}
                 poly/mount {:local/root "bases/mount"}
+                poly/log {:local/root "bases/log"}
 
                 poly/codesender {:local/root "components/codesender"}
                 poly/frontend-service {:local/root "components/frontend-service"}
@@ -42,6 +52,7 @@
                 tolitius/mount-up {:mvn/version "0.1.3"}
                 org.clojure/tools.namespace {:mvn/version "1.5.0"}
                 io.grpc/grpc-inprocess {:mvn/version "1.68.2"}
+                org.slf4j/slf4j-api {:mvn/version "2.0.16"}
                 com.taoensso/telemere-slf4j {:mvn/version "1.0.0-RC1"}
                 com.taoensso/telemere {:mvn/version "1.0.0-RC1"}
                 org.clojure/core.async {:mvn/version "1.6.681"}
