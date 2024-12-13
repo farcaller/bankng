@@ -8,7 +8,7 @@
 (def char-offset (- 10 (int \A)))
 
 (defn char-to-number
-  [char]
+  [^Character char]
   (if (Character/isDigit char)
     char
     (str (+ (int char) char-offset))))
