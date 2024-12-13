@@ -14,7 +14,10 @@
 (rf/reg-sub
  :accounts/current-account
  (fn [db _]
-   (nth (-> db :accounts :accounts) (-> db :accounts :current-account-idx))))
+   (let [accounts (-> db :accounts :accounts)]
+     (if (empty? accounts)
+       nil
+       (nth accounts (-> db :accounts :current-account-idx))))))
 
 (rf/reg-sub
  :accounts/current-account-idx
