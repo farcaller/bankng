@@ -8,7 +8,10 @@
        (client/first-factor full-name))
      
      (defn second-factor [session-id code]
-       (client/second-factor session-id code))))
+       (client/second-factor session-id code))
+     
+     (defn list-accounts [jwt]
+       (client/list-accounts jwt))))
 
 #?(:clj
    (do (defn auth-impl

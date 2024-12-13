@@ -15,9 +15,9 @@
   (rf/reg-event-db
    ::reset-route
    (fn [db [_ name]]
-     (assoc db :current-route (reitit.frontend/match-by-name! (reitit.frontend/router bankng.frontend.routes/routes) name)))))
+     (assoc db :current-route (reitit.frontend/match-by-name! (reitit.frontend/router bankng.frontend.routes.router/routes) name)))))
 
 (comment
-  re-frame.db/app-db
+  (-> @re-frame.db/app-db :login :jwt)
   (rf/dispatch-sync [::reset-route :login])
   :rcf)
