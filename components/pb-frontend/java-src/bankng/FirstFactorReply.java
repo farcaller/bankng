@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private FirstFactorReply() {
+    fullName_ = "";
     firstName_ = "";
     pfpUrl_ = "";
     sessionId_ = "";
@@ -41,11 +42,50 @@ private static final long serialVersionUID = 0L;
             bankng.FirstFactorReply.class, bankng.FirstFactorReply.Builder.class);
   }
 
-  public static final int FIRST_NAME_FIELD_NUMBER = 1;
+  public static final int FULL_NAME_FIELD_NUMBER = 1;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object fullName_ = "";
+  /**
+   * <code>string full_name = 1;</code>
+   * @return The fullName.
+   */
+  @java.lang.Override
+  public java.lang.String getFullName() {
+    java.lang.Object ref = fullName_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      fullName_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string full_name = 1;</code>
+   * @return The bytes for fullName.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getFullNameBytes() {
+    java.lang.Object ref = fullName_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      fullName_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int FIRST_NAME_FIELD_NUMBER = 2;
   @SuppressWarnings("serial")
   private volatile java.lang.Object firstName_ = "";
   /**
-   * <code>string first_name = 1;</code>
+   * <code>string first_name = 2;</code>
    * @return The firstName.
    */
   @java.lang.Override
@@ -62,7 +102,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string first_name = 1;</code>
+   * <code>string first_name = 2;</code>
    * @return The bytes for firstName.
    */
   @java.lang.Override
@@ -80,11 +120,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int PFP_URL_FIELD_NUMBER = 2;
+  public static final int PFP_URL_FIELD_NUMBER = 3;
   @SuppressWarnings("serial")
   private volatile java.lang.Object pfpUrl_ = "";
   /**
-   * <code>string pfp_url = 2;</code>
+   * <code>string pfp_url = 3;</code>
    * @return The pfpUrl.
    */
   @java.lang.Override
@@ -101,7 +141,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string pfp_url = 2;</code>
+   * <code>string pfp_url = 3;</code>
    * @return The bytes for pfpUrl.
    */
   @java.lang.Override
@@ -119,11 +159,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int SESSION_ID_FIELD_NUMBER = 3;
+  public static final int SESSION_ID_FIELD_NUMBER = 4;
   @SuppressWarnings("serial")
   private volatile java.lang.Object sessionId_ = "";
   /**
-   * <code>string session_id = 3;</code>
+   * <code>string session_id = 4;</code>
    * @return The sessionId.
    */
   @java.lang.Override
@@ -140,7 +180,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string session_id = 3;</code>
+   * <code>string session_id = 4;</code>
    * @return The bytes for sessionId.
    */
   @java.lang.Override
@@ -172,14 +212,17 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fullName_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, fullName_);
+    }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(firstName_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, firstName_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, firstName_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(pfpUrl_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, pfpUrl_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, pfpUrl_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sessionId_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sessionId_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, sessionId_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -190,14 +233,17 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fullName_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, fullName_);
+    }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(firstName_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, firstName_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, firstName_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(pfpUrl_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, pfpUrl_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, pfpUrl_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sessionId_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sessionId_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, sessionId_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -214,6 +260,8 @@ private static final long serialVersionUID = 0L;
     }
     bankng.FirstFactorReply other = (bankng.FirstFactorReply) obj;
 
+    if (!getFullName()
+        .equals(other.getFullName())) return false;
     if (!getFirstName()
         .equals(other.getFirstName())) return false;
     if (!getPfpUrl()
@@ -231,6 +279,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + FULL_NAME_FIELD_NUMBER;
+    hash = (53 * hash) + getFullName().hashCode();
     hash = (37 * hash) + FIRST_NAME_FIELD_NUMBER;
     hash = (53 * hash) + getFirstName().hashCode();
     hash = (37 * hash) + PFP_URL_FIELD_NUMBER;
@@ -368,6 +418,7 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
+      fullName_ = "";
       firstName_ = "";
       pfpUrl_ = "";
       sessionId_ = "";
@@ -405,12 +456,15 @@ private static final long serialVersionUID = 0L;
     private void buildPartial0(bankng.FirstFactorReply result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.firstName_ = firstName_;
+        result.fullName_ = fullName_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
-        result.pfpUrl_ = pfpUrl_;
+        result.firstName_ = firstName_;
       }
       if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.pfpUrl_ = pfpUrl_;
+      }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
         result.sessionId_ = sessionId_;
       }
     }
@@ -459,19 +513,24 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(bankng.FirstFactorReply other) {
       if (other == bankng.FirstFactorReply.getDefaultInstance()) return this;
+      if (!other.getFullName().isEmpty()) {
+        fullName_ = other.fullName_;
+        bitField0_ |= 0x00000001;
+        onChanged();
+      }
       if (!other.getFirstName().isEmpty()) {
         firstName_ = other.firstName_;
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
       }
       if (!other.getPfpUrl().isEmpty()) {
         pfpUrl_ = other.pfpUrl_;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
       }
       if (!other.getSessionId().isEmpty()) {
         sessionId_ = other.sessionId_;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
@@ -501,20 +560,25 @@ private static final long serialVersionUID = 0L;
               done = true;
               break;
             case 10: {
-              firstName_ = input.readStringRequireUtf8();
+              fullName_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000001;
               break;
             } // case 10
             case 18: {
-              pfpUrl_ = input.readStringRequireUtf8();
+              firstName_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000002;
               break;
             } // case 18
             case 26: {
-              sessionId_ = input.readStringRequireUtf8();
+              pfpUrl_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000004;
               break;
             } // case 26
+            case 34: {
+              sessionId_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000008;
+              break;
+            } // case 34
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -532,9 +596,81 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
+    private java.lang.Object fullName_ = "";
+    /**
+     * <code>string full_name = 1;</code>
+     * @return The fullName.
+     */
+    public java.lang.String getFullName() {
+      java.lang.Object ref = fullName_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        fullName_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string full_name = 1;</code>
+     * @return The bytes for fullName.
+     */
+    public com.google.protobuf.ByteString
+        getFullNameBytes() {
+      java.lang.Object ref = fullName_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fullName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string full_name = 1;</code>
+     * @param value The fullName to set.
+     * @return This builder for chaining.
+     */
+    public Builder setFullName(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      fullName_ = value;
+      bitField0_ |= 0x00000001;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string full_name = 1;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearFullName() {
+      fullName_ = getDefaultInstance().getFullName();
+      bitField0_ = (bitField0_ & ~0x00000001);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string full_name = 1;</code>
+     * @param value The bytes for fullName to set.
+     * @return This builder for chaining.
+     */
+    public Builder setFullNameBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      fullName_ = value;
+      bitField0_ |= 0x00000001;
+      onChanged();
+      return this;
+    }
+
     private java.lang.Object firstName_ = "";
     /**
-     * <code>string first_name = 1;</code>
+     * <code>string first_name = 2;</code>
      * @return The firstName.
      */
     public java.lang.String getFirstName() {
@@ -550,7 +686,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string first_name = 1;</code>
+     * <code>string first_name = 2;</code>
      * @return The bytes for firstName.
      */
     public com.google.protobuf.ByteString
@@ -567,7 +703,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string first_name = 1;</code>
+     * <code>string first_name = 2;</code>
      * @param value The firstName to set.
      * @return This builder for chaining.
      */
@@ -575,22 +711,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       firstName_ = value;
-      bitField0_ |= 0x00000001;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
     /**
-     * <code>string first_name = 1;</code>
+     * <code>string first_name = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearFirstName() {
       firstName_ = getDefaultInstance().getFirstName();
-      bitField0_ = (bitField0_ & ~0x00000001);
+      bitField0_ = (bitField0_ & ~0x00000002);
       onChanged();
       return this;
     }
     /**
-     * <code>string first_name = 1;</code>
+     * <code>string first_name = 2;</code>
      * @param value The bytes for firstName to set.
      * @return This builder for chaining.
      */
@@ -599,14 +735,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       firstName_ = value;
-      bitField0_ |= 0x00000001;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
 
     private java.lang.Object pfpUrl_ = "";
     /**
-     * <code>string pfp_url = 2;</code>
+     * <code>string pfp_url = 3;</code>
      * @return The pfpUrl.
      */
     public java.lang.String getPfpUrl() {
@@ -622,7 +758,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string pfp_url = 2;</code>
+     * <code>string pfp_url = 3;</code>
      * @return The bytes for pfpUrl.
      */
     public com.google.protobuf.ByteString
@@ -639,7 +775,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string pfp_url = 2;</code>
+     * <code>string pfp_url = 3;</code>
      * @param value The pfpUrl to set.
      * @return This builder for chaining.
      */
@@ -647,22 +783,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       pfpUrl_ = value;
-      bitField0_ |= 0x00000002;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
     /**
-     * <code>string pfp_url = 2;</code>
+     * <code>string pfp_url = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearPfpUrl() {
       pfpUrl_ = getDefaultInstance().getPfpUrl();
-      bitField0_ = (bitField0_ & ~0x00000002);
+      bitField0_ = (bitField0_ & ~0x00000004);
       onChanged();
       return this;
     }
     /**
-     * <code>string pfp_url = 2;</code>
+     * <code>string pfp_url = 3;</code>
      * @param value The bytes for pfpUrl to set.
      * @return This builder for chaining.
      */
@@ -671,14 +807,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       pfpUrl_ = value;
-      bitField0_ |= 0x00000002;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
 
     private java.lang.Object sessionId_ = "";
     /**
-     * <code>string session_id = 3;</code>
+     * <code>string session_id = 4;</code>
      * @return The sessionId.
      */
     public java.lang.String getSessionId() {
@@ -694,7 +830,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string session_id = 3;</code>
+     * <code>string session_id = 4;</code>
      * @return The bytes for sessionId.
      */
     public com.google.protobuf.ByteString
@@ -711,7 +847,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string session_id = 3;</code>
+     * <code>string session_id = 4;</code>
      * @param value The sessionId to set.
      * @return This builder for chaining.
      */
@@ -719,22 +855,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       sessionId_ = value;
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
     /**
-     * <code>string session_id = 3;</code>
+     * <code>string session_id = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearSessionId() {
       sessionId_ = getDefaultInstance().getSessionId();
-      bitField0_ = (bitField0_ & ~0x00000004);
+      bitField0_ = (bitField0_ & ~0x00000008);
       onChanged();
       return this;
     }
     /**
-     * <code>string session_id = 3;</code>
+     * <code>string session_id = 4;</code>
      * @param value The bytes for sessionId to set.
      * @return This builder for chaining.
      */
@@ -743,7 +879,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       sessionId_ = value;
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }

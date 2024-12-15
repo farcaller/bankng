@@ -14,9 +14,10 @@ message FirstFactorRequest {
 }
 
 message FirstFactorReply {
-  string first_name = 1;
-  string pfp_url = 2;
-  string session_id = 3;
+  string full_name = 1;
+  string first_name = 2;
+  string pfp_url = 3;
+  string session_id = 4;
 }
 
 message SecondFactorRequest {

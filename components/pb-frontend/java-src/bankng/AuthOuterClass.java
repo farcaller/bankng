@@ -44,15 +44,16 @@ public final class AuthOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\nauth.proto\022\006bankng\"\'\n\022FirstFactorReque" +
-      "st\022\021\n\tfull_name\030\001 \001(\t\"K\n\020FirstFactorRepl" +
-      "y\022\022\n\nfirst_name\030\001 \001(\t\022\017\n\007pfp_url\030\002 \001(\t\022\022" +
-      "\n\nsession_id\030\003 \001(\t\"7\n\023SecondFactorReques" +
-      "t\022\022\n\nsession_id\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\" \n\021S" +
-      "econdFactorReply\022\013\n\003jwt\030\001 \001(\t2\227\001\n\004Auth\022E" +
-      "\n\013FirstFactor\022\032.bankng.FirstFactorReques" +
-      "t\032\030.bankng.FirstFactorReply\"\000\022H\n\014SecondF" +
-      "actor\022\033.bankng.SecondFactorRequest\032\031.ban" +
-      "kng.SecondFactorReply\"\000B\002P\001b\006proto3"
+      "st\022\021\n\tfull_name\030\001 \001(\t\"^\n\020FirstFactorRepl" +
+      "y\022\021\n\tfull_name\030\001 \001(\t\022\022\n\nfirst_name\030\002 \001(\t" +
+      "\022\017\n\007pfp_url\030\003 \001(\t\022\022\n\nsession_id\030\004 \001(\t\"7\n" +
+      "\023SecondFactorRequest\022\022\n\nsession_id\030\001 \001(\t" +
+      "\022\014\n\004code\030\002 \001(\t\" \n\021SecondFactorReply\022\013\n\003j" +
+      "wt\030\001 \001(\t2\227\001\n\004Auth\022E\n\013FirstFactor\022\032.bankn" +
+      "g.FirstFactorRequest\032\030.bankng.FirstFacto" +
+      "rReply\"\000\022H\n\014SecondFactor\022\033.bankng.Second" +
+      "FactorRequest\032\031.bankng.SecondFactorReply" +
+      "\"\000B\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -69,7 +70,7 @@ public final class AuthOuterClass {
     internal_static_bankng_FirstFactorReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bankng_FirstFactorReply_descriptor,
-        new java.lang.String[] { "FirstName", "PfpUrl", "SessionId", });
+        new java.lang.String[] { "FullName", "FirstName", "PfpUrl", "SessionId", });
     internal_static_bankng_SecondFactorRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_bankng_SecondFactorRequest_fieldAccessorTable = new

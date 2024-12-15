@@ -24,7 +24,8 @@
              char (mu/lookup-character full-name)
              session-id (str (random-uuid))
              reply-pb (map->proto FirstFactorReply
-                                  {:first-name (:first-name char)
+                                  {:full-name (str (:first-name char) " " (:last-name char))
+                                   :first-name (:first-name char)
                                    :pfp-url (:pfp-url char)
                                    :session-id session-id})]
          (co/send-code session-id (:char-id char))

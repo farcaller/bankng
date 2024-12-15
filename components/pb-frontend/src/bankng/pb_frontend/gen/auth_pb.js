@@ -271,9 +271,10 @@ proto.bankng.FirstFactorReply.prototype.toObject = function(opt_includeInstance)
  */
 proto.bankng.FirstFactorReply.toObject = function(includeInstance, msg) {
   var f, obj = {
-    firstName: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    pfpUrl: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    sessionId: jspb.Message.getFieldWithDefault(msg, 3, "")
+    fullName: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    firstName: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    pfpUrl: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    sessionId: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -312,13 +313,17 @@ proto.bankng.FirstFactorReply.deserializeBinaryFromReader = function(msg, reader
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setFirstName(value);
+      msg.setFullName(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setPfpUrl(value);
+      msg.setFirstName(value);
       break;
     case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPfpUrl(value);
+      break;
+    case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setSessionId(value);
       break;
@@ -351,24 +356,31 @@ proto.bankng.FirstFactorReply.prototype.serializeBinary = function() {
  */
 proto.bankng.FirstFactorReply.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getFirstName();
+  f = message.getFullName();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getPfpUrl();
+  f = message.getFirstName();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getSessionId();
+  f = message.getPfpUrl();
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getSessionId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
       f
     );
   }
@@ -376,10 +388,10 @@ proto.bankng.FirstFactorReply.serializeBinaryToWriter = function(message, writer
 
 
 /**
- * optional string first_name = 1;
+ * optional string full_name = 1;
  * @return {string}
  */
-proto.bankng.FirstFactorReply.prototype.getFirstName = function() {
+proto.bankng.FirstFactorReply.prototype.getFullName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -388,16 +400,16 @@ proto.bankng.FirstFactorReply.prototype.getFirstName = function() {
  * @param {string} value
  * @return {!proto.bankng.FirstFactorReply} returns this
  */
-proto.bankng.FirstFactorReply.prototype.setFirstName = function(value) {
+proto.bankng.FirstFactorReply.prototype.setFullName = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string pfp_url = 2;
+ * optional string first_name = 2;
  * @return {string}
  */
-proto.bankng.FirstFactorReply.prototype.getPfpUrl = function() {
+proto.bankng.FirstFactorReply.prototype.getFirstName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -406,16 +418,16 @@ proto.bankng.FirstFactorReply.prototype.getPfpUrl = function() {
  * @param {string} value
  * @return {!proto.bankng.FirstFactorReply} returns this
  */
-proto.bankng.FirstFactorReply.prototype.setPfpUrl = function(value) {
+proto.bankng.FirstFactorReply.prototype.setFirstName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string session_id = 3;
+ * optional string pfp_url = 3;
  * @return {string}
  */
-proto.bankng.FirstFactorReply.prototype.getSessionId = function() {
+proto.bankng.FirstFactorReply.prototype.getPfpUrl = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
@@ -424,8 +436,26 @@ proto.bankng.FirstFactorReply.prototype.getSessionId = function() {
  * @param {string} value
  * @return {!proto.bankng.FirstFactorReply} returns this
  */
-proto.bankng.FirstFactorReply.prototype.setSessionId = function(value) {
+proto.bankng.FirstFactorReply.prototype.setPfpUrl = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional string session_id = 4;
+ * @return {string}
+ */
+proto.bankng.FirstFactorReply.prototype.getSessionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.bankng.FirstFactorReply} returns this
+ */
+proto.bankng.FirstFactorReply.prototype.setSessionId = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
