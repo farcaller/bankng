@@ -86,6 +86,7 @@
    {:db (-> db
             (db->loading-complete)
             (assoc-in [:login :jwt] jwt))
+    :set-local-storage {:key "full-name" :value (-> db :login :full-name)}
     :push-route :home}))
 
 (defn grpc-effect
@@ -95,6 +96,12 @@
       (p/catch* #(rf/dispatch [on-error %]))))
 
 (rf/reg-fx :grpc grpc-effect)
+
+(defn local-storage-effect
+  [{:keys [key value]}]
+  (.setItem (.-localStorage js/window) key value))
+
+(rf/reg-fx :set-local-storage local-storage-effect)
 
 (comment
   StatusCode.INVALID_ARGUMENT

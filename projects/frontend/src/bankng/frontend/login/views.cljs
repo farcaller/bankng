@@ -35,7 +35,8 @@
 (defn login-name
   []
   (let [!input-name (atom nil)
-        send-code #(rf/dispatch [:login/send-otp-code (-> @!input-name .-value)])]
+        send-code #(rf/dispatch [:login/send-otp-code (-> @!input-name .-value)])
+        last-used-name (.getItem (.-localStorage js/window) "full-name")]
     (fn []
       (let [loading? @(rf/subscribe [:login/loading?])
             error @(rf/subscribe [:login/error])]
@@ -57,6 +58,7 @@
                     :ref #(reset! !input-name %)
                     :id :username
                     :disabled loading?
+                    :default-value (or last-used-name "")
                     :on-key-press #(when (= "Enter" (.-key %)) (send-code))}]
            [:div
             {:class "label"}
