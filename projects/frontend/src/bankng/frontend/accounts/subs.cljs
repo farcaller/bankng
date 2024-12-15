@@ -28,3 +28,8 @@
  :accounts/count
  (fn [db _]
    (count (-> db :accounts :accounts))))
+
+(rf/reg-sub
+ :accounts/accounts
+ (fn [db _]
+   (-> db :accounts :accounts)))

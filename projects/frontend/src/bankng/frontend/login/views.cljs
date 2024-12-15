@@ -1,6 +1,5 @@
 (ns bankng.frontend.login.views
   (:require
-   [bankng.frontend.common.views :refer [chrome]]
    [re-frame.core :as rf]
    [reagent.core :as r]))
 
@@ -161,11 +160,3 @@
               :on-click #(do (.preventDefault %)
                              (on-submit @input-values))}
              (when loading? [:span.loading.loading-spinner.loading-sm]) "Verify Account"]]]]]))))
-
-(defn login-page
-  []
-  [chrome login-name])
-
-(defn login-otp-page
-  []
-  [chrome login-otp])

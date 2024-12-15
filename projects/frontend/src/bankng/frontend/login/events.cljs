@@ -55,9 +55,10 @@
 
 (rf/reg-event-fx
  :login/otp-finalise-success
- (fn [{db :db} [_ {:keys [firstName pfpUrl sessionId]}]]
+ (fn [{db :db} [_ {:keys [fullName firstName pfpUrl sessionId]}]]
    {:db (-> db
             (db->loading-complete)
+            (assoc-in [:login :full-name] fullName)
             (assoc-in [:login :first-name] firstName)
             (assoc-in [:login :pfp-url] pfpUrl)
             (assoc-in [:login :session-id] sessionId))

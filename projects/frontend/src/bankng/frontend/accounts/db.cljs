@@ -5,4 +5,6 @@
    :error nil
    
    :current-account-idx 0
-   :accounts nil})
+   :accounts nil
+   
+   :account-details-iban nil})

@@ -1,17 +1,31 @@
 (ns bankng.frontend.routes.events
-  (:require [re-frame.core :as rf]
-            [reitit.frontend.easy :as rfe]
-            [bankng.frontend.accounts.events :as accounts]))
+  (:require [bankng.frontend.accounts.events :as accounts]
+            [re-frame.core :as rf]
+            [reitit.frontend.easy :as rfe]))
 
-(rf/reg-event-fx
+(def verify-auth
+  (re-frame.core/->interceptor
+   :id :verify-auth
+   :after
+   (fn [context]
+     (let [db (-> context :effects :db)
+                   route-match (:current-route db)
+                   auth (-> route-match :data :auth)]
+               (if-let [new-ctx (condp = auth
+                                  :required (when (nil? (-> db :login :jwt))
+                                              (assoc-in context [:effects :push-route] :login))
+                                  :required-login (when (nil? (-> db :login :full-name))
+                                                    (println "redirecting to login, no name" (:login db))
+                                                    (assoc-in context [:effects :push-route] :login))
+                                  nil)]
+                 new-ctx
+                 context)))))
+
+(rf/reg-event-db
  :routes/set-active-route
- (fn [{db :db} [_ match]]
-   (let [db-fx {:db (assoc db :current-route match)}
-         route-fx (condp = (-> match :data :name)
-                    :home (accounts/on-routed db)
-                    :login-2fa (when (nil? (-> db :login :full-name)) {:push-route :login})
-                    nil)]
-     (merge db-fx route-fx))))
+ [verify-auth accounts/fetch-accounts]
+ (fn [db [_ match]]
+   (assoc db :current-route match)))
 
 (rf/reg-event-fx
  :routes/push-route
@@ -19,4 +33,3 @@
    {:push-route name}))
 
 (rf/reg-fx :push-route rfe/push-state)
-
