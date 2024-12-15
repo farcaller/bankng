@@ -15,7 +15,7 @@
           :external-config {:guardrails {}
                             :devtools/config {:features-to-install [:formatters :hints]}}
           :closure-defines
-          {bankng.pb-frontend.client.GRPC_API_FRONTEND "http://localhost:50052"
+          {bankng.pb-frontend.client.GRPC_API_FRONTEND "/"
            re-frame.trace.trace-enabled? true
            day8.re-frame.tracing.trace-enabled? true}}}}
 

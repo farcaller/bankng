@@ -19,7 +19,7 @@ static_resources:
               domains: ["*"]
               routes:
               - match:
-                  prefix: "/"
+                  prefix: "/bankng."
                 route:
                   cluster: grpc_backend
                 typed_per_filter_config:
@@ -32,6 +32,10 @@ static_resources:
                     expose_headers: "*"
                     max_age: "86400"
                     allow_credentials: true
+              - match:
+                  prefix: "/"
+                route:
+                  cluster: shadowcljs_backend
           http_filters:
           - name: envoy.filters.http.cors
             typed_config:
@@ -119,6 +123,19 @@ static_resources:
               socket_address:
                 address: 127.0.0.1
                 port_value: 16686
+  - name: shadowcljs_backend
+    connect_timeout: 0.25s
+    type: STATIC
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: jaeger_backend
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: 127.0.0.1
+                port_value: 8020
 
 admin:
   access_log_path: "/tmp/admin_access.log"
