@@ -14,6 +14,9 @@
 (defn dev-setup []
   (when goog.DEBUG
     (enable-console-print!)
+    (try
+      (day8.re-frame-10x/show-panel! false)
+      (catch js/Error _))
     (println "dev mode")))
 
 (defonce react-root
