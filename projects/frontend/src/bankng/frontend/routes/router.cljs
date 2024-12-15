@@ -33,7 +33,7 @@
    {:use-fragment false}))
 
 (defn router-component []
-  (let [current-route @(rf/subscribe [:routes/current-route])]
+  (when-let [current-route @(rf/subscribe [:routes/current-route])]
     [chrome (-> current-route :data :view)]))
 
 (comment
