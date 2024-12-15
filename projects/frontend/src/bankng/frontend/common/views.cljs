@@ -6,8 +6,8 @@
   (let [pfp-url @(rf/subscribe [:login/pfp-url])
         hide-pfp @(rf/subscribe [:routes/hide-pfp-menu])
         back-route @(rf/subscribe [:routes/back-route])]
-    [:<>
-     [:nav.navbar.rounded-box.justify-between.bg-dark-2
+    [:div {:class "sticky top-0 z-[1] w-full"}
+     [:nav.navbar.rounded-box.justify-between.bg-dark-2 {:class "shadow"}
       [:div.navbar-start
        [:div.dropdown.relative.inline-flex {:class ["[--auto-close:inside]"
                                                     "[--offset:9]"]}
@@ -30,7 +30,7 @@
            [:div.avatar
             [:div.rounded-full {:class ["size-9.5"]}
              [:img {:src pfp-url}]]]]])]]
-     [:hr {:class "w-[90%] mx-auto border-active border-t-2 mb-4"}]]))
+     [:hr {:class "w-[90%] mx-auto border-active border-t-2"}]]))
 
 (defn footer
   []
@@ -39,8 +39,8 @@
 
 (defn chrome
   [child]
-  [:div {:class "flex justify-center items-center min-h-screen bg-dark-1"}
-   [:div {:class "flex flex-col w-full max-w-xs mx-auto p-4 shadow-lg min-h-[90vh] h-auto bg-dark-2"}
-    [header]
-    [child]
-    [footer]]])
+  [:div {:class "relative flex flex-col w-full max-w-xs mx-auto p-4 shadow-lg h-screen bg-dark-2 safe-top safe-left safe-right safe-bottom disable-scrollbars"}
+   [header]
+   [:div {:class "flex-1 overflow-y-auto disable-scrollbars pt-2"}
+    [child]]
+   [footer]])

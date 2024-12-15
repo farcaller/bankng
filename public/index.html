@@ -5,9 +5,10 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#161926">  
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#1d2233">  
 
 
     <link rel="stylesheet" href="/css/main.css">
@@ -16,8 +17,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   </head>
-  <body>
-    <div id="app"></div>
+  <body class="bg-dark-2 md:bg-dark-1">
+    <div id="app" class="relative"></div>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <script src="/js/main.js"></script>
   </body>
