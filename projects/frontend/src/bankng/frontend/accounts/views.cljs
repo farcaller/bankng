@@ -75,8 +75,10 @@
         error @(rf/subscribe [:accounts/error])
         current-account @(rf/subscribe [:accounts/current-account])
         current-account-idx @(rf/subscribe [:accounts/current-account-idx])
-        accounts-count @(rf/subscribe [:accounts/count])]
-    [:div {:class "flex flex-col"}
+        accounts-count @(rf/subscribe [:accounts/count])
+        previous-route-back (-> @(rf/subscribe [:routes/previous-route]) :data :back)]
+    [:div {:class ["flex flex-col"
+                   (when (= previous-route-back :home) "animate-slideInLeft")]}
      (if loading?
        [:div {:class "flex items-center justify-center h-40"}
         [:span.loading.loading-spinner.loading-lg]]
@@ -151,7 +153,7 @@
 (defn account-details []
   (let [current-account @(rf/subscribe [:accounts/current-account])
         full-name @(rf/subscribe [:login/full-name])]
-    [:div {:class "flex flex-col"}
+    [:div {:class "flex flex-col animate-slideInRight"}
      [:h5.card-title {:class ["mb-2.5 text-center"]}
       "For Dracones transfers only"]
      [:div.card {:class "bg-dark-3"}

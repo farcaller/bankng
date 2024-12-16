@@ -25,7 +25,9 @@
  :routes/set-active-route
  [verify-auth accounts/fetch-accounts]
  (fn [db [_ match]]
-   (assoc db :current-route match)))
+   (-> db
+    (assoc :previous-route (:current-route db))
+    (assoc :current-route match))))
 
 (rf/reg-event-fx
  :routes/push-route

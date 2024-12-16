@@ -14,6 +14,11 @@
      (rfe/href back-route-id))))
 
 (rf/reg-sub
+ :routes/previous-route
+ (fn [db _]
+   (:previous-route db)))
+
+(rf/reg-sub
  :routes/hide-pfp-menu
  (fn [db _]
    (-> db :current-route :data :hide-pfp)))
