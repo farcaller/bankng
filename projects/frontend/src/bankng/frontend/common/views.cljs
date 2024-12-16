@@ -6,8 +6,8 @@
   (let [pfp-url @(rf/subscribe [:login/pfp-url])
         hide-pfp @(rf/subscribe [:routes/hide-pfp-menu])
         back-route @(rf/subscribe [:routes/back-route])]
-    [:div {:class "sticky top-0 z-[1] w-full"}
-     [:nav.navbar.rounded-box.justify-between.bg-dark-2 {:class "shadow"}
+    [:div {:class "sticky top-0 z-[1] w-full overscroll-none"}
+     [:nav.navbar.rounded-box.justify-between.bg-dark-2 {:class "shadow max-sm:pt-0"}
       [:div.navbar-start
        [:div.dropdown.relative.inline-flex {:class ["[--auto-close:inside]"
                                                     "[--offset:9]"]}
@@ -39,8 +39,10 @@
 
 (defn chrome
   [child]
-  [:div {:class "relative flex flex-col w-full max-w-xs mx-auto p-4 shadow-lg h-screen bg-dark-2 safe-top safe-left safe-right safe-bottom disable-scrollbars"}
+  [:div {:class "relative flex flex-col w-full max-w-xs mx-auto p-4 shadow-lg h-screen bg-dark-2 safe-top safe-left safe-right safe-bottom overflow-hidden overscroll-none"}
+   [:div {:class "max-sm:hidden w-full h-2 bg-dark-1"}]
    [header]
-   [:div {:class "flex-1 overflow-y-auto disable-scrollbars pt-2"}
+   [:div {:class "flex-1 overflow-y-auto p-2 overscroll-contain disable-scrollbars"}
     [child]]
-   [footer]])
+   [footer]
+   [:div {:class "max-sm:hidden w-full h-2 bg-dark-1"}]])

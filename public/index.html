@@ -4,7 +4,7 @@
     <title>Dracones Financial Services</title>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, user-scalable=no, width=device-width, height=device-height, viewport-fit=cover">
     <meta name="web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="/manifest.json" />
@@ -17,9 +17,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-dark-2 md:bg-dark-1">
-    <div id="app" class="relative"></div>
+  <body class="bg-dark-2 md:bg-dark-1 overscroll-none">
+    <div id="app" class="relative overflow-hidden touch-none overscroll-none"></div>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <script src="/js/main.js"></script>
+    <script src="/js/inobounce.min.js"></script>
   </body>
 </html>

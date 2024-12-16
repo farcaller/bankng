@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const plugin = require('tailwindcss/plugin')
 
 // in prod look at shadow-cljs output file in dev look at runtime, which will
 // change files that are actually compiled; postcss watch should be a whole
@@ -37,6 +38,28 @@ module.exports = {
   plugins: [
     require("flyonui"),
     require("flyonui/plugin"),
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        '.safe-top': {
+          paddingTop: 'constant(safe-area-inset-top)',
+          paddingTop: 'env(safe-area-inset-top)'
+        },
+        '.safe-left': {
+          paddingLeft: 'constant(safe-area-inset-left)',
+          paddingLeft: 'env(safe-area-inset-left)'
+        },
+        '.safe-right': {
+          paddingRight: 'constant(safe-area-inset-right)',
+          paddingRight: 'env(safe-area-inset-right)'
+        },
+        '.safe-bottom': {
+          paddingBottom: 'constant(safe-area-inset-bottom)',
+          paddingBottom: 'env(safe-area-inset-bottom)'
+        }
+      }
+
+      addUtilities(newUtilities);
+    })
   ],
   flyonui: {
     themes: [{
