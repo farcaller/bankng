@@ -15,6 +15,7 @@
   (when goog.DEBUG
     (enable-console-print!)
     (try
+      #_{:clj-kondo/ignore [:unresolved-namespace]}
       (day8.re-frame-10x/show-panel! false)
       (catch js/Error _))
     (println "dev mode")))
