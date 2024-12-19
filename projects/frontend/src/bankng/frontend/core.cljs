@@ -9,7 +9,9 @@
             [bankng.frontend.accounts.events]
             [bankng.frontend.accounts.subs]
             [bankng.frontend.routes.events]
-            [bankng.frontend.routes.subs]))
+            [bankng.frontend.routes.subs]
+            [bankng.frontend.transfers.events]
+            [bankng.frontend.transfers.subs]))
 
 (defn dev-setup []
   (when goog.DEBUG

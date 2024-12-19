@@ -32,6 +32,10 @@ module.exports = {
         'dark-3': '#252a40',
         'dark-4': '#303753',
         'active': '#c1a657',
+        'b1': 'var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity, 1)))',
+        'bc': 'var(--fallback-bc,oklch(var(--bc)/0.4))',
+        'bc-hover': 'var(--fallback-bc,oklch(var(--bc)/0.6))',
+        'bc-text': 'var(--fallback-bc,oklch(var(--bc)/0.8))',
       },
       keyframes: {
         slideInRight: {

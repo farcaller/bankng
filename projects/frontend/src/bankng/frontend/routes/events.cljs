@@ -1,5 +1,6 @@
 (ns bankng.frontend.routes.events
   (:require [bankng.frontend.accounts.events :as accounts]
+            [bankng.frontend.transfers.events :as transfers]
             [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]))
 
@@ -23,7 +24,7 @@
 
 (rf/reg-event-db
  :routes/set-active-route
- [verify-auth accounts/fetch-accounts]
+ [verify-auth accounts/fetch-accounts transfers/reset-source-account]
  (fn [db [_ match]]
    (-> db
     (assoc :previous-route (:current-route db))

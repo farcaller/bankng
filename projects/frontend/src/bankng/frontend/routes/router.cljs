@@ -4,6 +4,7 @@
             [reitit.frontend :as reitit]
             [bankng.frontend.login.views :as login]
             [bankng.frontend.accounts.views :as accounts]
+            [bankng.frontend.transfers.views :as transfers]
             [bankng.frontend.common.views :refer [chrome]]))
 
 (def routes
@@ -21,6 +22,12 @@
      :view #'accounts/account-details
      :auth :required
      :back :home}]
+   ["/send"
+    {:name :send
+     :view #'transfers/create-transfer
+     :auth :required
+     :back :home}]
+   
    ["/login"
     {:name :login
      :view #'login/login-name}]

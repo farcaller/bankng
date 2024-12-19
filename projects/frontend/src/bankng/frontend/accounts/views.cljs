@@ -41,9 +41,10 @@
                         "btn btn-lg btn-soft btn-primary"
                         "btn btn-lg btn-soft btn-primary btn-disabled")]
     [:div {:class "flex flex-row justify-center gap-4 pt-10 w-full"}
-     [:button {:class button-styles}
-      [:span {:class ["icon-[tabler--credit-card-pay] size-6"]}] "Send"]
-     [:a {:href (str "/accounts/" (:iban current-account))}
+     [:a {:href (rfe/href :send)}
+      [:button {:class button-styles}
+       [:span {:class ["icon-[tabler--credit-card-pay] size-6"]}] "Send"]]
+     [:a {:href (rfe/href :account-info {:account-id (:iban current-account)})}
       [:button {:class button-styles}
        [:span {:class ["icon-[tabler--building-bank] size-6"]}] "Info"]]
      [:button {:class button-styles}
