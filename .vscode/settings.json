@@ -22,5 +22,17 @@
             "projectRootPath": ["."],
             "afterCLJReplJackInCode": "(do (set! *warn-on-reflection* true) (require '[dev.repl]) (dev.repl/setup!))",
         }
+    ],
+    "cSpell.words": [
+        "bankng",
+        "defn",
+        "defstate",
+        "Dracones",
+        "iban",
+        "juxt",
+        "Rasahari",
+        "reitit",
+        "tabler",
+        "xtdb"
     ]
 }
