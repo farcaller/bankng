@@ -11,6 +11,11 @@
     {:name :home
      :view #'accounts/account-card
      :auth :required}]
+   ["/accounts"
+    {:name :accounts-list
+     :view #'accounts/accounts-list
+     :auth :required
+     :back :home}]
    ["/accounts/:account-id"
     {:name :account-info
      :view #'accounts/account-details

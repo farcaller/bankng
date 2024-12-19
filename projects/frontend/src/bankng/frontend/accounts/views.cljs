@@ -1,5 +1,6 @@
 (ns bankng.frontend.accounts.views
-  (:require [re-frame.core :as rf]))
+  (:require [re-frame.core :as rf]
+            [reitit.frontend.easy :as rfe]))
 
 (defn transaction [pfp-url name date amount]
   [:div.card {:class ["bg-dark-3 h-20"]}
@@ -27,35 +28,13 @@
       {:class (if (= i selected-idx) "bg-active" "bg-gray-400")
        :on-click #(rf/dispatch [:accounts/set-active-account-idx i])}])])
 
-(defn account-info [iban name currency currency-token balance]
-  (let [accounts @(rf/subscribe [:accounts/accounts])]
-    [:div {:class "text-center pt-20 pb-20"}
-     [:div {:class "flex items-center justify-center space-x-2"}
-      [:span {:class "text-gray-300 font-medium"} (str name " · " currency)]]
-     [:div {:class "mt-2 text-4xl font-bold text-active"} (str currency-token " " balance)]
-     #_[:button {:class "btn mt-6 btn-lg btn-primary btn-soft rounded-full"} "Accounts"] 
-     [:div.dropdown.relative.inline-flex
-      {:class ["[--placement:bottom] max-sm:[--placement:bottom-start]"]}
-      [:button#dropdown-bottom.dropdown-toggle
-       {:type "button"
-        :class "btn mt-6 btn-lg btn-primary btn-soft rounded-full"}
-       "Accounts"
-       [:span.size-4 {:class ["icon-[tabler--chevron-down]"
-                              "dropdown-open:rotate-180"]}]]
-      [:ul.dropdown-menu.hidden.min-w-60
-       {:role "menu"
-        :aria-orientation "vertical"
-        :aria-labelledby "dropdown-bottom"
-        :class ["dropdown-open:opacity-100 bg-dark-3"]}
-       (doall (map-indexed (fn [idx acc]
-                             ^{:key (:iban acc)}
-                             [:li
-                              [:a.dropdown-item
-                               {:class [(when (= iban (:iban acc)) "active")]
-                                :on-click #(rf/dispatch [:accounts/set-active-account-idx idx])}
-                               (:name acc)]])
-                           accounts))]]
-     ]))
+(defn account-info [name currency currency-token balance]
+  [:div {:class "text-center pt-20 pb-20"}
+   [:div {:class "flex items-center justify-center space-x-2"}
+    [:span {:class "text-gray-300 font-medium"} (str name " · " currency)]]
+   [:div {:class "mt-2 text-4xl font-bold text-active"} (str currency-token " " balance)]
+   [:a {:href (rfe/href :accounts-list)}
+    [:button {:class "btn mt-6 btn-lg btn-primary btn-soft rounded-full"} "Accounts"]]])
 
 (defn toolbar [current-account]
   (let [button-styles (if current-account
@@ -84,7 +63,6 @@
         [:span.loading.loading-spinner.loading-lg]]
        [:<>
         [account-info
-         (:iban current-account)
          (:name current-account)
          (:currency current-account)
          (:currencyCode current-account)
@@ -106,36 +84,23 @@
         [transaction]]]))
 
 (defn accounts-list []
-  (let [loading? @(rf/subscribe [:accounts/loading?])
-        error @(rf/subscribe [:accounts/error])
-        current-account @(rf/subscribe [:accounts/current-account])
-        current-account-idx @(rf/subscribe [:accounts/current-account-idx])
-        accounts-count @(rf/subscribe [:accounts/count])]
-    [:div {:class "flex flex-col"}
-     (if loading?
-       [:div {:class "flex items-center justify-center h-40"}
-        [:span.loading.loading-spinner.loading-lg]]
-       [:<>
-        [account-info
-         (:name current-account)
-         (:currency current-account)
-         (:currencyCode current-account)
-         (:balance current-account)]
-        [pagination accounts-count current-account-idx]])
-     [toolbar (some? current-account)]
-
-     #_[:div#transactions {:class "flex flex-col gap-2 cursor-default pt-10"}
-        [transaction
-         "https://api.dicebear.com/7.x/pixel-art/png?seed=wolf"
-         "Anonymous Wolf"
-         "22 December 2022, 09:21"
-         "-1234.32"]
-        [transaction
-         "https://api.dicebear.com/7.x/pixel-art/png?seed=boar"
-         "Anonymous Boar"
-         "22 December 2022, 09:20"
-         "-9999.69"]
-        [transaction]]]))
+  (let [accounts @(rf/subscribe [:accounts/accounts])
+        on-click #(do
+                    (rf/dispatch [:accounts/set-active-account-idx %])
+                    (rfe/push-state :home))] 
+    [:div {:class "flex flex-col gap-2 cursor-default pt-10"}
+     (for [[idx acc] (map-indexed vector accounts)]
+       ^{:key (:iban acc)}
+       [:div.card {:class ["bg-dark-3 h-20"]
+                   :on-click #(on-click idx)}
+        [:div.card-body {:class ["flex flex-row items-center p-4"]}
+         [:div.avatar.placeholder
+          [:div.bg-dark-4.text-neutral-content.w-12.rounded-full
+           [:span.text-4xl.uppercase (:currency-code acc)]]]
+         [:div.grow {:class "px-4 flex flex-col justify-between w-full truncate"}
+          [:span {:class "font-bold text-1xl w-full truncate"} (:name acc)]]
+         [:div.text-right {:class "pr-1"}
+          [:span {:class "font-bold text-2xl text-active"} (:balance acc)]]]])]))
 
 (defn detail-entry [name value]
   [:div
