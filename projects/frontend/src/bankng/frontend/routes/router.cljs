@@ -9,19 +9,19 @@
 (def routes
   [["/"
     {:name :home
-     :view accounts/account-card
+     :view #'accounts/account-card
      :auth :required}]
    ["/accounts/:account-id"
     {:name :account-info
-     :view accounts/account-details
+     :view #'accounts/account-details
      :auth :required
      :back :home}]
    ["/login"
     {:name :login
-     :view login/login-name}]
+     :view #'login/login-name}]
    ["/login-2fa"
     {:name :login-2fa
-     :view login/login-otp
+     :view #'login/login-otp
      :auth :required-login
      :hide-pfp true}]])
 
@@ -34,7 +34,7 @@
 
 (defn router-component []
   (when-let [current-route @(rf/subscribe [:routes/current-route])]
-    [chrome (-> current-route :data :view)]))
+    [chrome @(-> current-route :data :view)]))
 
 (comment
   (start-router!)
