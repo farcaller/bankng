@@ -14,7 +14,7 @@
     (str (+ (int char) char-offset))))
 
 (defn calculate-checksum
-  [numeric-representation]
+  [^String numeric-representation]
   (mod (BigInteger. numeric-representation) 97))
 
 (defn iban-checksum

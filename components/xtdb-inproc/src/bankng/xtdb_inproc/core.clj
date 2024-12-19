@@ -1,5 +1,6 @@
 (ns bankng.xtdb-inproc.core
-  (:require [xtdb.api :as xt]))
+  (:require [xtdb.api :as xt])
+  (:import [xtdb.node XtdbNode]))
 
 (defn start-xtdb! []
   (xt/start-node {}))
@@ -7,5 +8,5 @@
 (defn start []
   (start-xtdb!))
 
-(defn stop [conn]
+(defn stop [^XtdbNode conn]
   (.close conn))
