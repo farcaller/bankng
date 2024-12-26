@@ -1,6 +1,6 @@
 {:paths ["src" "resources" "target/classes"]
- :deps {io.grpc/grpc-protobuf {:mvn/version "1.68.2"}
-        io.grpc/grpc-services {:mvn/version "1.68.2"}
+ :deps {io.grpc/grpc-protobuf {:mvn/version "1.69.0"}
+        io.grpc/grpc-services {:mvn/version "1.69.0"}
         manifold/manifold {:mvn/version "0.4.3"}
         mount/mount {:mvn/version "0.1.20"}}
  :aliases {:test {:extra-paths ["test"]

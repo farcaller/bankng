@@ -1,5 +1,5 @@
 {:paths ["src" "resources"]
- :deps {io.grpc/grpc-netty-shaded {:mvn/version "1.68.2"}
+ :deps {io.grpc/grpc-netty-shaded {:mvn/version "1.69.0"}
         mount/mount {:mvn/version "0.1.20"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}

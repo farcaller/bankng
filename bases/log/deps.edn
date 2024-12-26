@@ -1,4 +1,4 @@
 {:paths ["src"]
  :deps {mount/mount {:mvn/version "0.1.20"}
-        com.taoensso/telemere {:mvn/version "1.0.0-RC1"}
+        com.taoensso/telemere {:mvn/version "1.0.0-RC2"}
         io.opentelemetry/opentelemetry-api {:mvn/version "1.45.0"}}}

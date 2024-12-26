@@ -1,4 +1,4 @@
 {:paths ["src" "resources"]
- :deps {io.grpc/grpc-core {:mvn/version "1.68.2"}}
+ :deps {io.grpc/grpc-core {:mvn/version "1.69.0"}}
  :aliases {:test {:extra-paths ["test"]
-                  :extra-deps {io.grpc/grpc-inprocess {:mvn/version "1.68.2"}}}}}
+                  :extra-deps {io.grpc/grpc-inprocess {:mvn/version "1.69.0"}}}}}
