@@ -1,4 +1,5 @@
-(ns user)
+(ns user
+  (:require [playback.preload]))
 
 (set! *warn-on-reflection* true)
 
