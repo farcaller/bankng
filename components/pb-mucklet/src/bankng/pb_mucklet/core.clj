@@ -36,10 +36,6 @@
         resp (.lookupCharacter stub req)]
     (proto->map resp)))
 
-(comment
-  (lookup-character :char-id "cajd55e9gbrqf703lcvg")
-  :rcf)
-
 (defn send-message
   [char-id msg]
   (->
