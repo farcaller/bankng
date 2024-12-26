@@ -5,7 +5,7 @@
   (:import [io.grpc ServerInterceptor ServerCall ServerCallHandler Metadata Metadata$Key
             Context Contexts ServerCall$Listener Status Context$Key]
            [io.grpc.protobuf ProtoMethodDescriptorSupplier]
-           [bankng AccountsOuterClass]))
+           [bankng Bankng]))
 
 (defonce authorization-key (Metadata$Key/of "authorization" Metadata/ASCII_STRING_MARSHALLER))
 
@@ -29,7 +29,7 @@
                                  ^ProtoMethodDescriptorSupplier identity
                                  .getMethodDescriptor
                                  .getOptions
-                                 (.getExtension AccountsOuterClass/requiresAuth))]
+                                 (.getExtension Bankng/requiresAuth))]
           (if requires-auth?
             (let [authorization (.get metadata authorization-key)
                   _ (when-not authorization (throw-status! Status/UNAUTHENTICATED "missing authorization header"))
@@ -57,5 +57,5 @@
    .getSchemaDescriptor
    .getMethodDescriptor
    .getOptions
-   (.getExtension AccountsOuterClass/requiresAuth))
+   (.getExtension Bankng/requiresAuth))
   :rcf)

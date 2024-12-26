@@ -1,4 +1,4 @@
-// source: accounts.proto
+// source: bankng.proto
 /**
  * @fileoverview
  * @enhanceable

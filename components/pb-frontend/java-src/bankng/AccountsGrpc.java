@@ -5,8 +5,8 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.68.2)",
-    comments = "Source: accounts.proto")
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: bankng.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class AccountsGrpc {
 
@@ -317,7 +317,7 @@ public final class AccountsGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return bankng.AccountsOuterClass.getDescriptor();
+      return bankng.Bankng.getDescriptor();
     }
 
     @java.lang.Override

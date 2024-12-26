@@ -8,7 +8,7 @@
 // versions:
 // 	protoc-gen-grpc-web v1.5.0
 // 	protoc              v4.24.4
-// source: accounts.proto
+// source: bankng.proto
 
 
 /* eslint-disable */
@@ -24,7 +24,7 @@ var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/time
 
 var google_protobuf_descriptor_pb = require('google-protobuf/google/protobuf/descriptor_pb.js')
 const proto = {};
-proto.bankng = require('./accounts_pb.js');
+proto.bankng = require('./bankng_pb.js');
 
 /**
  * @param {string} hostname
