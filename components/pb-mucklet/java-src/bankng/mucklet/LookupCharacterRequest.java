@@ -16,7 +16,6 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private LookupCharacterRequest() {
-    fullName_ = "";
   }
 
   @java.lang.Override
@@ -39,23 +38,74 @@ private static final long serialVersionUID = 0L;
             bankng.mucklet.LookupCharacterRequest.class, bankng.mucklet.LookupCharacterRequest.Builder.class);
   }
 
-  public static final int FULL_NAME_FIELD_NUMBER = 1;
+  private int byCase_ = 0;
   @SuppressWarnings("serial")
-  private volatile java.lang.Object fullName_ = "";
+  private java.lang.Object by_;
+  public enum ByCase
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
+    FULL_NAME(1),
+    CHAR_ID(2),
+    BY_NOT_SET(0);
+    private final int value;
+    private ByCase(int value) {
+      this.value = value;
+    }
+    /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static ByCase valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static ByCase forNumber(int value) {
+      switch (value) {
+        case 1: return FULL_NAME;
+        case 2: return CHAR_ID;
+        case 0: return BY_NOT_SET;
+        default: return null;
+      }
+    }
+    public int getNumber() {
+      return this.value;
+    }
+  };
+
+  public ByCase
+  getByCase() {
+    return ByCase.forNumber(
+        byCase_);
+  }
+
+  public static final int FULL_NAME_FIELD_NUMBER = 1;
+  /**
+   * <code>string full_name = 1;</code>
+   * @return Whether the fullName field is set.
+   */
+  public boolean hasFullName() {
+    return byCase_ == 1;
+  }
   /**
    * <code>string full_name = 1;</code>
    * @return The fullName.
    */
-  @java.lang.Override
   public java.lang.String getFullName() {
-    java.lang.Object ref = fullName_;
+    java.lang.Object ref = "";
+    if (byCase_ == 1) {
+      ref = by_;
+    }
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      fullName_ = s;
+      if (byCase_ == 1) {
+        by_ = s;
+      }
       return s;
     }
   }
@@ -63,15 +113,71 @@ private static final long serialVersionUID = 0L;
    * <code>string full_name = 1;</code>
    * @return The bytes for fullName.
    */
-  @java.lang.Override
   public com.google.protobuf.ByteString
       getFullNameBytes() {
-    java.lang.Object ref = fullName_;
+    java.lang.Object ref = "";
+    if (byCase_ == 1) {
+      ref = by_;
+    }
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      fullName_ = b;
+      if (byCase_ == 1) {
+        by_ = b;
+      }
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int CHAR_ID_FIELD_NUMBER = 2;
+  /**
+   * <code>string char_id = 2;</code>
+   * @return Whether the charId field is set.
+   */
+  public boolean hasCharId() {
+    return byCase_ == 2;
+  }
+  /**
+   * <code>string char_id = 2;</code>
+   * @return The charId.
+   */
+  public java.lang.String getCharId() {
+    java.lang.Object ref = "";
+    if (byCase_ == 2) {
+      ref = by_;
+    }
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (byCase_ == 2) {
+        by_ = s;
+      }
+      return s;
+    }
+  }
+  /**
+   * <code>string char_id = 2;</code>
+   * @return The bytes for charId.
+   */
+  public com.google.protobuf.ByteString
+      getCharIdBytes() {
+    java.lang.Object ref = "";
+    if (byCase_ == 2) {
+      ref = by_;
+    }
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      if (byCase_ == 2) {
+        by_ = b;
+      }
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -92,8 +198,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fullName_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, fullName_);
+    if (byCase_ == 1) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, by_);
+    }
+    if (byCase_ == 2) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, by_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -104,8 +213,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fullName_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, fullName_);
+    if (byCase_ == 1) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, by_);
+    }
+    if (byCase_ == 2) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, by_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -122,8 +234,19 @@ private static final long serialVersionUID = 0L;
     }
     bankng.mucklet.LookupCharacterRequest other = (bankng.mucklet.LookupCharacterRequest) obj;
 
-    if (!getFullName()
-        .equals(other.getFullName())) return false;
+    if (!getByCase().equals(other.getByCase())) return false;
+    switch (byCase_) {
+      case 1:
+        if (!getFullName()
+            .equals(other.getFullName())) return false;
+        break;
+      case 2:
+        if (!getCharId()
+            .equals(other.getCharId())) return false;
+        break;
+      case 0:
+      default:
+    }
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -135,8 +258,18 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + FULL_NAME_FIELD_NUMBER;
-    hash = (53 * hash) + getFullName().hashCode();
+    switch (byCase_) {
+      case 1:
+        hash = (37 * hash) + FULL_NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getFullName().hashCode();
+        break;
+      case 2:
+        hash = (37 * hash) + CHAR_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getCharId().hashCode();
+        break;
+      case 0:
+      default:
+    }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -268,7 +401,8 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
-      fullName_ = "";
+      byCase_ = 0;
+      by_ = null;
       return this;
     }
 
@@ -296,15 +430,18 @@ private static final long serialVersionUID = 0L;
     public bankng.mucklet.LookupCharacterRequest buildPartial() {
       bankng.mucklet.LookupCharacterRequest result = new bankng.mucklet.LookupCharacterRequest(this);
       if (bitField0_ != 0) { buildPartial0(result); }
+      buildPartialOneofs(result);
       onBuilt();
       return result;
     }
 
     private void buildPartial0(bankng.mucklet.LookupCharacterRequest result) {
       int from_bitField0_ = bitField0_;
-      if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.fullName_ = fullName_;
-      }
+    }
+
+    private void buildPartialOneofs(bankng.mucklet.LookupCharacterRequest result) {
+      result.byCase_ = byCase_;
+      result.by_ = this.by_;
     }
 
     @java.lang.Override
@@ -351,10 +488,22 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(bankng.mucklet.LookupCharacterRequest other) {
       if (other == bankng.mucklet.LookupCharacterRequest.getDefaultInstance()) return this;
-      if (!other.getFullName().isEmpty()) {
-        fullName_ = other.fullName_;
-        bitField0_ |= 0x00000001;
-        onChanged();
+      switch (other.getByCase()) {
+        case FULL_NAME: {
+          byCase_ = 1;
+          by_ = other.by_;
+          onChanged();
+          break;
+        }
+        case CHAR_ID: {
+          byCase_ = 2;
+          by_ = other.by_;
+          onChanged();
+          break;
+        }
+        case BY_NOT_SET: {
+          break;
+        }
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -383,10 +532,17 @@ private static final long serialVersionUID = 0L;
               done = true;
               break;
             case 10: {
-              fullName_ = input.readStringRequireUtf8();
-              bitField0_ |= 0x00000001;
+              java.lang.String s = input.readStringRequireUtf8();
+              byCase_ = 1;
+              by_ = s;
               break;
             } // case 10
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+              byCase_ = 2;
+              by_ = s;
+              break;
+            } // case 18
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -402,20 +558,48 @@ private static final long serialVersionUID = 0L;
       } // finally
       return this;
     }
+    private int byCase_ = 0;
+    private java.lang.Object by_;
+    public ByCase
+        getByCase() {
+      return ByCase.forNumber(
+          byCase_);
+    }
+
+    public Builder clearBy() {
+      byCase_ = 0;
+      by_ = null;
+      onChanged();
+      return this;
+    }
+
     private int bitField0_;
 
-    private java.lang.Object fullName_ = "";
+    /**
+     * <code>string full_name = 1;</code>
+     * @return Whether the fullName field is set.
+     */
+    @java.lang.Override
+    public boolean hasFullName() {
+      return byCase_ == 1;
+    }
     /**
      * <code>string full_name = 1;</code>
      * @return The fullName.
      */
+    @java.lang.Override
     public java.lang.String getFullName() {
-      java.lang.Object ref = fullName_;
+      java.lang.Object ref = "";
+      if (byCase_ == 1) {
+        ref = by_;
+      }
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        fullName_ = s;
+        if (byCase_ == 1) {
+          by_ = s;
+        }
         return s;
       } else {
         return (java.lang.String) ref;
@@ -425,14 +609,20 @@ private static final long serialVersionUID = 0L;
      * <code>string full_name = 1;</code>
      * @return The bytes for fullName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFullNameBytes() {
-      java.lang.Object ref = fullName_;
+      java.lang.Object ref = "";
+      if (byCase_ == 1) {
+        ref = by_;
+      }
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        fullName_ = b;
+        if (byCase_ == 1) {
+          by_ = b;
+        }
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -446,8 +636,8 @@ private static final long serialVersionUID = 0L;
     public Builder setFullName(
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
-      fullName_ = value;
-      bitField0_ |= 0x00000001;
+      byCase_ = 1;
+      by_ = value;
       onChanged();
       return this;
     }
@@ -456,9 +646,11 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearFullName() {
-      fullName_ = getDefaultInstance().getFullName();
-      bitField0_ = (bitField0_ & ~0x00000001);
-      onChanged();
+      if (byCase_ == 1) {
+        byCase_ = 0;
+        by_ = null;
+        onChanged();
+      }
       return this;
     }
     /**
@@ -470,8 +662,101 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.ByteString value) {
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
-      fullName_ = value;
-      bitField0_ |= 0x00000001;
+      byCase_ = 1;
+      by_ = value;
+      onChanged();
+      return this;
+    }
+
+    /**
+     * <code>string char_id = 2;</code>
+     * @return Whether the charId field is set.
+     */
+    @java.lang.Override
+    public boolean hasCharId() {
+      return byCase_ == 2;
+    }
+    /**
+     * <code>string char_id = 2;</code>
+     * @return The charId.
+     */
+    @java.lang.Override
+    public java.lang.String getCharId() {
+      java.lang.Object ref = "";
+      if (byCase_ == 2) {
+        ref = by_;
+      }
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (byCase_ == 2) {
+          by_ = s;
+        }
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string char_id = 2;</code>
+     * @return The bytes for charId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCharIdBytes() {
+      java.lang.Object ref = "";
+      if (byCase_ == 2) {
+        ref = by_;
+      }
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        if (byCase_ == 2) {
+          by_ = b;
+        }
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string char_id = 2;</code>
+     * @param value The charId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCharId(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      byCase_ = 2;
+      by_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string char_id = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearCharId() {
+      if (byCase_ == 2) {
+        byCase_ = 0;
+        by_ = null;
+        onChanged();
+      }
+      return this;
+    }
+    /**
+     * <code>string char_id = 2;</code>
+     * @param value The bytes for charId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCharIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      byCase_ = 2;
+      by_ = value;
       onChanged();
       return this;
     }

@@ -31,10 +31,12 @@
 
 (defn lookup-character
   [^js call ^js callback]
-  (let [full-name (-> call .-request .-full_name)]
-    (p/then (bot/lookup-character full-name)
-            #(callback nil (clj->js %))
-            #(callback (err->status %) nil))))
+  (p/then (condp = (-> call .-request .-by)
+            "full_name" (bot/lookup-character :full-name (-> call .-request .-full_name))
+            "char_id" (bot/lookup-character :char-id (-> call .-request .-char_id))
+            :else (throw (ex-info "invalid lookup type" {:type (-> call .-request .-by)})))
+          #(callback nil (clj->js %))
+          #(callback (err->status %) nil)))
 
 (defn send-message
   [^js call ^js callback]

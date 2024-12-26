@@ -9,6 +9,11 @@ public interface LookupCharacterRequestOrBuilder extends
 
   /**
    * <code>string full_name = 1;</code>
+   * @return Whether the fullName field is set.
+   */
+  boolean hasFullName();
+  /**
+   * <code>string full_name = 1;</code>
    * @return The fullName.
    */
   java.lang.String getFullName();
@@ -18,4 +23,23 @@ public interface LookupCharacterRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getFullNameBytes();
+
+  /**
+   * <code>string char_id = 2;</code>
+   * @return Whether the charId field is set.
+   */
+  boolean hasCharId();
+  /**
+   * <code>string char_id = 2;</code>
+   * @return The charId.
+   */
+  java.lang.String getCharId();
+  /**
+   * <code>string char_id = 2;</code>
+   * @return The bytes for charId.
+   */
+  com.google.protobuf.ByteString
+      getCharIdBytes();
+
+  bankng.mucklet.LookupCharacterRequest.ByCase getByCase();
 }

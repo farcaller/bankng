@@ -2,8 +2,8 @@
   (:require [bankng.pb-mucklet.core :as core]))
 
 (defn lookup-character
-  [full-name]
-  (core/lookup-character full-name))
+  [& {:keys [full-name char-id] :as opts}]
+  (core/lookup-character opts))
 
 (defn send-message
   [char-id msg]

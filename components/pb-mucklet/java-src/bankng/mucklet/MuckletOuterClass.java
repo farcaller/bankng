@@ -40,16 +40,17 @@ public final class MuckletOuterClass {
     java.lang.String[] descriptorData = {
       "\n\rmucklet.proto\022\016bankng.mucklet\032\033google/" +
       "protobuf/empty.proto\"6\n\022SendMessageReque" +
-      "st\022\017\n\007char_id\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\"+\n\026" +
-      "LookupCharacterRequest\022\021\n\tfull_name\030\001 \001(" +
-      "\t\"_\n\024LookupCharacterReply\022\022\n\nfirst_name\030" +
-      "\001 \001(\t\022\021\n\tlast_name\030\002 \001(\t\022\017\n\007pfp_url\030\003 \001(" +
-      "\t\022\017\n\007char_id\030\004 \001(\t2\271\001\n\007Mucklet\022a\n\017Lookup" +
-      "Character\022&.bankng.mucklet.LookupCharact" +
-      "erRequest\032$.bankng.mucklet.LookupCharact" +
-      "erReply\"\000\022K\n\013SendMessage\022\".bankng.muckle" +
-      "t.SendMessageRequest\032\026.google.protobuf.E" +
-      "mpty\"\000B\002P\001b\006proto3"
+      "st\022\017\n\007char_id\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\"F\n\026" +
+      "LookupCharacterRequest\022\023\n\tfull_name\030\001 \001(" +
+      "\tH\000\022\021\n\007char_id\030\002 \001(\tH\000B\004\n\002by\"_\n\024LookupCh" +
+      "aracterReply\022\022\n\nfirst_name\030\001 \001(\t\022\021\n\tlast" +
+      "_name\030\002 \001(\t\022\017\n\007pfp_url\030\003 \001(\t\022\017\n\007char_id\030" +
+      "\004 \001(\t2\271\001\n\007Mucklet\022a\n\017LookupCharacter\022&.b" +
+      "ankng.mucklet.LookupCharacterRequest\032$.b" +
+      "ankng.mucklet.LookupCharacterReply\"\000\022K\n\013" +
+      "SendMessage\022\".bankng.mucklet.SendMessage" +
+      "Request\032\026.google.protobuf.Empty\"\000B\002P\001b\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -67,7 +68,7 @@ public final class MuckletOuterClass {
     internal_static_bankng_mucklet_LookupCharacterRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bankng_mucklet_LookupCharacterRequest_descriptor,
-        new java.lang.String[] { "FullName", });
+        new java.lang.String[] { "FullName", "CharId", "By", });
     internal_static_bankng_mucklet_LookupCharacterReply_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_bankng_mucklet_LookupCharacterReply_fieldAccessorTable = new

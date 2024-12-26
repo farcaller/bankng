@@ -12,7 +12,10 @@ message SendMessageRequest {
 }
 
 message LookupCharacterRequest {
-  string full_name = 1;
+  oneof by {
+    string full_name = 1;
+    string char_id = 2;
+  }
 }
 
 message LookupCharacterReply {

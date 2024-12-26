@@ -24,10 +24,21 @@
   :start (build-stub channel))
 
 (defn lookup-character
-  [full-name]
-  (->
-   (.lookupCharacter stub (map->proto LookupCharacterRequest {:full-name full-name}))
-   proto->map))
+  [& {:keys [full-name char-id]}]
+  (when-not (or full-name char-id)
+    (throw (ex-info "Either full-name or char-id must be provided" {:full-name full-name :char-id char-id})))
+  (when (and full-name char-id)
+    (throw (ex-info "Only one of full-name or char-id must be provided" {:full-name full-name :char-id char-id})))
+  (let [req (cond-> (LookupCharacterRequest/newBuilder)
+              full-name (.setFullName full-name)
+              char-id (.setCharId char-id)
+              true (.build))
+        resp (.lookupCharacter stub req)]
+    (proto->map resp)))
+
+(comment
+  (lookup-character :char-id "cajd55e9gbrqf703lcvg")
+  :rcf)
 
 (defn send-message
   [char-id msg]

@@ -1,0 +1,3 @@
+{:tasks
+ {build-proxy {:doc "Build the mucklet-proxy"
+               :task (shell "shadow-cljs release mucklet-proxy")}}}

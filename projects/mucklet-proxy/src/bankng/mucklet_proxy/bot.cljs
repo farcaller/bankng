@@ -8,10 +8,16 @@
 
 (defn lookup-character
   "Looks up a character by full name. Returns a promise that resolves to a character object."
-  [full-name]
+  [& {:keys [full-name char-id]}]
+  (when-not (or full-name char-id)
+    (throw (ex-info "Either full-name or char-id must be provided" {:full-name full-name :char-id char-id})))
+  (when (and full-name char-id)
+    (throw (ex-info "Only one of full-name or char-id must be provided" {:full-name full-name :char-id char-id})))
   (p/let [client (state/get-client :scambanker)
           bot (res-client-call client "core" "getBot")
-          char (res-call bot "getChar" {:charName full-name})
+          char (res-call bot "getChar" (if full-name
+                                         {:charName full-name}
+                                         {:charId char-id}))
           char (js->clj (.-props ^js char) :keywordize-keys true)]
     {:first_name (:name char)
      :last_name (:surname char)
