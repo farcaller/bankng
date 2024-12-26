@@ -8,34 +8,32 @@
             [bankng.frontend.common.views :refer [chrome]]))
 
 (def routes
-  [["/"
-    {:name :home
-     :view #'accounts/account-card
-     :auth :required}]
-   ["/accounts"
-    {:name :accounts-list
-     :view #'accounts/accounts-list
-     :auth :required
-     :back :home}]
-   ["/accounts/:account-id"
-    {:name :account-info
-     :view #'accounts/account-details
-     :auth :required
-     :back :home}]
-   ["/send"
-    {:name :send
-     :view #'transfers/create-transfer
-     :auth :required
-     :back :home}]
-   
+  [["" {:auth :required}
+    ["/"
+     {:name :home
+      :view #'accounts/account-card}]
+    ["/accounts"
+     {:back :home}
+     [""
+      {:name :accounts-list
+       :view #'accounts/accounts-list
+       :back :home}]
+     ["/:account-id"
+      {:name :account-info
+       :view #'accounts/account-details
+       :back :home}]]
+    ["/send"
+     {:name :send
+      :view #'transfers/create-transfer
+      :back :home}]]
    ["/login"
-    {:name :login
-     :view #'login/login-name}]
-   ["/login-2fa"
-    {:name :login-2fa
-     :view #'login/login-otp
-     :auth :required-login
-     :hide-pfp true}]])
+    {:hide-pfp true}
+    ["" {:name :login
+         :view #'login/login-name}]
+    ["/2fa"
+     {:name :login-2fa
+      :view #'login/login-otp
+      :auth :required-login}]]])
 
 (defn start-router! []
   (rfe/start!
@@ -51,7 +49,7 @@
 (comment
   (start-router!)
   (-> @re-frame.db/app-db :current-route :path-params :account-id)
-  (reitit/match-by-name! (reitit/router routes) :home)
+  (reitit/match-by-name! (reitit/router routes) :account-info {:account-id "123"})
   (rf/dispatch [:routes/push-route :login-2fa])
   (rfe/href :account-info {:account-id "123"})
   :rcf)
