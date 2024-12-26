@@ -20,7 +20,6 @@
             "autoSelectForJackIn": true,
             "autoSelectForConnect": true,
             "projectRootPath": ["."],
-            "afterCLJReplJackInCode": "(do (set! *warn-on-reflection* true) (require '[dev.repl]) (dev.repl/setup!))",
         }
     ],
     "cSpell.words": [
