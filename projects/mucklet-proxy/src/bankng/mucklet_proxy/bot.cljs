@@ -32,7 +32,7 @@
     {:first_name (:name char)
      :last_name (:surname char)
      :pfp_url (str mucklet-fileserver-host "/core/char/avatar/" (:avatar char) "?thumb=l")
-     :char_id char-id}))
+     :char_id (:id char)}))
 
 (defn send-message
   "Sends a message to a character. Returns a promise that resolves or throws."
