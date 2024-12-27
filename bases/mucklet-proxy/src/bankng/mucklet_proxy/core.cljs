@@ -6,24 +6,24 @@
             [oops.core :refer [oget]]
             ["@grpc/grpc-js" :as grpc]
             [bankng.pb-mucklet.ifc :refer [mucklet-service]]
-            [bankng.mucklet-service.ifc :refer [lookup-character send-message]]))
+            [bankng.mucklet-service.ifc :refer [lookup-character send-message]]
+            [mount.core :as mount])
+  (:require-macros [mount.core :refer [defstate]]))
 
-(def server
-  (doto (grpc/Server.)
-    (.addService mucklet-service #js {:lookupCharacter #(lookup-character %1 %2)
-                                      :sendMessage #(send-message %1 %2)})))
+(defstate listen-address :start (oget js/process "env.SERVER_LISTEN_ADDRESS"))
 
-(defn start
-  [address]
-  (.bindAsync server address (grpc/ServerCredentials.createInsecure) #(println "server running at" address)))
-
-(defn stop
-  []
-  (.tryShutdown server #()))
+(defstate server
+  :start (doto (grpc/Server.)
+           (.addService mucklet-service #js {:lookupCharacter #(lookup-character %1 %2)
+                                             :sendMessage #(send-message %1 %2)})
+           (.bindAsync @listen-address
+                       (grpc/ServerCredentials.createInsecure)
+                       #(println "server running at" @listen-address)))
+  :stop (.tryShutdown server #()))
 
 (defn init
   []
   (bot/connect-client! :scambanker true)
-  (start (oget js/process "env.SERVER_LISTEN_ADDRESS"))
+  (mount/start)
   (.on js/process "SIGINT" #(.exit js/process))
   (.on js/process "SIGTERM" #(.exit js/process)))

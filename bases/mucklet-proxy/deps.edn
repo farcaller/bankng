@@ -1,2 +1,2 @@
 {:paths ["src"]
- :deps {}}
+ :deps {mount/mount {:mvn/version "0.1.20"}}}
