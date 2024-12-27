@@ -44,8 +44,10 @@
           rep (js->clj (.toObject rep js/Object) :keywordize-keys true)]
     rep))
 
-(comment
-  (-> (list-accounts "test")
-      (p/then #(println %))
-      (p/catch* #(println %)))
-  :rcf)
+(defn list-transactions
+  [jwt iban]
+  (p/let [req (-> (bpb/ListTransactionsRequest.)
+                  (.setIban iban))
+          rep (.listTransactions accounts-client req #js {:authorization (str "Bearer " jwt)})
+          rep (js->clj (.toObject rep js/Object) :keywordize-keys true)]
+    rep))

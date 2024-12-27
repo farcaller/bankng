@@ -11,7 +11,10 @@
        (client/second-factor session-id code))
      
      (defn list-accounts [jwt]
-       (client/list-accounts jwt))))
+       (client/list-accounts jwt))
+     
+     (defn list-transactions [jwt iban]
+       (client/list-transactions jwt iban))))
 
 #?(:clj
    (do (defn auth-impl

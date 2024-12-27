@@ -200,5 +200,118 @@ proto.bankng.AccountsPromiseClient.prototype.listTransactions =
 };
 
 
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?grpc.web.ClientOptions} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.bankng.TransactionsClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options.format = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname.replace(/\/+$/, '');
+
+};
+
+
+/**
+ * @param {string} hostname
+ * @param {?Object} credentials
+ * @param {?grpc.web.ClientOptions} options
+ * @constructor
+ * @struct
+ * @final
+ */
+proto.bankng.TransactionsPromiseClient =
+    function(hostname, credentials, options) {
+  if (!options) options = {};
+  options.format = 'text';
+
+  /**
+   * @private @const {!grpc.web.GrpcWebClientBase} The client
+   */
+  this.client_ = new grpc.web.GrpcWebClientBase(options);
+
+  /**
+   * @private @const {string} The hostname
+   */
+  this.hostname_ = hostname.replace(/\/+$/, '');
+
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.bankng.CreateTransactionRequest,
+ *   !proto.bankng.CreateTransactionReply>}
+ */
+const methodDescriptor_Transactions_CreateTransaction = new grpc.web.MethodDescriptor(
+  '/bankng.Transactions/CreateTransaction',
+  grpc.web.MethodType.UNARY,
+  proto.bankng.CreateTransactionRequest,
+  proto.bankng.CreateTransactionReply,
+  /**
+   * @param {!proto.bankng.CreateTransactionRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.bankng.CreateTransactionReply.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.bankng.CreateTransactionRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.bankng.CreateTransactionReply)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.bankng.CreateTransactionReply>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.bankng.TransactionsClient.prototype.createTransaction =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/bankng.Transactions/CreateTransaction',
+      request,
+      metadata || {},
+      methodDescriptor_Transactions_CreateTransaction,
+      callback);
+};
+
+
+/**
+ * @param {!proto.bankng.CreateTransactionRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.bankng.CreateTransactionReply>}
+ *     Promise that resolves to the response
+ */
+proto.bankng.TransactionsPromiseClient.prototype.createTransaction =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/bankng.Transactions/CreateTransaction',
+      request,
+      metadata || {},
+      methodDescriptor_Transactions_CreateTransaction);
+};
+
+
 module.exports = proto.bankng;
 

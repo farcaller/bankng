@@ -61,6 +61,16 @@ public final class Bankng {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bankng_Correspondent_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bankng_CreateTransactionRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bankng_CreateTransactionRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bankng_CreateTransactionReply_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bankng_CreateTransactionReply_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -83,13 +93,21 @@ public final class Bankng {
       "ondent\030\001 \001(\0132\025.bankng.Correspondent\022\016\n\006a" +
       "mount\030\002 \001(\t\022-\n\ttimestamp\030\005 \001(\0132\032.google." +
       "protobuf.Timestamp\".\n\rCorrespondent\022\014\n\004n" +
-      "ame\030\001 \001(\t\022\017\n\007pfp_url\030\002 \001(\t2\262\001\n\010Accounts\022" +
-      "L\n\014ListAccounts\022\033.bankng.ListAccountsReq" +
-      "uest\032\031.bankng.ListAccountsReply\"\004\210\265\030\001\022X\n" +
-      "\020ListTransactions\022\037.bankng.ListTransacti" +
-      "onsRequest\032\035.bankng.ListTransactionsRepl" +
-      "y\"\004\210\265\030\001:7\n\rrequires_auth\022\036.google.protob" +
-      "uf.MethodOptions\030\321\206\003 \001(\010B\002P\001b\006proto3"
+      "ame\030\001 \001(\t\022\017\n\007pfp_url\030\002 \001(\t\"{\n\030CreateTran" +
+      "sactionRequest\022\021\n\tfrom_iban\030\001 \001(\t\022\016\n\004iba" +
+      "n\030\002 \001(\tH\000\022\016\n\004name\030\003 \001(\tH\000\022\016\n\006amount\030\004 \001(" +
+      "\t\022\026\n\016transaction_id\030\005 \001(\tB\004\n\002to\"B\n\026Creat" +
+      "eTransactionReply\022(\n\013transaction\030\001 \001(\0132\023" +
+      ".bankng.Transaction2\262\001\n\010Accounts\022L\n\014List" +
+      "Accounts\022\033.bankng.ListAccountsRequest\032\031." +
+      "bankng.ListAccountsReply\"\004\210\265\030\001\022X\n\020ListTr" +
+      "ansactions\022\037.bankng.ListTransactionsRequ" +
+      "est\032\035.bankng.ListTransactionsReply\"\004\210\265\030\001" +
+      "2k\n\014Transactions\022[\n\021CreateTransaction\022 ." +
+      "bankng.CreateTransactionRequest\032\036.bankng" +
+      ".CreateTransactionReply\"\004\210\265\030\001:7\n\rrequire" +
+      "s_auth\022\036.google.protobuf.MethodOptions\030\321" +
+      "\206\003 \001(\010B\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -139,6 +157,18 @@ public final class Bankng {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bankng_Correspondent_descriptor,
         new java.lang.String[] { "Name", "PfpUrl", });
+    internal_static_bankng_CreateTransactionRequest_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_bankng_CreateTransactionRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bankng_CreateTransactionRequest_descriptor,
+        new java.lang.String[] { "FromIban", "Iban", "Name", "Amount", "TransactionId", "To", });
+    internal_static_bankng_CreateTransactionReply_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_bankng_CreateTransactionReply_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bankng_CreateTransactionReply_descriptor,
+        new java.lang.String[] { "Transaction", });
     requiresAuth.internalInit(descriptor.getExtensions().get(0));
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();

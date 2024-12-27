@@ -52,3 +52,23 @@ message Correspondent {
   string name = 1;
   string pfp_url = 2;
 }
+
+service Transactions {
+  rpc CreateTransaction(CreateTransactionRequest) returns (CreateTransactionReply) {
+    option (requires_auth) = true;
+  };
+}
+
+message CreateTransactionRequest {
+  string from_iban = 1;
+  oneof to {
+    string iban = 2;
+    string name = 3;
+  }
+  string amount = 4;
+  string transaction_id = 5;
+}
+
+message CreateTransactionReply {
+  Transaction transaction = 1;
+}
