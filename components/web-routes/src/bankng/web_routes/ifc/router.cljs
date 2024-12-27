@@ -5,7 +5,7 @@
             [bankng.web-login.ifc.views :as login]
             [bankng.frontend.accounts.views :as accounts]
             [bankng.frontend.transfers.views :as transfers]
-            [bankng.frontend.common.views :refer [chrome]]))
+            [bankng.web-common.ifc :refer [chrome]]))
 
 (def routes
   [["" {:auth :required}

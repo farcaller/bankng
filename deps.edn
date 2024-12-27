@@ -52,6 +52,7 @@
                 poly/otel {:local/root "components/otel"}
                 poly/web-routes {:local/root "components/web-routes"}
                 poly/web-login {:local/root "components/web-login"}
+                poly/web-common {:local/root "components/web-common"}
                 
                 djblue/portal {:mvn/version "0.58.5"}
                 com.github.gnl/playback {:mvn/version "0.5.4"}

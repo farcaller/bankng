@@ -1,4 +1,4 @@
-(ns bankng.frontend.common.views
+(ns bankng.web-common.ifc
   (:require [re-frame.core :as rf]))
 
 (defn header
