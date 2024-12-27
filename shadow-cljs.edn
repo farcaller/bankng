@@ -10,8 +10,7 @@
    {:main
     {:init-fn bankng.web-app.core/init}}
    :dev {:devtools
-         {:reload-strategy :full
-          :preloads [devtools.preload day8.re-frame-10x.preload.react-18]}
+         {:preloads [devtools.preload day8.re-frame-10x.preload.react-18]}
          :compiler-options
          {:pretty-print true
           :external-config {:guardrails {}
