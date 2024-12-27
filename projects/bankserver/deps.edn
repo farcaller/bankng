@@ -1,5 +1,6 @@
 {:deps {org.clojure/clojure {:mvn/version "1.12.0"}
         poly/mount {:local/root "../../bases/mount"}
+        poly/log {:local/root "../../bases/log"}
         poly/grpc-server {:local/root "../../bases/grpc-server"}
         poly/iban {:local/root "../../components/iban"}
         poly/xtdb-inproc {:local/root "../../components/xtdb-inproc"}
