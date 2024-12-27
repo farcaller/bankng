@@ -1,4 +1,4 @@
-(ns bankng.frontend.transfers.subs
+(ns bankng.web-transfers.ifc.subs
   (:require [re-frame.core :as rf]))
 
 (rf/reg-sub

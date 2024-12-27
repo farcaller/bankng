@@ -1,4 +1,4 @@
-(ns bankng.frontend.accounts.views
+(ns bankng.web-accounts.ifc.views
   (:require [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]))
 

@@ -53,6 +53,9 @@
                 poly/web-routes {:local/root "components/web-routes"}
                 poly/web-login {:local/root "components/web-login"}
                 poly/web-common {:local/root "components/web-common"}
+                poly/web-accounts {:local/root "components/web-accounts"}
+                poly/web-db {:local/root "components/web-db"}
+                poly/web-transfers {:local/root "components/web-transfers"}
                 
                 djblue/portal {:mvn/version "0.58.5"}
                 com.github.gnl/playback {:mvn/version "0.5.4"}

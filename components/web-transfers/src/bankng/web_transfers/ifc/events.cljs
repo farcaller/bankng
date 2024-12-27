@@ -1,4 +1,4 @@
-(ns bankng.frontend.transfers.events
+(ns bankng.web-transfers.ifc.events
   (:require [re-frame.core :as rf]))
 
 (rf/reg-event-db

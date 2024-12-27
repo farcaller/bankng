@@ -1,4 +1,4 @@
-(ns bankng.frontend.transfers.views 
+(ns bankng.web-transfers.ifc.views 
   (:require [re-frame.core :as rf]))
 
 (defn create-transfer []

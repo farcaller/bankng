@@ -3,8 +3,8 @@
             [reitit.frontend.easy :as rfe]
             [reitit.frontend :as reitit]
             [bankng.web-login.ifc.views :as login]
-            [bankng.frontend.accounts.views :as accounts]
-            [bankng.frontend.transfers.views :as transfers]
+            [bankng.web-accounts.ifc.views :as accounts]
+            [bankng.web-transfers.ifc.views :as transfers]
             [bankng.web-common.ifc :refer [chrome]]))
 
 (def routes

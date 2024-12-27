@@ -1,6 +1,6 @@
 (ns bankng.web-routes.ifc.events
-  (:require [bankng.frontend.accounts.events :as accounts]
-            [bankng.frontend.transfers.events :as transfers]
+  (:require [bankng.web-accounts.ifc.events :as accounts]
+            [bankng.web-transfers.ifc.events :as transfers]
             [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]))
 

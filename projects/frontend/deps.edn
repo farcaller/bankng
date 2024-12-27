@@ -1,8 +1,11 @@
-{:paths ["src"]
+{:paths []
  :deps {poly/web-app {:local/root "../../bases/web-app"}
         poly/web-routes {:local/root "../../components/web-routes"}
         poly/web-login {:local/root "../../components/web-login"}
         poly/web-common {:local/root "../../components/web-common"}
+        poly/web-accounts {:local/root "../../components/web-accounts"}
+        poly/web-db {:local/root "../../components/web-db"}
+        poly/web-transfers {:local/root "../../components/web-transfers"}
         poly/pb-frontend {:local/root "../../components/pb-frontend"}
         
         reagent/reagent {:mvn/version "1.2.0"},

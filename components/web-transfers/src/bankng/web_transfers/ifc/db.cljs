@@ -1,4 +1,4 @@
-(ns bankng.frontend.transfers.db)
+(ns bankng.web-transfers.ifc.db)
 
 (def transfers-db
   {:loading? false

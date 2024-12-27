@@ -1,4 +1,4 @@
-(ns bankng.frontend.accounts.events
+(ns bankng.web-accounts.ifc.events
   (:require [re-frame.core :as rf]
             ["grpc-web" :refer [StatusCode]]
             [bankng.pb-frontend.ifc :as fpb]))
