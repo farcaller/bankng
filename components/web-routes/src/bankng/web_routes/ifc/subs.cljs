@@ -1,4 +1,4 @@
-(ns bankng.frontend.routes.subs
+(ns bankng.web-routes.ifc.subs
   (:require [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]))
 

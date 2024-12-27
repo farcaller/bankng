@@ -1,5 +1,5 @@
 (ns bankng.frontend.db
-  (:require [bankng.frontend.login.db :as login]
+  (:require [bankng.web-login.ifc.db :as login]
             [bankng.frontend.accounts.db :as accounts]
             [bankng.frontend.transfers.db :as transfers]))
 

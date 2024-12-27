@@ -1,8 +1,8 @@
-(ns bankng.frontend.routes.router
+(ns bankng.web-routes.ifc.router
   (:require [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]
             [reitit.frontend :as reitit]
-            [bankng.frontend.login.views :as login]
+            [bankng.web-login.ifc.views :as login]
             [bankng.frontend.accounts.views :as accounts]
             [bankng.frontend.transfers.views :as transfers]
             [bankng.frontend.common.views :refer [chrome]]))

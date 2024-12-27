@@ -7,17 +7,6 @@
  (fn [_ _]
    db/default-db))
 
-(when goog.DEBUG
-  (rf/reg-event-db
-   ::reset-db
-   (fn [_ [_ d]]
-     d))
-  (rf/reg-event-db
-   ::reset-route
-   (fn [db [_ name]]
-     (assoc db :current-route (reitit.frontend/match-by-name! (reitit.frontend/router bankng.frontend.routes.router/routes) name)))))
-
 (comment
   (-> @re-frame.db/app-db :login :jwt)
-  (rf/dispatch-sync [::reset-route :login])
   :rcf)

@@ -32,6 +32,7 @@
                 poly/mount {:local/root "bases/mount"}
                 poly/log {:local/root "bases/log"}
                 poly/mucklet-proxy {:local/root "bases/mucklet-proxy"}
+                poly/web-app {:local/root "bases/web-app"}
 
                 poly/codesender {:local/root "components/codesender"}
                 poly/frontend-service {:local/root "components/frontend-service"}
@@ -49,6 +50,8 @@
                 poly/mucklet-bot {:local/root "components/mucklet-bot"}
                 poly/mucklet-service {:local/root "components/mucklet-service"}
                 poly/otel {:local/root "components/otel"}
+                poly/web-routes {:local/root "components/web-routes"}
+                poly/web-login {:local/root "components/web-login"}
                 
                 djblue/portal {:mvn/version "0.58.5"}
                 com.github.gnl/playback {:mvn/version "0.5.4"}

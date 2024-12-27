@@ -1,4 +1,4 @@
-(ns bankng.frontend.routes.events
+(ns bankng.web-routes.ifc.events
   (:require [bankng.frontend.accounts.events :as accounts]
             [bankng.frontend.transfers.events :as transfers]
             [re-frame.core :as rf]

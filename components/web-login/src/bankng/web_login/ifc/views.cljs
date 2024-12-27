@@ -1,4 +1,4 @@
-(ns bankng.frontend.login.views
+(ns bankng.web-login.ifc.views
   (:require
    [re-frame.core :as rf]
    [reagent.core :as r]))

@@ -1,4 +1,4 @@
-(ns bankng.frontend.login.db)
+(ns bankng.web-login.ifc.db)
 
 (def login-db
   {; true when loading the 2fa

@@ -1,5 +1,6 @@
 {:deps {:aliases [:cljs]}
  :dev-http {8020 "public"}
+ #_#_ :nrepl {:middleware [playback.nrepl-middleware/refresh-on-eval] :port 9000}
  :builds
  {:frontend
   {:target :browser
@@ -7,9 +8,10 @@
    :asset-path "/js"
    :modules
    {:main
-    {:init-fn bankng.frontend.core/init}}
+    {:init-fn bankng.web-app.core/init}}
    :dev {:devtools
-         {:preloads [devtools.preload day8.re-frame-10x.preload.react-18]}
+         {:reload-strategy :full
+          :preloads [devtools.preload day8.re-frame-10x.preload.react-18]}
          :compiler-options
          {:pretty-print true
           :external-config {:guardrails {}

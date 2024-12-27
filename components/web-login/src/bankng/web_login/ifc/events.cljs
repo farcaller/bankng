@@ -1,4 +1,4 @@
-(ns bankng.frontend.login.events
+(ns bankng.web-login.ifc.events
   (:require [re-frame.core :as rf]
             [kitchen-async.promise :as p]
             [bankng.pb-frontend.ifc :as fpb]

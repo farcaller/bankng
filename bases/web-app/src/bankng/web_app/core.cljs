@@ -1,15 +1,15 @@
-(ns bankng.frontend.core
+(ns bankng.web-app.core
   (:require ["react" :as react]
-            [bankng.frontend.routes.router :as routes]
             [re-frame.core :as rf]
             [reagent.dom.client :as rdomc]
             [bankng.frontend.events :as ev]
-            [bankng.frontend.login.events]
-            [bankng.frontend.login.subs]
+            [bankng.web-login.ifc.events]
+            [bankng.web-login.ifc.subs]
             [bankng.frontend.accounts.events]
             [bankng.frontend.accounts.subs]
-            [bankng.frontend.routes.events]
-            [bankng.frontend.routes.subs]
+            [bankng.web-routes.ifc.router :as routes]
+            [bankng.web-routes.ifc.events]
+            [bankng.web-routes.ifc.subs]
             [bankng.frontend.transfers.events]
             [bankng.frontend.transfers.subs]))
 
@@ -26,6 +26,7 @@
   (delay (rdomc/create-root (js/document.getElementById "app"))))
 
 (defn ^:dev/after-load mount-root []
+  (when goog.DEBUG (.log js/console "remount-root"))
   (rf/clear-subscription-cache!)
   (rdomc/render @react-root [:> react/StrictMode {} [routes/router-component]]))
 
