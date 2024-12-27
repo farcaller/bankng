@@ -22,7 +22,7 @@
   :mucklet-proxy
   {:target :node-script
    :output-to "target/mucklet-proxy-main.js"
-   :main bankng.mucklet-proxy.core/main!
+   :main bankng.mucklet-proxy.core/init
    :compiler-options {:target :nodejs
                       :output-feature-set :es-next}
    :dev {:compiler-options

@@ -44,7 +44,6 @@
     mucklet-proxy.exec = "node target/mucklet-proxy-main.js";
     mucklet-proxy.process-compose.environment = [
       "SERVER_LISTEN_ADDRESS=127.0.0.1:8081"
-      "PROTO_PATH=./components/pb-mucklet/resources/mucklet.proto"
       "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:4317"
       "OTEL_AUTOINSTRUMENT=true"
       "OTEL_SERVICE_NAME=mucklet-proxy"

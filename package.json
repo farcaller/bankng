@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "grpc-tools": "^1.12.4",
     "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
     "shadow-cljs": "2.28.20",
@@ -11,7 +12,6 @@
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.12.2",
-    "@grpc/proto-loader": "^0.7.13",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/auto-instrumentations-node": "^0.54.0",
     "@opentelemetry/instrumentation": "^0.56.0",

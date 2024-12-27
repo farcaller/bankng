@@ -1,5 +1,14 @@
-{:paths ["src"]
- :deps {net.farcaller/botmaster {:local/root "../../../botmaster"}
+{:paths []
+ :deps {poly/mucklet-proxy {:local/root "../../bases/mucklet-proxy"}
+        poly/mucklet-bot {:local/root "../../components/mucklet-bot"}
+        poly/mucklet-service {:local/root "../../components/mucklet-service"}
+        poly/pb-mucklet {:local/root "../../components/pb-mucklet"}
+        poly/otel {:local/root "../../components/otel"}
+        ; TODO: these are bogus
+        poly/config {:local/root "../../components/config"}
+        poly/proto-tools {:local/root "../../components/proto-tools"}
+        
+        net.farcaller/botmaster {:local/root "../../../botmaster"}
         binaryage/oops {:mvn/version "0.7.2"}}
 
  :aliases {:test {:extra-paths []

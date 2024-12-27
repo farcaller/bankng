@@ -1,4 +1,4 @@
-(ns bankng.mucklet-proxy.otel
+(ns bankng.otel.node
   (:require ["@opentelemetry/sdk-trace-base" :refer [SimpleSpanProcessor]]
             ["@opentelemetry/exporter-trace-otlp-grpc" :refer [OTLPTraceExporter]]
             ["@opentelemetry/auto-instrumentations-node" :refer [getNodeAutoInstrumentations]]

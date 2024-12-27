@@ -11,8 +11,7 @@
                 org.clojure/clojurescript {:mvn/version "1.11.132"}
                 thheller/shadow-cljs {:mvn/version "2.28.20"}
                 poly/p-frontend {:local/root "projects/frontend"}
-                poly/p-mucklet-proxy {:local/root "projects/mucklet-proxy"}
-                poly/pb-frontend {:local/root "components/pb-frontend"}}}
+                poly/p-mucklet-proxy {:local/root "projects/mucklet-proxy"}}}
 
   :xtdb
   {:jvm-opts ["--add-opens=java.base/java.nio=ALL-UNNAMED"
@@ -32,6 +31,7 @@
    :extra-deps {poly/grpc-server {:local/root "bases/grpc-server"}
                 poly/mount {:local/root "bases/mount"}
                 poly/log {:local/root "bases/log"}
+                poly/mucklet-proxy {:local/root "bases/mucklet-proxy"}
 
                 poly/codesender {:local/root "components/codesender"}
                 poly/frontend-service {:local/root "components/frontend-service"}
@@ -46,6 +46,9 @@
                 poly/grpc-auth {:local/root "components/grpc-auth"}
                 poly/accounts-service {:local/root "components/accounts-service"}
                 poly/iban {:local/root "components/iban"}
+                poly/mucklet-bot {:local/root "components/mucklet-bot"}
+                poly/mucklet-service {:local/root "components/mucklet-service"}
+                poly/otel {:local/root "components/otel"}
                 
                 djblue/portal {:mvn/version "0.58.5"}
                 com.github.gnl/playback {:mvn/version "0.5.4"}

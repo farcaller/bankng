@@ -93,6 +93,18 @@
                                                    (when grpc-web-out (str "--grpc-web_out=import_style=commonjs,mode=grpcwebtext:" grpc-web-out))
                                                    (str "-I" search-path)] files))}))
 
+(defn compile-jsproto-files
+  [search-path files & {:keys [js-out]}]
+  (when-not (.exists (io/file grpc-plugin-file-path))
+    (download-plugin nil))
+
+  (when js-out (.mkdirs (io/file js-out)))
+
+  (b/process {:command-args (filter some? (concat ["grpc_tools_node_protoc"
+                                                   (str "--js_out=import_style=commonjs,binary:" js-out)
+                                                   (str "--grpc_out=grpc_js:" js-out)
+                                                   (str "-I" search-path)] files))}))
+
 (defn compile-proto [_]
   (compile-proto-files "./components/pb-frontend/resources/"
                        ["auth.proto" "bankng.proto"]
@@ -101,7 +113,10 @@
                        :java-out "./components/pb-frontend/java-src")
   (compile-proto-files "./components/pb-mucklet/resources/"
                        ["mucklet.proto"]
-                       :java-out "./components/pb-mucklet/java-src"))
+                       :java-out "./components/pb-mucklet/java-src")
+  (compile-jsproto-files "./components/pb-mucklet/resources/"
+                         ["mucklet.proto"]
+                         :js-out "./components/pb-mucklet/src/bankng/pb_mucklet/gen/"))
 
 (defn compile-java [_]
   (compile-proto nil)

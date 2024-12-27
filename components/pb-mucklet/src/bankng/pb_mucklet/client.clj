@@ -1,6 +1,5 @@
-(ns bankng.pb-mucklet.core
+(ns bankng.pb-mucklet.client
   (:require [bankng.proto-tools.ifc :refer [map->proto proto->map]]
-            [manifold.deferred :as d]
             [mount.core :refer [defstate]]
             [bankng.config.ifc :refer [config]])
   (:import [io.grpc Grpc InsecureChannelCredentials ManagedChannel]
