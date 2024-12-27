@@ -16,7 +16,7 @@
 (defn dev-setup []
   (when goog.DEBUG
     (enable-console-print!)
-    (js/eval "try { day8.re_frame_10x.show_panel_BANG_(false) }")
+    (js/eval "try { day8.re_frame_10x.show_panel_BANG_(false) } catch (e) { console.log(`re-frame-10x:`, e) }")
     (println "dev mode")))
 
 (defonce react-root
