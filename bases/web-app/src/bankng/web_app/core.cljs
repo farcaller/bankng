@@ -16,10 +16,7 @@
 (defn dev-setup []
   (when goog.DEBUG
     (enable-console-print!)
-    (try
-      #_{:clj-kondo/ignore [:unresolved-namespace]}
-      (day8.re-frame-10x/show-panel! false)
-      (catch js/Error _))
+    (js/eval "try { day8.re_frame_10x.show_panel_BANG_(false) }")
     (println "dev mode")))
 
 (defonce react-root
