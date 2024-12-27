@@ -1,7 +1,7 @@
 (ns bankng.proto-tools.ifc
   (:require [camel-snake-kebab.core :as csk])
   (:import [io.grpc Status Status$Code]
-           [com.google.protobuf GeneratedMessageV3 Descriptors$FieldDescriptor]))
+           [com.google.protobuf GeneratedMessageV3 Descriptors$FieldDescriptor Timestamp]))
 
 (defn proto->map
   [^GeneratedMessageV3 proto-obj]
@@ -50,3 +50,12 @@
   (throw (-> status
              (.withDescription msg)
              (.asRuntimeException))))
+
+(defn date->timestamp
+  "Converts a Date to google.protobuf.Timestamp"
+  ^Timestamp [^java.util.Date date]
+  (let [millis (.getTime date)]
+    (-> (Timestamp/newBuilder)
+        (.setSeconds (long (/ millis 1000)))
+        (.setNanos (* 1000000 (mod millis 1000)))
+        (.build))))

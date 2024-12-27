@@ -50,6 +50,16 @@
      [:button {:class button-styles}
       [:span {:class ["icon-[tabler--dots] size-6"]}] "More"]]))
 
+(defn timestamp->str
+  [timestamp]
+  (let [date (js/Date. (+ (* (:seconds timestamp) 1000) (quot (or (:nanos timestamp) 0) 1e6)))
+        day (.getDate date)
+        month (.toLocaleString date "en-US" #js {:month "long"})
+        year (.getFullYear date)
+        hours (-> (.getHours date) str)
+        minutes (-> (.getMinutes date) str)]
+    (str day " " month " " year ", " (when (= 1 (count hours)) "0") hours ":" (when (= 1 (count minutes)) "0") minutes)))
+
 (defn account-card []
   (let [loading? @(rf/subscribe [:accounts/loading?])
         error @(rf/subscribe [:accounts/error])
@@ -71,18 +81,16 @@
         [pagination accounts-count current-account-idx]])
      [toolbar current-account]
 
-     #_[:div#transactions {:class "flex flex-col gap-2 cursor-default pt-10"}
-        [transaction
-         "https://api.dicebear.com/7.x/pixel-art/png?seed=wolf"
-         "Anonymous Wolf"
-         "22 December 2022, 09:21"
-         "-1234.32"]
-        [transaction
-         "https://api.dicebear.com/7.x/pixel-art/png?seed=boar"
-         "Anonymous Boar"
-         "22 December 2022, 09:20"
-         "-9999.69"]
-        [transaction]]]))
+     [:div#transactions {:class "flex flex-col gap-2 cursor-default pt-10"}
+      (if (:transactions-loading? current-account)
+        [:<> [transaction] [transaction] [transaction]]
+        (for [[idx txn] (map-indexed vector (:transactions current-account))]
+          ^{:key idx}
+          [transaction
+           (-> txn :correspondent :pfpUrl)
+           (-> txn :correspondent :name)
+           (timestamp->str (:timestamp txn))
+           (:amount txn)]))]]))
 
 (defn accounts-list []
   (let [accounts @(rf/subscribe [:accounts/accounts])

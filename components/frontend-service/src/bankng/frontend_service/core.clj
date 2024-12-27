@@ -21,7 +21,7 @@
 (defn on-first-factor [^FirstFactorRequest request ^StreamObserver responseObserver]
   (try (let [request (proto->map request)
              full-name (:full-name request)
-             char (mu/lookup-character full-name)
+             char (mu/lookup-character :full-name full-name)
              session-id (str (random-uuid))
              reply-pb (map->proto FirstFactorReply
                                   {:full-name (str (:first-name char) " " (:last-name char))

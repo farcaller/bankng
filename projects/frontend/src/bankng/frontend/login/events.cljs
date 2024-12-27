@@ -90,10 +90,10 @@
     :push-route :home}))
 
 (defn grpc-effect
-  [{:keys [request args on-success on-error]}]
+  [{:keys [request args on-success on-error context]}]
   (-> (apply request args)
-      (p/then #(rf/dispatch [on-success %]))
-      (p/catch* #(rf/dispatch [on-error %]))))
+      (p/then #(rf/dispatch [on-success % context]))
+      (p/catch* #(rf/dispatch [on-error % context]))))
 
 (rf/reg-fx :grpc grpc-effect)
 

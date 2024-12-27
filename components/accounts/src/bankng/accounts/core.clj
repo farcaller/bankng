@@ -13,7 +13,41 @@
 (defn list-accounts [char-id]
   (:customer/accounts (db/pull [{:customer/accounts [* {:account/currency [*]}]}] (keyword "customer" char-id))))
 
+(defn list-transactions
+  [customer-id account-id & {:keys [limit offset-ts] :or {limit 10 offset-ts nil}}]
+  (let [where '[[?aid :xt/id ?account-id]
+                [?customer-eid :customer/accounts ?aid]
+                (or
+                 (and [?txid :transaction/from ?aid]
+                      [(identity :credit) ?direction]
+                      [?txid :transaction/to ?cid])
+                 (and [?txid :transaction/to ?aid]
+                      [(identity :debit) ?direction]
+                      [?txid :transaction/from ?cid]))
+                
+                [(get-start-valid-time ?txid) ?tx-time]]]
+    (map
+     (fn [{:keys [time direction info correspondent]}]
+       (assoc info
+              :transaction/time time
+              :transaction/direction direction
+              :transaction/correspondent (-> correspondent :accounts :xt/id)))
+     (xt/q (xt/db db/conn)
+           {:find '[?tx-time
+                    ?direction
+                    (pull ?txid [*])
+                    (pull ?cid [{(:customer/_accounts {:as :accounts :cardinality :one}) [:xt/id]}])]
+            :in '[?account-id ?customer-eid]
+            :keys '[time direction info correspondent]
+            :order-by '[[?tx-time :desc]]
+            :limit limit
+            :where (if offset-ts
+                     (into [] (concat where [[(list '< '?tx-time offset-ts)]]))
+                     where)}
+           (keyword "account" account-id) (keyword "customer" customer-id)))))
+
 (comment
+  (list-transactions "cajd55e9gbrqf703lcvg" "WY66RASD00000123" :limit 10)
   (list-accounts "cajd55e9gbrqf703lcvg")
 
   (require '[mount.core :as mount])
@@ -22,67 +56,86 @@
   db/conn
   (xt/status db/conn)
 
-  #_(xt/submit-tx db/conn
-                  [[:put-docs :accounts {:xt/id "WY00123" :name "account 123" :balance 100}]
-                   [:put-docs :accounts {:xt/id "WY00789" :name "account 789" :balance 100}]])
-
-  (xt/submit-tx db/conn [[::xt/put {:xt/id {:account "WY00123"} :acc/name "account 123" :acc/balance 98}]
-                         [::xt/put {:xt/id {:account "WY00789"} :acc/name "account 789" :acc/balance 98}]])
-
-
   ; v1: get account info
   (xt/q (xt/db db/conn) '{:find [(pull ?e [*])]
-                          :where [[?e :acc/name "account 123"]]})
-  
-  (xt/q (xt/db db/conn) '{:find [(pull ?e [* {:from [*]} {:to [*]}])]
-                          :where [[?e :from _]]})
+                          :where [[?e :account/name _]]})
 
   ; v1: get account document
-  (xt/entity (xt/db db/conn) {:account "WY00123"})
+  (xt/entity (xt/db db/conn) :account/WY96RASD00000456)
 
   ; v1: get history of changes
-  (xt/entity-history (xt/db db/conn) {:account "WY00123"} :asc {:with-docs? true})
+  (xt/entity-history (xt/db db/conn) :account/WY66RASD00000123 :asc {:with-docs? true})
 
   ; v1: get all transactions
   (with-open [tx-log (xt/open-tx-log db/conn -1 true)]
     (let [iterator (iterator-seq tx-log)]
       (map identity iterator)))
 
-  (xt/submit-tx db/conn
-                [[:delete {:from :accounts
-                           :bind [{:xt/id "deadbeef"}
-                                  {:name "account 3"}]}]])
-
-  (xt/q db/conn '(-> (from :xt/txs [* {:xt/id 15}])
-                     (order-by xt/id)))
-
-  (xt/q db/conn '(from :accounts [name balance #_{:xt/id "WY00123"}]))
-  (xt/q db/conn '(from :transactions [*]))
-
+  ; v1: transaction function
   (xt/submit-tx
    db/conn
    [[::xt/put {:xt/id :create-transfer
                :xt/fn '(fn [ctx [from to amount txid]]
+                         (when-not (parse-uuid txid)
+                           (throw (ex-info "invalid txid" {:txid txid})))
                          (let [db (xtdb.api/db ctx)
+                               txid (keyword "transaction" txid)
+                               old-tx (xtdb.api/entity db txid)
+                               _ (when old-tx (throw (ex-info "txid already exists" {:txid txid})))
                                from-doc (xtdb.api/entity db from)
-                               from-balance (:acc/balance from-doc)
+                               from-balance (:account/balance from-doc)
                                to-doc (xtdb.api/entity db to)
-                               to-balance (:acc/balance to-doc)]
+                               to-balance (:account/balance to-doc)]
                            (when (< (- from-balance amount) 0)
-                             (throw (ex-info "insufficient balance" {:acc/balance from-balance
-                                                                     :acc/amount amount})))
-                           [[::xt/put {:xt/id txid :from from :to to :amount amount}]
-                            [::xt/put (update from-doc :acc/balance - amount)]
-                            [::xt/put (update to-doc :acc/balance + amount)]]))}]])
-
-  (update {:balance 10} :balance - 1)
-
+                             (throw (ex-info "insufficient balance" {:account/balance from-balance
+                                                                     :account/amount amount})))
+                           [[::xt/put {:xt/id txid
+                                       :transaction/from from
+                                       :transaction/to to
+                                       :transaction/amount amount}]
+                            [::xt/put (update from-doc :account/balance - amount)]
+                            [::xt/put (update to-doc :account/balance + amount)]]))}]])
+  
+  ; v1: create transaction
   (def txid
     (xt/submit-tx
-     db/conn [[::xt/fn :create-transfer [{:account "WY00123"} {:account "WY00789"} 500 (random-uuid)]]]))
+     db/conn [[::xt/fn :create-transfer [:account/WY66RASD00000123
+                                         :account/WY29RASD00000789
+                                         1
+                                         (str (random-uuid))]]]))
+  (def txid
+    (xt/submit-tx
+     db/conn [[::xt/fn :create-transfer [:account/WY96RASD00000456
+                                         :account/WY66RASD00000123
+                                         2
+                                         (str (random-uuid))]]]))
 
   (xt/tx-committed? db/conn txid)
   (xt/await-tx db/conn txid)
+
+  ; v1: transactions for account
+  (xt/q (xt/db db/conn) '{:find [(pull ?e [* {:transaction/from [*]}])]
+                          :where [[?e :transaction/from _]]})
+
+  (xt/q (xt/db db/conn) {:find '[?tx-time
+                                 ?direction
+                                 (pull ?txid [*])
+                                 (pull ?cid [{:customer/_accounts [:xt/id]}])]
+                         :in '[?account-id]
+                         :keys '[time direction info correspondent]
+                         :order-by '[[?tx-time :desc]]
+                         :limit 20
+                         :where '[[?aid :xt/id ?account-id]
+                                  (or
+                                   (and [?txid :transaction/from ?aid]
+                                        [(identity :credit) ?direction]
+                                        [?txid :transaction/to ?cid])
+                                   (and [?txid :transaction/to ?aid]
+                                        [(identity :debit) ?direction]
+                                        [?txid :transaction/from ?cid]))
+                                  [(get-start-valid-time ?txid) ?tx-time]
+                                  #_[(< ?tx-time #inst "2024-12-26T18:50:06.996-00:00")]]}
+        :account/WY66RASD00000123)
 
   ; v1: why failed?
   (require '[clojure.set :as set])
@@ -104,12 +157,12 @@
                   (vals (strict-fetch-docs document-store doc-hashes))))))
 
   (with-open [tx-log (xt.db/open-tx-log (:tx-log db/conn) -1 {})]
-       (->> tx-log
-            iterator-seq
-            (map (fn [e]
-                   (let [events (:xtdb.tx.event/tx-events e)]
-                     (assoc e :events (map (fn [ev]
-                                             (xt.db/fetch-docs (:document-store db/conn) (next ev))) events))))))) 
+    (->> tx-log
+         iterator-seq
+         (map (fn [e]
+                (let [events (:xtdb.tx.event/tx-events e)]
+                  (assoc e :events (map (fn [ev]
+                                          (xt.db/fetch-docs (:document-store db/conn) (next ev))) events)))))))
 
   (let [document-store (:document-store db/conn)]
     (with-open [tx-log (xt.db/open-tx-log (:tx-log db/conn) (dec (:xtdb.api/tx-id txid)) {})]
@@ -163,10 +216,10 @@
    db/conn
    [[:call :create-transfer "WY00123" "WY00789" 50 (random-uuid)]
     [:call :create-transfer "WY00123" "WY00789" 50 (random-uuid)]])
-  
+
   (def listener (xt/listen db/conn {::xt/event-type ::xt/indexed-tx
                                     :with-tx-ops? true}
-                           (fn [& args] (tap> [:listen args]))))  
+                           (fn [& args] (tap> [:listen args]))))
 
   (random-uuid)
   (xt/q db/conn

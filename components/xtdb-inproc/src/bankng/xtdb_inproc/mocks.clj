@@ -16,6 +16,10 @@
     [::xt/put {:xt/id :customer/cajd55e9gbrqf703lcvg
                :customer/full-name "Shinyuu Wolfy"
                :customer/accounts [(account-id 123) (account-id 456)]}]
+    
+    [::xt/put {:xt/id :customer/cam4cp69gbrqf706fs7g
+               :customer/full-name "Birb Crowley"
+               :customer/accounts [(account-id 789)]}]
 
     [::xt/put {:xt/id (account-id 123)
                :account/name "Personal"
@@ -26,9 +30,9 @@
                :account/currency :currency/SCAM
                :account/balance 99}]
     [::xt/put {:xt/id (account-id 789)
-               :acc/name "Business"
-               :acc/currency :currency/SCAM
-               :acc/balance 101}]]))
+               :account/name "Birb's Account"
+               :account/currency :currency/SCAM
+               :account/balance 101}]]))
 
 (comment
   (seed)

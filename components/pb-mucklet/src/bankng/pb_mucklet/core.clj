@@ -48,7 +48,7 @@
       (.setFullName "test")
       (.build))
 
-  (lookup-character "birb crowley")
+  (lookup-character :full-name "birb crowley")
   (send-message "cajd55e9gbrqf703lcvg" "mlem")
 
   *1

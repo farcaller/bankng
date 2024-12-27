@@ -40,11 +40,33 @@
  (fn [{db :db} [_ {:keys [accountsList]}]]
    {:db (-> db
             (db->loading-complete)
-            (assoc-in [:accounts :accounts] (map init-account accountsList))
-            (assoc-in [:accounts :current-account-idx] 0))}))
+            (assoc-in [:accounts :accounts] (into [] (map init-account accountsList))))
+    :dispatch [:accounts/set-active-account-idx 0]}))
+
+(def fetch-transactions
+  (re-frame.core/->interceptor
+   :id :fetch-transactions
+   :after
+   (fn [context]
+     (let [db (-> context :effects :db)
+           accounts (-> db :accounts)
+           account-idx (-> accounts :current-account-idx)
+           account (-> accounts :accounts (nth account-idx))
+           account-iban (-> account :iban)
+           txns (-> account :transactions)]
+       (if (and (empty? txns) (not (-> account :transactions-loading?)))
+         (-> context
+             (assoc-in [:effects :db :accounts account-idx :transactions-loading?] true)
+             (assoc-in [:effects :grpc] {:request fpb/list-transactions
+                                         :args [(-> db :login :jwt) account-iban]
+                                         :on-success :accounts/transactions-finalise-fetch
+                                         :on-error :accounts/transactions-finalise-error
+                                         :context account-idx}))
+         context)))))
 
 (rf/reg-event-db
  :accounts/set-active-account-idx
+ [fetch-transactions]
  (fn [db [_ idx]]
    (assoc-in db [:accounts :current-account-idx] idx)))
 
@@ -63,3 +85,17 @@
                                              :on-success :accounts/accounts-finalise-fetch
                                              :on-error :accounts/accounts-finalise-error})
          context)))))
+
+(rf/reg-event-db
+ :accounts/transactions-finalise-fetch
+ (fn [db [_ {:keys [transactionsList]} account-idx]]
+   (-> db
+       (assoc-in [:accounts :accounts account-idx :transactions] transactionsList)
+       (assoc-in [:accounts :accounts account-idx :transactions-loading?] false))))
+
+(rf/reg-event-db
+ :accounts/transactions-finalise-error
+ (fn [db [_ err]]
+   ; TODO: implement 
+   (.error js/console err)
+   db))
