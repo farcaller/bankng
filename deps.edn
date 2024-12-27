@@ -64,7 +64,9 @@
 
   :poly
   {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
-   :extra-deps {polylith/clj-poly {:mvn/version "0.2.21"}}}
+   :extra-deps {polylith/clj-poly {:git/url   "https://github.com/polyfy/polylith.git"
+                                   :sha       "6ca059f206e7771c5b0173622673df9ef76d25ec"
+                                   :deps/root "projects/poly"}}}
   
   :+default
   {}
