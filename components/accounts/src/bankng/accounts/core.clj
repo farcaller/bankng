@@ -5,7 +5,9 @@
             [mount.core :refer [defstate]]
             [bankng.config.ifc :refer [config]]
             [bankng.xtdb.ifc :as db]
-            [bankng.iban.ifc :as iban]))
+            [bankng.iban.ifc :as iban]
+            [mount.core :refer [defstate]]
+            [taoensso.telemere :as t]))
 
 (defn account-id [account-number]
   (keyword "account" (iban/calculate-iban account-number)))
@@ -24,7 +26,7 @@
                  (and [?txid :transaction/to ?aid]
                       [(identity :debit) ?direction]
                       [?txid :transaction/from ?cid]))
-                
+
                 [(get-start-valid-time ?txid) ?tx-time]]]
     (map
      (fn [{:keys [time direction info correspondent]}]
@@ -46,13 +48,45 @@
                      where)}
            (keyword "account" account-id) (keyword "customer" customer-id)))))
 
+(defn ensure-function!
+  [name func]
+  (let [dbfunc (xt/entity (xt/db db/conn) name)]
+    (when (or (nil? dbfunc)
+              (not= dbfunc func))
+      (t/log! {:level :info :data {:name name}} "Updating the function definition")
+      (xt/submit-tx db/conn [[::xt/put {:xt/id name :xt/fn func}]]))))
+
+(def functions
+  {:fn/create-transfer
+   '(fn [ctx [from to amount txid]]
+      (when-not (parse-uuid txid)
+        (throw (ex-info "invalid txid" {:txid txid})))
+      (let [db (xtdb.api/db ctx)
+            txid (keyword "transaction" txid)
+            old-tx (xtdb.api/entity db txid)
+            _ (when old-tx (throw (ex-info "txid already exists" {:txid txid})))
+            from-doc (xtdb.api/entity db from)
+            from-balance (:account/balance from-doc)
+            to-doc (xtdb.api/entity db to)
+            to-balance (:account/balance to-doc)]
+        (when (< (- from-balance amount) 0)
+          (throw (ex-info "insufficient balance" {:account/balance from-balance
+                                                  :account/amount amount})))
+        [[::xt/put {:xt/id txid
+                    :transaction/from from
+                    :transaction/to to
+                    :transaction/amount amount}]
+         [::xt/put (update from-doc :account/balance - amount)]
+         [::xt/put (update to-doc :account/balance + amount)]]))})
+
+(defstate db-functions :start (doseq [[name func] functions] (ensure-function! name func)))
+
 (comment
   (list-transactions "cajd55e9gbrqf703lcvg" "WY66RASD00000123" :limit 10)
   (list-accounts "cajd55e9gbrqf703lcvg")
 
-  (require '[mount.core :as mount])
-  (mount/stop)
-  (mount/start)
+  (mount.core/stop)
+  (mount.core/start)
   db/conn
   (xt/status db/conn)
 
@@ -71,31 +105,6 @@
     (let [iterator (iterator-seq tx-log)]
       (map identity iterator)))
 
-  ; v1: transaction function
-  (xt/submit-tx
-   db/conn
-   [[::xt/put {:xt/id :create-transfer
-               :xt/fn '(fn [ctx [from to amount txid]]
-                         (when-not (parse-uuid txid)
-                           (throw (ex-info "invalid txid" {:txid txid})))
-                         (let [db (xtdb.api/db ctx)
-                               txid (keyword "transaction" txid)
-                               old-tx (xtdb.api/entity db txid)
-                               _ (when old-tx (throw (ex-info "txid already exists" {:txid txid})))
-                               from-doc (xtdb.api/entity db from)
-                               from-balance (:account/balance from-doc)
-                               to-doc (xtdb.api/entity db to)
-                               to-balance (:account/balance to-doc)]
-                           (when (< (- from-balance amount) 0)
-                             (throw (ex-info "insufficient balance" {:account/balance from-balance
-                                                                     :account/amount amount})))
-                           [[::xt/put {:xt/id txid
-                                       :transaction/from from
-                                       :transaction/to to
-                                       :transaction/amount amount}]
-                            [::xt/put (update from-doc :account/balance - amount)]
-                            [::xt/put (update to-doc :account/balance + amount)]]))}]])
-  
   ; v1: create transaction
   (def txid
     (xt/submit-tx
