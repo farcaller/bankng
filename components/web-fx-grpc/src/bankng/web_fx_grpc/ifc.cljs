@@ -38,7 +38,7 @@
 (rf/reg-sub
  ::fetch
  (fn [db [_ root-path]]
-   (select-fetch db root-path)))
+   (select-fetch db [root-path (s/submap [:loading? :error :value])])))
 
 (defn subscribe-fetch
   [root-path]
