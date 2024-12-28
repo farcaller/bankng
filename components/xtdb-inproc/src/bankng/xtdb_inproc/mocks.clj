@@ -16,7 +16,7 @@
     [::xt/put {:xt/id :customer/cajd55e9gbrqf703lcvg
                :customer/full-name "Shinyuu Wolfy"
                :customer/accounts [(account-id 123) (account-id 456)]}]
-    
+
     [::xt/put {:xt/id :customer/cam4cp69gbrqf706fs7g
                :customer/full-name "Birb Crowley"
                :customer/accounts [(account-id 789)]}]
@@ -32,7 +32,22 @@
     [::xt/put {:xt/id (account-id 789)
                :account/name "Birb's Account"
                :account/currency :currency/SCAM
-               :account/balance 101}]]))
+               :account/balance 101}]
+
+    [::xt/fn :fn/create-transfer [:account/WY66RASD00000123
+                                  :account/WY29RASD00000789
+                                  1
+                                  (str (random-uuid))]]
+    
+    [::xt/fn :fn/create-transfer [:account/WY96RASD00000456
+                                  :account/WY66RASD00000123
+                                  2
+                                  (str (random-uuid))]]
+    
+    [::xt/fn :fn/create-transfer [:account/WY66RASD00000123
+                                  :account/WY29RASD00000789
+                                  3
+                                  (str (random-uuid))]]]))
 
 (comment
   (seed)
@@ -41,7 +56,7 @@
 
   ; get the account details
   (xt/pull (xt/db db/conn) '[* {:account/currency [*]} {:customer/_accounts [:customer/full-name]}] (account-id 123))
-  
+
   ; get the number of accounts per customer
   (xt/q
    (xt/db db/conn)
