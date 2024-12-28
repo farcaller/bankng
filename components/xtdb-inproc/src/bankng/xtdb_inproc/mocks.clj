@@ -24,15 +24,15 @@
     [::xt/put {:xt/id (account-id 123)
                :account/name "Personal"
                :account/currency :currency/SCAM
-               :account/balance 101}]
+               :account/balance (bigdec 101)}]
     [::xt/put {:xt/id (account-id 456)
                :account/name "Savings"
                :account/currency :currency/SCAM
-               :account/balance 99}]
+               :account/balance (bigdec 99)}]
     [::xt/put {:xt/id (account-id 789)
                :account/name "Birb's Account"
                :account/currency :currency/SCAM
-               :account/balance 101}]
+               :account/balance (bigdec 101)}]
 
     [::xt/fn :fn/create-transfer [:account/WY66RASD00000123
                                   :account/WY29RASD00000789
