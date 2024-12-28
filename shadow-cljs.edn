@@ -17,8 +17,11 @@
                             :devtools/config {:features-to-install [:formatters :hints]}}
           :closure-defines
           {bankng.pb-frontend.client.GRPC_API_FRONTEND "/"
-           re-frame.trace.trace-enabled? true
-           day8.re-frame.tracing.trace-enabled? true}}}}
+           re_frame.trace.trace_enabled_QMARK_ true
+           day8.re_frame.tracing.trace_enabled_QMARK_ true}}}
+   :release {:build-options
+             {:ns-aliases
+              {day8.re-frame.tracing day8.re-frame.tracing-stubs}}}}
 
   :mucklet-proxy
   {:target :node-script
