@@ -9,7 +9,7 @@
 (rf/reg-event-db
  :transfers/set-source-account
  (fn [db [_ iban]]
-   (let [accounts (-> db :accounts :accounts)
+   (let [accounts (-> db :accounts :accounts :value)
          account (first (filter #(= iban (:iban %)) accounts))]
      (assoc-in db [:transfers :source-account] account))))
 
@@ -19,7 +19,8 @@
    :after
    (fn [context]
      (let [db (-> context :effects :db)
-           route-name (-> db :current-route :data :name)]
+           route-name (-> db :current-route :data :name)
+           idx (-> db :accounts :current-account-idx)]
        (if (= route-name :send)
-         (assoc-in context [:effects :db :transfers :source-account] (-> db :accounts :accounts (nth (-> db :accounts :current-account-idx))))
+         (assoc-in context [:effects :db :transfers :source-account] (when idx (-> db :accounts :accounts :value (nth idx))))
          context)))))
