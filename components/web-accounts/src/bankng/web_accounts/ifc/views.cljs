@@ -62,7 +62,7 @@
     (str day " " month " " year ", " (when (= 1 (count hours)) "0") hours ":" (when (= 1 (count minutes)) "0") minutes)))
 
 (defn account-card []
-  (let [{:keys [loading? error]} (subscribe-fetch [:accounts])
+  (let [{:keys [loading? error]} @(subscribe-fetch :accounts)
         current-account @(rf/subscribe [:accounts/current-account])
         current-account-idx @(rf/subscribe [:accounts/current-account-idx])
         accounts-count @(rf/subscribe [:accounts/count])
