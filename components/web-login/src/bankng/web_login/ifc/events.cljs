@@ -1,90 +1,83 @@
 (ns bankng.web-login.ifc.events
-  (:require [re-frame.core :as rf]
-            [kitchen-async.promise :as p]
+  (:require ["grpc-web" :refer [StatusCode]]
             [bankng.pb-frontend.ifc :as fpb]
+            [bankng.web-fx-common.ifc :refer [EFFECT-DB]]
+            [bankng.web-fx-grpc.ifc :refer [call-grpc set-fetch]]
+            [bankng.web-login.ifc.db :refer [PREFIX]]
             [clojure.string :as str]
-            ["grpc-web" :refer [StatusCode]]))
-
-(defn db->loading [db]
-  (-> db
-      (assoc-in [:login :error] nil)
-      (assoc-in [:login :loading?] true)))
-
-(defn db->loading-complete [db]
-  (-> db
-      (assoc-in [:login :error] nil)
-      (assoc-in [:login :loading?] false)))
-
-(defn db->failed [db err]
-  (-> db
-      (assoc-in [:login :error] err)
-      (assoc-in [:login :loading?] false)))
+            [com.rpl.specter
+             :refer-macros [setval select-one multi-transform]
+             :refer [terminal-val multi-path]]
+            [kitchen-async.promise :as p]
+            [re-frame.core :as rf]))
 
 (rf/reg-event-fx
  :login/send-otp-code
  (fn [{db :db} [_ full-name]]
    (let [full-name (str/trim full-name)]
      (if (str/includes? full-name " ")
-       {:grpc {:request fpb/first-factor
+       {:db (-> db
+                (set-fetch PREFIX :loading? true)
+                (->> (setval [PREFIX :full-name] full-name)))
+        :grpc {:request fpb/first-factor
                :args [full-name]
-               :on-success :login/otp-finalise-success
-               :on-error :login/otp-finalise-error}
-        :db (-> db
-                (db->loading)
-                (assoc-in [:login :full-name] full-name))}
-       {:db (db->failed db (js/Error. "Please enter the full name."))}))))
+               :on-success ::otp-fetch-success
+               :on-error ::otp-fetch-error}}
+       {:db (set-fetch db PREFIX :error (js/Error. "Please enter the full name."))}))))
 
 (rf/reg-event-fx
  :login/verify-otp-code
  (fn [{db :db} [_ code]]
    (if (= 4 (count code))
-     {:grpc {:request fpb/second-factor
-             :args [(-> db :login :session-id) code]
-             :on-success :login/otp-verify-success
-             :on-error :login/otp-verify-error}
-      :db (db->loading db)}
-     {:db (db->failed db (js/Error. "Please enter the code."))})))
+     {:db (set-fetch db PREFIX :loading? true)
+      :grpc {:request fpb/second-factor
+             :args [(select-one [PREFIX :session-id] db) code]
+             :on-success ::otp-verify-success
+             :on-error ::otp-verify-error}}
+     {:db (set-fetch [EFFECT-DB PREFIX] :error (js/Error. "Please enter the code."))})))
 
 (rf/reg-event-db
- :login/otp-finalise-error
+ ::otp-fetch-error
  (fn [db [_ error]]
    (let [error (condp = (.-code error)
                  StatusCode.NOT_FOUND (js/Error. "account not found.")
                  error)]
-     (db->failed db error))))
+     (set-fetch db PREFIX :error error))))
+
+(defn set-session-info
+  [db prefix full-name first-name pfp-url session-id]
+  (multi-transform [prefix (multi-path [:full-name (terminal-val full-name)]
+                                       [:first-name (terminal-val first-name)]
+                                       [:pfp-url (terminal-val pfp-url)]
+                                       [:session-id (terminal-val session-id)])] db))
 
 (rf/reg-event-fx
- :login/otp-finalise-success
+ ::otp-fetch-success
  (fn [{db :db} [_ {:keys [fullName firstName pfpUrl sessionId]}]]
    {:db (-> db
-            (db->loading-complete)
-            (assoc-in [:login :full-name] fullName)
-            (assoc-in [:login :first-name] firstName)
-            (assoc-in [:login :pfp-url] pfpUrl)
-            (assoc-in [:login :session-id] sessionId))
+            (set-fetch PREFIX :value true)
+            (set-session-info PREFIX fullName firstName pfpUrl sessionId))
     :push-route :login-2fa}))
 
 (rf/reg-event-fx
- :login/otp-verify-error
+ ::otp-verify-error
  (fn [{db :db} [_ error]]
    (let [no-session? (= (.-code error) StatusCode.NOT_FOUND)
          bad-code? (= (.-code error) StatusCode.INVALID_ARGUMENT)
-         error (if (or no-session? bad-code?) error (js/Error. "failed to verify the code"))
-         fxs {:db (db->failed db error)}
+         error (if (or no-session? bad-code?) error (js/Error. "Failed to verify the code."))
+         fxs {:db (set-fetch db PREFIX :error error)}
          fxs (if no-session?
                (-> fxs
                    (assoc :push-route :login)
-                   (assoc-in [:db :login :first-name] nil)
-                   (assoc-in [:db :login :pfp-url] nil)
-                   (assoc-in [:db :login :session-id] nil))
+                   (set-session-info [:db PREFIX] nil nil nil nil))
                fxs)]
      fxs)))
 
 (rf/reg-event-fx
- :login/otp-verify-success
+ ::otp-verify-success
  (fn [{db :db} [_ {:keys [jwt]}]]
    {:db (-> db
-            (db->loading-complete)
+            (set-fetch [PREFIX] :value true)
             (assoc-in [:login :jwt] jwt))
     :set-local-storage {:key "full-name" :value (-> db :login :full-name)}
     :push-route :home}))

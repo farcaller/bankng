@@ -1,11 +1,8 @@
-(ns bankng.web-login.ifc.db)
+(ns bankng.web-login.ifc.db
+  (:require [com.rpl.specter :refer [path]]))
 
 (def login-db
-  {; true when loading the 2fa
-   :loading? false
-   :error nil
-
-   ; full name as entered on the login page
+  {; full name as entered on the login page
    :full-name nil
 
    ; user details as resolved through the api
@@ -14,3 +11,5 @@
    :session-id nil
 
    :jwt nil})
+
+(def PREFIX (path :login))

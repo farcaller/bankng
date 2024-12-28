@@ -1,7 +1,7 @@
 (ns bankng.web-login.ifc.views
-  (:require
-   [re-frame.core :as rf]
-   [reagent.core :as r]))
+  (:require [bankng.web-fx-grpc.ifc :refer [subscribe-fetch]]
+            [re-frame.core :as rf]
+            [reagent.core :as r]))
 
 (defn profile-picture
   ([pic-url]
@@ -38,8 +38,7 @@
         send-code #(rf/dispatch [:login/send-otp-code (-> @!input-name .-value)])
         last-used-name (.getItem (.-localStorage js/window) "full-name")]
     (fn []
-      (let [loading? @(rf/subscribe [:login/loading?])
-            error @(rf/subscribe [:login/error])]
+      (let [{:keys [loading? error]} @(subscribe-fetch :login)]
         [:div {:class "text-center mt-4"}
          [welcome-pfp]
 
@@ -80,8 +79,7 @@
         input-refs (r/atom (vec (repeat 4 nil)))
         on-submit #(rf/dispatch [:login/verify-otp-code (apply str %)])]
     (fn []
-      (let [loading? @(rf/subscribe [:login/loading?])
-            error @(rf/subscribe [:login/error])]
+      (let [{:keys [loading? error]} @(subscribe-fetch :login)]
         [:div
          {:class "text-center mt-4"}
          [welcome-pfp]
