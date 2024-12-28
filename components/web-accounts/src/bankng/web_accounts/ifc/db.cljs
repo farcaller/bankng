@@ -4,7 +4,7 @@
   {:loading? false
    :error nil
    
-   :current-account-idx 0
+   :current-account-idx nil
    :accounts nil
    
    :account-details-iban nil})
