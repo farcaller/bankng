@@ -47,7 +47,7 @@
 
 (defn router-component []
   (when-let [current-route @(rf/subscribe [:routes/current-route])]
-    [chrome (get-view (-> current-route :data :name))]))
+    [chrome (-> current-route :data :name get-view)]))
 
 (comment
   (start-router!)

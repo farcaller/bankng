@@ -1,21 +1,17 @@
 (ns bankng.web-accounts.ifc.subs
-  (:require [re-frame.core :as rf]))
+  (:require [bankng.web-accounts.ifc.db :refer [ACCOUNTS PREFIX]]
+            [bankng.web-fx-grpc.ifc :refer [select-fetch-value]]
+            [com.rpl.specter :refer [select-one]]
+            [re-frame.core :as rf]))
 
-(rf/reg-sub
- :accounts/loading?
- (fn [db _]
-   (-> db :accounts :loading?)))
-
-(rf/reg-sub
- :accounts/error
- (fn [db _]
-   (-> db :accounts :error)))
+(defn select-current-account-idx [db]
+  (select-one [PREFIX :current-account-idx] db))
 
 (rf/reg-sub
  :accounts/current-account
  (fn [db _]
-   (let [accounts (-> db :accounts :accounts)
-         idx (-> db :accounts :current-account-idx)]
+   (let [accounts (select-fetch-value db ACCOUNTS)
+         idx (select-current-account-idx db)]
      (if (or (empty? accounts) (nil? idx))
        nil
        (nth accounts idx)))))
@@ -23,14 +19,19 @@
 (rf/reg-sub
  :accounts/current-account-idx
  (fn [db _]
-   (-> db :accounts :current-account-idx)))
+   (select-current-account-idx db)))
 
 (rf/reg-sub
  :accounts/count
  (fn [db _]
-   (count (-> db :accounts :accounts))))
+   (count (select-fetch-value db ACCOUNTS))))
 
 (rf/reg-sub
  :accounts/accounts
  (fn [db _]
-   (-> db :accounts :accounts)))
+   (select-fetch-value db ACCOUNTS)))
+
+(rf/reg-sub
+ :accounts/transactions
+ (fn [db [_ account-idx]]
+   (select-one [ACCOUNTS :value account-idx :transactions :value] db)))

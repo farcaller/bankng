@@ -1,5 +1,6 @@
 (ns bankng.web-accounts.ifc.views
-  (:require [re-frame.core :as rf]
+  (:require [bankng.web-fx-grpc.ifc :refer [subscribe-fetch]]
+            [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]))
 
 (defn transaction [pfp-url name date amount]
@@ -61,12 +62,12 @@
     (str day " " month " " year ", " (when (= 1 (count hours)) "0") hours ":" (when (= 1 (count minutes)) "0") minutes)))
 
 (defn account-card []
-  (let [loading? @(rf/subscribe [:accounts/loading?])
-        error @(rf/subscribe [:accounts/error])
+  (let [{:keys [loading? error]} (subscribe-fetch [:accounts])
         current-account @(rf/subscribe [:accounts/current-account])
         current-account-idx @(rf/subscribe [:accounts/current-account-idx])
         accounts-count @(rf/subscribe [:accounts/count])
-        previous-route-back (-> @(rf/subscribe [:routes/previous-route]) :data :back)]
+        previous-route-back (-> @(rf/subscribe [:routes/previous-route]) :data :back)
+        transactions @(rf/subscribe [:accounts/transactions current-account-idx])]
     [:div {:class ["flex flex-col"
                    (when (= previous-route-back :home) "animate-slideInLeft")]}
      (if loading?
@@ -82,9 +83,15 @@
      [toolbar current-account]
 
      [:div#transactions {:class "flex flex-col gap-2 cursor-default pt-10"}
-      (if (:transactions-loading? current-account)
+      (cond
+        (nil? transactions)
         [:<> [transaction] [transaction] [transaction]]
-        (for [[idx txn] (map-indexed vector (:transactions current-account))]
+
+        (empty? transactions)
+        [:div.w-full.text-center "no transactions found"]
+
+        :else
+        (for [[idx txn] (map-indexed vector transactions)]
           ^{:key idx}
           [transaction
            (-> txn :correspondent :pfpUrl)

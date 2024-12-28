@@ -7,6 +7,8 @@
         poly/web-db {:local/root "../../components/web-db"}
         poly/web-transfers {:local/root "../../components/web-transfers"}
         poly/pb-frontend {:local/root "../../components/pb-frontend"}
+        poly/web-fx-grpc {:local/root "../../components/web-fx-grpc"}
+        poly/web-fx-common {:local/root "../../components/web-fx-common"}
         
         reagent/reagent {:mvn/version "1.2.0"},
         re-frame/re-frame {:mvn/version "1.4.3"}
