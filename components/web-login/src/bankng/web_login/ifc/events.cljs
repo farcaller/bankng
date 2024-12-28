@@ -2,13 +2,12 @@
   (:require ["grpc-web" :refer [StatusCode]]
             [bankng.pb-frontend.ifc :as fpb]
             [bankng.web-fx-common.ifc :refer [EFFECT-DB]]
-            [bankng.web-fx-grpc.ifc :refer [call-grpc set-fetch]]
+            [bankng.web-fx-grpc.ifc :refer [set-fetch]]
             [bankng.web-login.ifc.db :refer [PREFIX]]
             [clojure.string :as str]
             [com.rpl.specter
              :refer-macros [setval select-one multi-transform]
              :refer [terminal-val multi-path]]
-            [kitchen-async.promise :as p]
             [re-frame.core :as rf]))
 
 (rf/reg-event-fx
@@ -81,21 +80,3 @@
             (assoc-in [:login :jwt] jwt))
     :set-local-storage {:key "full-name" :value (-> db :login :full-name)}
     :push-route :home}))
-
-(defn grpc-effect
-  [{:keys [request args on-success on-error context]}]
-  (-> (apply request args)
-      (p/then #(rf/dispatch [on-success % context]))
-      (p/catch* #(rf/dispatch [on-error % context]))))
-
-(rf/reg-fx :grpc grpc-effect)
-
-(defn local-storage-effect
-  [{:keys [key value]}]
-  (.setItem (.-localStorage js/window) key value))
-
-(rf/reg-fx :set-local-storage local-storage-effect)
-
-(comment
-  StatusCode.INVALID_ARGUMENT
-  :rcf)
