@@ -4,8 +4,7 @@
             [botmaster.trace :refer [res-call res-client-call res-client-get]]
             [oops.core :refer [oget]]
             [goog.object :as gobj]
-            [botmaster.handlers :as handlers]
-            [botmaster.trace :refer [res-client-call]]))
+            [botmaster.handlers :as handlers]))
 
 (def mucklet-fileserver-host (oget js/process "env.MUCKLET_FILESERVER_HOST"))
 
