@@ -59,6 +59,7 @@
 (def functions
   {:fn/create-transfer
    '(fn [ctx [from to amount txid]]
+      (assert (= (type amount) java.math.BigDecimal) "The value must be BigDecimal")
       (when-not (parse-uuid txid)
         (throw (ex-info "invalid txid" {:txid txid})))
       (let [db (xtdb.api/db ctx)
@@ -85,8 +86,8 @@
   (list-transactions "cajd55e9gbrqf703lcvg" "WY66RASD00000123" :limit 10)
   (list-accounts "cajd55e9gbrqf703lcvg")
 
-  (mount.core/stop)
-  (mount.core/start)
+  (mount.core/stop #'bankng.accounts.core/db-functions)
+  (mount.core/start #'bankng.accounts.core/db-functions)
   db/conn
   (xt/status db/conn)
 
@@ -104,17 +105,19 @@
   (with-open [tx-log (xt/open-tx-log db/conn -1 true)]
     (let [iterator (iterator-seq tx-log)]
       (map identity iterator)))
+  
+  (type (bigdec 0.1))
 
   ; v1: create transaction
   (def txid
     (xt/submit-tx
-     db/conn [[::xt/fn :create-transfer [:account/WY66RASD00000123
+     db/conn [[::xt/fn :fn/create-transfer [:account/WY66RASD00000123
                                          :account/WY29RASD00000789
-                                         1
+                                         (bigdec 0.1)
                                          (str (random-uuid))]]]))
   (def txid
     (xt/submit-tx
-     db/conn [[::xt/fn :create-transfer [:account/WY96RASD00000456
+     db/conn [[::xt/fn :fn/create-transfer [:account/WY96RASD00000456
                                          :account/WY66RASD00000123
                                          2
                                          (str (random-uuid))]]]))

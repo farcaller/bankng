@@ -3,6 +3,9 @@
             [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]))
 
+(def NumberFormat (.-NumberFormat js/Intl))
+(def number-formatter (NumberFormat. js/undefined #js {"style" "decimal" "minimumFractionDigits" 4}))
+
 (defn transaction [pfp-url name date amount]
   [:div.card {:class ["bg-dark-3 h-20"]}
    [:div.card-body {:class ["flex flex-row items-center p-2 cursor-pointer"]}
@@ -18,7 +21,7 @@
        [:span {:class "text-sm truncate"} date]
        [:div.skeleton {:class "h-5 max-w-44 animate-pulse"}])]
     (if amount
-      [:div.grow.text-right {:class "pr-1"} amount]
+      [:div.grow.text-right {:class "pr-1 text-xl"} (.format number-formatter amount)]
       [:div.grow.skeleton {:class "h-8 w-28 animate-pulse"}])]])
 
 (defn pagination [count selected-idx]
@@ -103,7 +106,7 @@
   (let [accounts @(rf/subscribe [:accounts/accounts])
         on-click #(do
                     (rf/dispatch [:accounts/set-active-account-idx %])
-                    (rfe/push-state :home))] 
+                    (rfe/push-state :home))]
     [:div {:class "flex flex-col gap-2 cursor-default pt-10"}
      (for [[idx acc] (map-indexed vector accounts)]
        ^{:key (:iban acc)}

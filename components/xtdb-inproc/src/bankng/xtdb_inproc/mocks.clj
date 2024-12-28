@@ -36,17 +36,17 @@
 
     [::xt/fn :fn/create-transfer [:account/WY66RASD00000123
                                   :account/WY29RASD00000789
-                                  1
+                                  (bigdec 1.1)
                                   (str (random-uuid))]]
     
     [::xt/fn :fn/create-transfer [:account/WY96RASD00000456
                                   :account/WY66RASD00000123
-                                  2
+                                  (bigdec 2.2)
                                   (str (random-uuid))]]
     
     [::xt/fn :fn/create-transfer [:account/WY66RASD00000123
                                   :account/WY29RASD00000789
-                                  3
+                                  (bigdec 3.3)
                                   (str (random-uuid))]]]))
 
 (comment
