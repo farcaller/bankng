@@ -1,7 +1,7 @@
 (ns bankng.mucklet-proxy.core
   (:require [bankng.otel.ifc]
             ; otel always comes first because it sets up interceptors
-            
+
             [botmaster.bot :as bot]
             [oops.core :refer [oget]]
             ["@grpc/grpc-js" :as grpc]
